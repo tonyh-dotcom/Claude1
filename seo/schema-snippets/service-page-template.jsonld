@@ -1,0 +1,19 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://www.tscwetclean.com/REPLACE-PAGE-SLUG#service",
+  "name": "REPLACE: e.g. Professional Wet Cleaning",
+  "serviceType": "REPLACE: e.g. Wet Cleaning",
+  "description": "REPLACE: 1-2 sentence description matching the page's meta description.",
+  "url": "https://www.tscwetclean.com/REPLACE-PAGE-SLUG",
+  "provider": { "@id": "https://www.tscwetclean.com/#local" },
+  "areaServed": [
+    { "@type": "City", "name": "Mississauga" },
+    { "@type": "AdministrativeArea", "name": "Greater Toronto Area" }
+  ],
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://www.tscwetclean.com/book-an-appointment",
+    "servicePhone": "+1-905-896-9313"
+  }
+}

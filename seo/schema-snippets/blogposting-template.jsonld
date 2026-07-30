@@ -1,0 +1,32 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://www.tscwetclean.com/REPLACE-EPISODE-SLUG#post",
+      "headline": "REPLACE: Episode title, e.g. Why Finishing Matters in Garment Care",
+      "description": "REPLACE: 1-2 sentence episode summary.",
+      "url": "https://www.tscwetclean.com/REPLACE-EPISODE-SLUG",
+      "datePublished": "REPLACE: YYYY-MM-DD",
+      "dateModified": "REPLACE: YYYY-MM-DD",
+      "author": {
+        "@type": "Person",
+        "name": "Dino Kantzavelos",
+        "url": "https://www.linkedin.com/in/konstadin-dino-kantzavelos-b32aa31a"
+      },
+      "publisher": { "@id": "https://www.tscwetclean.com/#local" },
+      "image": "REPLACE: episode thumbnail URL",
+      "isPartOf": { "@id": "https://www.tscwetclean.com/blog#blog" },
+      "mainEntityOfPage": "https://www.tscwetclean.com/REPLACE-EPISODE-SLUG"
+    },
+    {
+      "@type": "VideoObject",
+      "name": "REPLACE: 60 Seconds with Your Cleaner - Episode N",
+      "description": "REPLACE: same as episode summary.",
+      "thumbnailUrl": "REPLACE: YouTube thumbnail, e.g. https://i.ytimg.com/vi/VIDEO_ID/hqdefault.jpg",
+      "uploadDate": "REPLACE: YYYY-MM-DD",
+      "embedUrl": "https://www.youtube.com/embed/REPLACE_VIDEO_ID",
+      "publisher": { "@id": "https://www.tscwetclean.com/#local" }
+    }
+  ]
+}

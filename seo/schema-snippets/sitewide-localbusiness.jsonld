@@ -1,0 +1,74 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DryCleaningOrLaundry",
+      "@id": "https://www.tscwetclean.com/#local",
+      "name": "TSC Wetclean",
+      "alternateName": "TSC WETCLEAN",
+      "description": "Eco-friendly alternative to dry cleaning in Mississauga. Professional wet cleaning, tailoring and alterations, wash & fold, comforter cleaning, and free pickup & delivery across the Greater Toronto Area.",
+      "url": "https://www.tscwetclean.com/",
+      "email": "info@tscwetclean.com",
+      "telephone": "+1-905-896-9313",
+      "image": "https://cloud-1de12d.becdn.net/media/original/87697da45dc571221641ba04b6104f6c.png",
+      "logo": "https://cloud-1de12d.becdn.net/media/original/87697da45dc571221641ba04b6104f6c.png",
+      "priceRange": "$$",
+      "currenciesAccepted": "CAD",
+      "hasMap": "https://www.google.com/maps?cid=4905697812649802137",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "801 Dundas Street East",
+        "addressLocality": "Mississauga",
+        "addressRegion": "ON",
+        "postalCode": "L4Y 4G9",
+        "addressCountry": "CA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 43.5977,
+        "longitude": -79.5981
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "07:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "07:00",
+          "closes": "16:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Mississauga" },
+        { "@type": "City", "name": "Toronto" },
+        { "@type": "City", "name": "Etobicoke" },
+        { "@type": "City", "name": "Oakville" },
+        { "@type": "City", "name": "Brampton" },
+        { "@type": "City", "name": "Burlington" },
+        { "@type": "City", "name": "Vaughan" },
+        { "@type": "City", "name": "Markham" },
+        { "@type": "AdministrativeArea", "name": "Greater Toronto Area" }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/tscwetclean/",
+        "https://x.com/DinoTSCWETCLEAN",
+        "https://www.linkedin.com/in/konstadin-dino-kantzavelos-b32aa31a",
+        "https://www.google.com/maps?cid=4905697812649802137",
+        "https://www.tiktok.com/@tscwetclean",
+        "https://www.youtube.com/user/TSCWetClean",
+        "https://www.instagram.com/tscwetcleaners"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.tscwetclean.com/#website",
+      "url": "https://www.tscwetclean.com/",
+      "name": "TSC Wetclean",
+      "publisher": { "@id": "https://www.tscwetclean.com/#local" }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Can you clean garments labelled dry clean only?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Modern professional wet cleaning uses precisely controlled water temperature, gentle biodegradable detergents, and hand finishing to safely clean most garments labelled dry clean only, including wool, silk, and cashmere."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "REPLACE: Next question exactly as it appears on the page",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "REPLACE: The answer exactly as it appears on the page."
+      }
+    }
+  ]
+}
