@@ -1,65 +1,124 @@
-# Wash & Fold Asset Group — UI Build Sheet
+# Wash & Fold Asset Group — UI Build Sheet (v2, all slots maxed)
 
 **Campaign:** SMRT Marketing Pmax (23591020213) | **Account:** 950-036-5037
-**Why UI:** Adspirer's `add_pmax_asset_group` always links business-name/logo assets at the group level, which Google rejects on campaigns with **Brand Guidelines enabled** (this campaign). Everything below is ready to paste. **Create the group PAUSED.**
+**Why UI:** Adspirer's group-creation always links business-name/logo at group level, which this campaign's Brand Guidelines reject. Everything below is paste-ready. **Create the group PAUSED.**
 
 ## Group settings
 | Field | Value |
 |---|---|
 | Name | Wash & Fold |
-| Status | **PAUSED** (do not enable until Wes reviews) |
+| Status | **PAUSED** until Wes reviews |
 | Final URL | https://www.modellaundrycleaners.com/services#wash-dry-fold |
+| Display path | /wash-and-fold/pickup |
 
-## Headlines (12, all ≤30 chars)
-1. Wash & Fold Laundry Service
-2. Laundry Done For You
-3. Free Laundry Pickup & Delivery
-4. Laundry by the Pound
-5. Skip Laundry Day
-6. Skip the Laundromat
-7. Wash, Dry & Fold Experts
-8. Fresh, Folded & Delivered
-9. Monthly Laundry Plans
-10. Reclaim Your Weekends
-11. Trusted Local Laundry Pros
-12. Schedule Your First Pickup
+## Headlines (15/15)
+```
+Wash & Fold Laundry Service
+Laundry Done For You
+Free Laundry Pickup & Delivery
+Laundry by the Pound
+Skip Laundry Day
+Skip the Laundromat
+Wash, Dry & Fold Experts
+Fresh, Folded & Delivered
+Monthly Laundry Plans
+Reclaim Your Weekends
+Trusted Local Laundry Pros
+Schedule Your First Pickup
+We Pick Up. We Deliver.
+Folded & Ready to Put Away
+Laundry Off Your List
+```
 
-## Long headlines (4, ≤90 chars)
-1. Wash & fold laundry with free pickup and delivery — fresh, folded, and ready to put away
-2. Skip the laundromat — we wash, dry, and fold your laundry and deliver it back to your door
-3. Monthly wash & fold subscriptions that save you time and money on everyday laundry
-4. Simple by-the-pound pricing from the coastal Carolinas' trusted family-owned cleaners
+## Long headlines (5/5)
+```
+Wash & fold laundry with free pickup and delivery — fresh, folded, and ready to put away
+Skip the laundromat — we wash, dry, and fold your laundry and deliver it back to your door
+Monthly wash & fold subscriptions that save you time and money on everyday laundry
+Simple by-the-pound pricing from the coastal Carolinas' trusted family-owned cleaners
+Family-owned since 1959 — now taking the laundry off your list with wash & fold service
+```
 
-## Descriptions (4, ≤90 chars)
-1. Life's too short to fold laundry. Free pickup & delivery on our weekly route.
-2. Simple by-the-pound pricing. Washed, dried, and neatly folded by laundry pros.
-3. Subscribe monthly and save — convenient, consistent laundry care for busy families.
-4. Real-time order tracking with text or email alerts when your laundry is ready.
+## Descriptions (5/5)
+```
+Life's too short to fold laundry. Free pickup & delivery on our weekly route.
+Simple by-the-pound pricing. Washed, dried, and neatly folded by laundry pros.
+Subscribe monthly and save — convenient, consistent laundry care for busy families.
+Real-time order tracking with text or email alerts when your laundry is ready.
+Set out your laundry bag — we pick up, clean, fold, and deliver on your route day.
+```
+
+## Search themes (50/50 — none duplicate the main group's 50)
+```
+wash and fold laundry service
+laundry wash and fold delivery
+wash dry fold service
+fluff and fold laundry
+drop off laundry service
+full service laundry
+laundry done for you
+wash and fold laundry pickup
+same week laundry service
+wash and fold delivery service
+local laundry service
+laundry cleaning service
+laundry service by the pound
+wash and fold price per pound
+wash and fold subscription
+laundry subscription service
+monthly laundry plan
+weekly laundry service
+affordable laundry service
+laundry service prices
+family laundry service
+laundry service for busy families
+laundry service for professionals
+laundry help for new parents
+laundry service for seniors
+college laundry service
+laundry service for airbnb
+vacation rental laundry service
+military laundry service
+laundry service for businesses
+laundromat pickup service
+laundromat alternative
+laundromat that delivers
+laundromat wash and fold
+self service laundry alternative
+laundry service instead of laundromat
+wash and fold surf city nc
+wash and fold topsail beach nc
+wash and fold holly ridge nc
+laundry service hampstead nc
+laundry service surf city nc
+laundry delivery wilmington nc
+wash and fold wilmington nc
+laundry service holly ridge nc
+laundry pickup topsail nc
+wash and fold sneads ferry nc
+bulk laundry service
+bedding and towel laundry service
+sheets and towels laundry service
+laundry bag pickup service
+```
 
 ## Images
-New Canva creative (exported 2026-07-30, files delivered in chat / scratchpad):
-- `wf_landscape.png` — 1200×628 (1.91:1 marketing image)
-- `wf_square.png` — 1200×1200 (square marketing image)
-- `wf_portrait.png` — 1080×1350 (4:5 portrait marketing image)
-
-Canva designs (for edits/re-export): portrait `DAHQ47_P6B8` (canva.com/d/tNutAJTJ2nbyq2g), square `DAHQ4__cdlw` (canva.com/d/nmY4bJBlWwEwK8e), landscape `DAHQ48HUqNs` (canva.com/d/XJfg_sxRhauh9Xv).
-
-Optionally also attach these existing library images (already W&F-appropriate):
-- Folded White Towel Gold Tie — landscape asset `333536030495`, square asset `333536024837`
-- Blanket Freshness — square asset `333536020577`
-Logo/business name come from campaign-level Brand Guidelines automatically.
+Canva folder: **Model Cleaners** — https://www.canva.com/folder/FAHQ9cZG6E4
+- `wf_landscape.png` 1200×628 (1.91:1) — design DAHQ48HUqNs
+- `wf_square.png` 1200×1200 (1:1) — design DAHQ4__cdlw
+- `wf_portrait.png` 1080×1350 (4:5) — design DAHQ47_P6B8
+Optionally also attach existing library images (W&F-appropriate): Folded White Towel Gold Tie (landscape `333536030495`, square `333536024837`), Blanket Freshness (square `333536020577`). Logo + business name auto-apply from campaign Brand Guidelines.
 
 ## Audience signal — "Wash & Fold Families"
 - Affinity: **Family-Focused (91000)**, **Beachbound Travelers (91504)**
-- Deliberately distinct from the main group's persona (Fashion/Fashionistas/Business Pros/Travelers/Apparel + custom segments) — no overlap.
-
-## Search themes (12, group-scoped — distinct from the 50 on the main group)
-wash and fold laundry service · laundry wash and fold delivery · wash dry fold service · laundry service by the pound · wash and fold subscription · weekly laundry service · laundry delivery service · drop off laundry service · fluff and fold laundry · laundry subscription service · family laundry service · laundromat pickup service
+- Distinct from the main group's high-end fashion/business persona — zero overlap.
 
 ## Videos
-None initially (the 5 brand videos are dry-cleaning oriented). Google will auto-generate; replace with a W&F video later if desired.
+None initially (brand videos are dry-cleaning oriented; Google auto-generates). Add a W&F-specific video later.
 
 ## On activation (after Wes approves)
-1. Enable the group (leave campaign settings untouched).
-2. Optional de-overlap: the main group carries 5 W&F search themes (wash and fold pickup and delivery, wash dry fold near me, wash and fold near me, wash and fold hampstead nc, wash and fold jacksonville nc). Once this group serves, consider moving/removing those from the main group.
-3. Monitor at +7 and +14 days (`get_pmax_asset_performance` scoped to the new group) — committed to Wes on Jul 23.
+1. Enable the group.
+2. De-overlap the main group's themes — remove these 5 and replace with 5 dry-cleaning themes to keep it at 50/50:
+   - Remove: wash and fold pickup and delivery · wash dry fold near me · wash and fold near me · wash and fold hampstead nc · wash and fold jacksonville nc
+   - Add: suit and shirt dry cleaning · military uniform dry cleaning · leather and suede cleaning · clothing alterations service · formal wear dry cleaning
+3. Monitor at +7 / +14 days (get_pmax_asset_performance scoped to the group).
