@@ -17,7 +17,7 @@ Wash & Fold Laundry Service
 Laundry Done For You
 Free Laundry Pickup & Delivery
 Laundry by the Pound
-Skip Laundry Day
+Laundry, Solved
 Skip the Laundromat
 Wash, Dry & Fold Experts
 Fresh, Folded & Delivered
