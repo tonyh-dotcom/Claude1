@@ -84,13 +84,35 @@ UTM convention: lowercase, snake_case, no PII ever in URLs. `utm_source` = platf
 
 ---
 
-## 4. Referral-source taxonomy (do this FIRST)
+## 4. One data point per account: the referral-source taxonomy and classifier (do this FIRST)
 
-Autofill writes whatever text is in the URL, but the POS shows Referral Source as a **dropdown**. If URLs write values that aren't in the dropdown's `possible_values`, reporting fragments and staff see values they can't re-select. So before any links go live:
+The design principle: **every customer record carries exactly one acquisition value, set once at signup, never overwritten.** All the machinery in §2–3 (UTMs, click IDs, referrers) exists only to *derive* that one value — the raw parameters don't need to live on the customer record at all (they can, optionally, in separate fields for deep analysis, but reporting runs on the single field).
 
-1. Agree the taxonomy, e.g.: `google_ads`, `meta_ads`, `linkedin_ads`, `microsoft_ads`, `organic_search`, `social_organic`, `direct_website`, `email`, `print_qr`, `friend_referral`, plus each client's existing manual options (walk-in, drive-by, etc.).
-2. Add them to `CustomerFields_(bid)_primary` → `possible_values` (CouchDB Editor per the How-To; ensure `"type":"select"`).
-3. Keep the value set **channel-level, small, and stable**. Campaign-level detail belongs in separate custom fields (`utm_campaign`, click ID), not in referral_source — that keeps the dropdown clean for staff and reports while preserving granularity for analysis.
+This is broader than ads: the classifier distinguishes paid vs. organic vs. direct per platform.
+
+### Classification decision table (first match wins, evaluated at landing)
+
+| Priority | Signal on the landing visit | Value written |
+|---|---|---|
+| 1 | `gclid` present, or `utm_source=google&utm_medium=cpc` | `google_ads` |
+| 2 | `fbclid` present, or `utm_source=facebook/instagram&utm_medium=paid_social` | `meta_ads` |
+| 3 | `li_fat_id` present, or `utm_source=linkedin&utm_medium=paid_social` | `linkedin_ads` |
+| 4 | `msclkid` / other paid UTMs | `microsoft_ads` / `<platform>_ads` |
+| 5 | Any other explicit UTM (email, QR, directory…) | `utm_source` value, e.g. `email`, `print_qr`, `yelp` |
+| 6 | Referrer is google/bing, no paid signal | `google` (organic search) |
+| 7 | Referrer is facebook/instagram, no paid signal | `meta_link` (organic/shared link) |
+| 8 | Referrer is linkedin, no paid signal | `linkedin_link` |
+| 9 | Referrer is any other site | `referral_web` (or the referrer's domain) |
+| 10 | No referrer, no params | `website` (direct) |
+| — | In-store / phone signup | staff picks from the same dropdown (existing manual values kept) |
+
+First-touch wins: once a value is stored for a visitor (cookie/localStorage) or written to a customer record, later visits never change it.
+
+### Rollout of the value list
+
+1. Agree the list above (plus each client's manual options: walk-in, drive-by, friend referral…).
+2. Add the values to `CustomerFields_(bid)_primary` → `possible_values` (CouchDB Editor per the How-To; ensure `"type":"select"`). Values must match what the URLs/classifier write **exactly**, or reporting fragments and staff see values they can't re-select.
+3. Keep the value set **channel-level, small, and stable**. Campaign-level detail belongs in optional separate custom fields (`utm_campaign`, click ID), not in referral_source — the single field stays clean for staff and reports while granularity remains available for analysis.
 
 ---
 
