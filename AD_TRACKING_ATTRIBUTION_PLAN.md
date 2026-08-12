@@ -57,6 +57,32 @@ Deployment options, in order of preference:
 - **b)** Google Tag Manager custom HTML tag, if GTM is already on the site.
 - **c)** Productize inside SMRT (Tier 3) so every client with a SMRT-built site gets it automatically.
 
+### The SMRT Tag — productizing Tier 2 as one snippet with two delivery modes
+
+Tier 2 should not be a per-client custom script. It should be **one versioned JavaScript file hosted by SMRT** — the "SMRT Tag" — configured by nothing but the tenant/business ID:
+
+```html
+<script async src="https://tag.smrtapp.com/smrt.js" data-business="{BID}"></script>
+```
+
+All behavior (the §4 classifier, first-touch storage, portal-link decoration) lives in the hosted script, so every site on every tenant runs **identical, centrally updatable logic**. When a new platform needs support (TikTok, Nextdoor…) or a classifier rule changes, SMRT ships it once and every installed site picks it up — the pasted snippet never changes. This is the same distribution model as the Meta Pixel and GTM, which client webmasters already understand.
+
+**Mode A — clients on SMRT Sites (our website offering):** the tag is baked into the site template and enabled by default, with the business ID injected at provisioning. SiteSwan permits back-end HTML additions, and the SMRT Sites requirement to "push content/changes on a regular basis across all sites" is exactly the mechanism to roll the tag out to every existing client site at once. Zero client effort; attribution becomes a built-in feature of the website product.
+
+**Mode B — clients on their own/external websites:** SMRT Admin (or the marketing settings page) shows a per-tenant **"Install your tracking tag"** screen that generates the copy-paste snippet plus short instructions for common builders (WordPress, Squarespace, Wix, GTM). Two supporting features keep this low-support:
+
+- **Install detection:** the tag pings home on load, so the admin screen shows live status — "✓ Tag detected on modellaundry.com, last seen 2h ago" vs. "Not detected" — the same pattern pixel vendors use. Support and sales can see at a glance whether a client is instrumented.
+- **No configuration surface:** the snippet carries only the business ID. Clients cannot alter the taxonomy or logic, which is what guarantees uniformity across the install base.
+
+**What the tag does (identical in both modes):** classify the visit per the §4 decision table → store the first-touch value in a first-party cookie/localStorage on the site's own domain (~90 days) → append `referral_source=<value>` to every link pointing at `{tenant}.smrtapp.com` at click time. It collects no PII and reads no page content — its entire output is one classified value plus a timestamp. A consent-mode flag defers storage until a consent banner approves, for tenants that need it.
+
+**Uniformity enforcement (three layers):**
+1. **The taxonomy ships inside the tag**, not in per-site configuration — every install writes the same standard values.
+2. **The portal validates on write** (Tier 3): `referral_source` values arriving on signup URLs are accepted only if they match the master standard list or the tenant's own manual dropdown options; anything unrecognized is coerced to `other_web` instead of polluting the field.
+3. **Provisioning tooling** seeds the standard `possible_values` into every tenant's CustomerFields document automatically (an admin function, not hand-edited CouchDB), so POS dropdowns, the tag, and reports always agree — and cross-tenant benchmark reporting ("what % of new customers come from google_ads across all SMRT businesses") becomes possible because every tenant speaks the same vocabulary.
+
+Note on mechanics: the tag's cookie lives on the *client site's* domain, which `smrtapp.com` cannot read — **click-time link decoration is the handoff bridge**, and traffic that lands directly on the portal (ads pointed straight at `/custx/login`, QR codes) is covered by the portal-side capture below.
+
 ### Tier 3 — Native support in the customer portal (product ask; makes it universal)
 
 The highest-capture version, proposed as a SMRT product feature so **every tenant** benefits with zero per-client setup:
