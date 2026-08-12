@@ -18,14 +18,14 @@ A new Performance Max asset group targeting **everyday household laundry custome
 
 ## What's needed — image and video counts
 
-Google requires per asset group: 4+ landscape, 4+ square, 2+ vertical images (20 images max total), and recommends 1 video per orientation (15 max). We already have 3 AI-generated images in each image ratio and **zero videos**. The asks below fill the gaps and replace AI renders with real photography where it counts.
+We are filling this asset group to its full capacity: **20 images** (Google's per-group cap) and **at least 5 videos** (Google allows up to 15). Real photography/footage replaces the interim AI images entirely.
 
-### Images — 10 files requested
+### Images — 20 files requested (full cap)
 | Ratio | Pixel size (exact) | Minimum allowed | Qty requested |
 |---|---|---|---|
-| Landscape 1.91:1 | **1200 × 628** | 600 × 314 | **4** |
-| Square 1:1 | **1200 × 1200** | 300 × 300 | **4** |
-| Vertical 4:5 | **960 × 1200** | 480 × 600 | **2** |
+| Landscape 1.91:1 | **1200 × 628** | 600 × 314 | **8** |
+| Square 1:1 | **1200 × 1200** | 300 × 300 | **8** |
+| Vertical 4:5 | **960 × 1200** | 480 × 600 | **4** |
 
 Image technical rules:
 - JPG or PNG, **max 5 MB per file**
@@ -33,17 +33,19 @@ Image technical rules:
 - **No text or logos baked into the images** — Google overlays headlines automatically, and the logo comes from the campaign's brand settings. Clean photography only.
 - Same shot delivered in multiple crops is fine (one scene can yield a landscape, square, and vertical file).
 
-### Videos — 3 files requested
+### Videos — minimum 5 files, up to 15 welcome
 | Orientation | Pixel size | Length | Qty requested |
 |---|---|---|---|
-| Horizontal 16:9 | 1920 × 1080 | **10–30 sec (min 10)** | **1** |
-| Vertical 9:16 | 1080 × 1920 | 10–30 sec (min 10) | **1** |
-| Square 1:1 | 1080 × 1080 | 10–30 sec (min 10) | **1** |
+| Horizontal 16:9 | 1920 × 1080 | **10–30 sec (min 10)** | **2** |
+| Vertical 9:16 | 1080 × 1920 | 10–30 sec (min 10) | **2** |
+| Square 1:1 | 1080 × 1080 | 10–30 sec (min 10) | **1+** |
+
+5 videos minimum, covering all three orientations. If more edits are available, we can use up to 15 total — additional vertical (9:16) cuts are the most valuable (YouTube Shorts inventory).
 
 Video technical rules:
 - MP4 preferred (MOV/WebM accepted), each ≥10 seconds — anything shorter is rejected
-- One edit re-framed three ways is fine
-- If we don't supply these, Google auto-generates a video from the images — supplying all three orientations is what gets the group to "Excellent" ad strength
+- One edit re-framed into multiple orientations counts as separate files and is fine
+- Supplying our own videos in all three orientations prevents Google auto-generating one from the stills and is what gets the group to "Excellent" ad strength
 
 ### Not needed
 - **Logos** — already set at campaign level (Brand Guidelines); do not deliver logo files
