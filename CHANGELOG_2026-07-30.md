@@ -50,3 +50,23 @@ Main group is at its 20-image cap — remove confirmed-LOW images in UI first, t
 - SEO re-optimization of new site
 - Leland targeting confirmation with Wes
 - Enable Wash & Fold group after Wes's review, then remove the 5 W&F themes from the main group
+
+---
+
+## Aug 2026 update — Southern expansion (Porters Neck / Landfall push)
+
+Implemented per Tony's request to capture more of the Porters Neck / Landfall corridor:
+
+**Locations added (verified):**
+- Wrightsville Beach, NC (geoTargetConstants/1021380)
+- Murrayville, NC (geoTargetConstants/9191067)
+- Zip 28405 — Landfall-adjacent / Mayfaire corridor, north Wilmington (geoTargetConstants/9010077)
+- Note: Figure Eight Island has no Google geo constant; it is covered by already-targeted zip 28411. Porters Neck (28411) and Landfall (neighborhood) were already targeted.
+
+**Search themes swapped (still 50/50, verified):**
+- Removed (redundant): household textiles cleaning · remove stains from clothes service · dry cleaning kenansville nc · dry cleaning near mcas new river
+- Added (southern intent): dry cleaning porters neck · dry cleaner landfall wilmington · dry cleaning wrightsville beach · laundry pickup and delivery wilmington nc
+
+**Observed account change (not made by this session):** Leland zip 28451 moved from targeted to NEGATIVE location — now consistent with the Jul 23 wait-for-volume decision.
+
+**Watch:** budget-lost impression share (was 8.5%) — wider footprint on the same $62/day may raise it; revisit with Wes if southern impressions ramp.
