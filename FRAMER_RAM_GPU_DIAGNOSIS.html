@@ -1,4 +1,4 @@
-<title>The Editor In The Page</title>
+<title>Ninety Percent Video</title>
 <style>
 /* ---------- tokens: light is the complete set ---------- */
 :root{
@@ -348,41 +348,87 @@ tfoot td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink);font-
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
 }
-</style>
+/* ---------- correction block ---------- */
+.corr{border:1px solid var(--rule);border-left:3px solid var(--bronze);background:var(--panel);
+  border-radius:5px;padding:24px 28px 26px;margin-top:22px;box-shadow:var(--shadow)}
+.corr .lbl{display:block;color:var(--bronze);margin-bottom:11px}
+.corr h3{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;text-transform:none;max-width:46ch}
+.corr p{margin:0 0 13px;max-width:70ch}
+.corr p:last-child{margin-bottom:0}
+.corr .was{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.01em}
+/* ---------- score comparison ---------- */
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin:26px 0 0}
+.sc{background:var(--panel);padding:16px 18px 18px}
+.sc-k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);margin-bottom:11px}
+.sc-pair{display:flex;gap:16px;align-items:flex-end}
+.sc-one{display:flex;flex-direction:column;gap:3px}
+.sc-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.sc-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--mute)}
+.sc-d .sc-v{color:var(--pine)} .sc-m .sc-v{color:var(--clay)}
+.sc-bad .sc-v{color:var(--wine)}
+/* ---------- grouped bars ---------- */
+.gb{display:flex;flex-direction:column;gap:9px}
+.gb-row{display:grid;grid-template-columns:112px 1fr;align-items:center;gap:14px}
+.gb-k{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.gb-pair{display:flex;flex-direction:column;gap:2px}
+.gb-bar{display:flex;align-items:center;gap:8px}
+.gb-fill{height:13px;border-radius:0 2px 2px 0;min-width:2px}
+.gb-d{background:var(--pine)} .gb-m{background:var(--clay)}
+.gb-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--slate)}
+/* ---------- verdict chips in tables ---------- */
+.vg{color:var(--pine);font-weight:600} .vb{color:var(--wine);font-weight:600} .vw{color:var(--bronze);font-weight:600}
+.mono-list{font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--slate);margin:0;max-width:none}
 
+/* ---------- severity accents on sections and cards ---------- */
+.sec-head.sec--p0{border-bottom-color:var(--wine)}
+.sec-head.sec--p0 h2{color:var(--wine)}
+.sec-head.sec--p1{border-bottom-color:var(--bronze)}
+.sec-head.sec--p1 h2{color:var(--bronze)}
+.find.find--p0{border-left:3px solid var(--wine)}
+.find.find--p1{border-left:3px solid var(--bronze)}
+</style>
 <header class="mast">
   <div class="wrap">
     <div class="mast-grid">
-      <p class="lbl">Live-site diagnosis &middot; smrtsystems.com &middot; RAM and GPU</p>
-      <h1>The Editor In The Page</h1>
-      <p class="dek">The site is not a badly built webapp. It is a live marketing page that <b>boots the entire Framer design editor inside itself</b> &mdash; and separately paints <b>252 animated blur layers</b> that saturate the GPU.</p>
+      <p class="lbl">Live diagnosis &middot; smrtsystems.com &middot; performance, memory, indexing</p>
+      <h1>Ninety Percent Video</h1>
+      <p class="dek">Desktop performance is <b>24</b>. One 28.9 MB video is <b>90% of the page</b>. Desktop layout shift is <b>0.817</b>, eight times the failure threshold. And the relaunch shipped with <b>no redirects at all</b>.</p>
       <div class="meta">
-        <span><b>Live</b> smrtsystems.com, serving 200</span>
-        <span><b>Staging trace</b> Lighthouse 13.4.0, 2026-08-12</span>
-        <span><b>Live HTML + JS</b> fetched anonymously 2026-08-13</span>
-        <span><b>Status</b> Live and crashing machines</span>
+        <span><b>Lighthouse</b> 13.4.0, desktop + mobile</span>
+        <span><b>Run</b> 2026-08-13 11:35</span>
+        <span><b>Also</b> live HTML, robots, sitemap, 49 URL statuses</span>
+        <span><b>Supersedes</b> the staging report</span>
       </div>
     </div>
-    <div class="stats">
-      <div class="stat">
-        <span class="stat-v bad num">252</span>
-        <span class="stat-k">Animated blur layers</span>
-        <span class="stat-n">The GPU load &mdash; ~750 render passes a frame</span>
+    <div class="scores">
+      <div class="sc">
+        <span class="sc-k">Performance</span>
+        <div class="sc-pair">
+          <div class="sc-one sc-d sc-bad"><span class="sc-v">24</span><span class="sc-l">Desktop</span></div>
+          <div class="sc-one sc-m sc-bad"><span class="sc-v">42</span><span class="sc-l">Mobile</span></div>
+        </div>
       </div>
-      <div class="stat">
-        <span class="stat-v bad num">3</span>
-        <span class="stat-k">Live documents</span>
-        <span class="stat-n">Site, edit shell, full editor app</span>
+      <div class="sc">
+        <span class="sc-k">Accessibility</span>
+        <div class="sc-pair">
+          <div class="sc-one sc-d"><span class="sc-v">83</span><span class="sc-l">Desktop</span></div>
+          <div class="sc-one sc-m"><span class="sc-v">83</span><span class="sc-l">Mobile</span></div>
+        </div>
       </div>
-      <div class="stat">
-        <span class="stat-v bad num">282</span>
-        <span class="stat-k">blob: scripts</span>
-        <span class="stat-n">Compiled in your browser, never freed</span>
+      <div class="sc">
+        <span class="sc-k">Best practices</span>
+        <div class="sc-pair">
+          <div class="sc-one sc-d"><span class="sc-v">77</span><span class="sc-l">Desktop</span></div>
+          <div class="sc-one sc-m"><span class="sc-v">77</span><span class="sc-l">Mobile</span></div>
+        </div>
       </div>
-      <div class="stat">
-        <span class="stat-v num">38.6 MB</span>
-        <span class="stat-k">Video</span>
-        <span class="stat-n">720p, over-encoded 8&times;</span>
+      <div class="sc">
+        <span class="sc-k">SEO</span>
+        <div class="sc-pair">
+          <div class="sc-one sc-d"><span class="sc-v">100</span><span class="sc-l">Desktop</span></div>
+          <div class="sc-one sc-m"><span class="sc-v">100</span><span class="sc-l">Mobile</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -391,547 +437,401 @@ tfoot td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink);font-
 <main>
 <div class="wrap">
 
-  <div class="now-box">
-    <span class="lbl">Do this first &mdash; stops your crashes without touching the site</span>
-    <h2>Your browser has a Framer flag set that no ordinary visitor has</h2>
-    <p>The live page only boots the editor when <code>__framer_force_showing_editorbar_since</code> is present in local storage for this origin. Clearing it should stop the crashes immediately. Do it <b>without loading the page</b>, since loading it is what kills the machine:</p>
-    <ol>
-      <li>Go to <code>chrome://settings/content/all?searchSubpage=smrtsystems.com</code></li>
-      <li>Find <code>smrtsystems.com</code> and delete its stored data with the trash icon.</li>
-      <li>Sign out of <code>framer.com</code> in that browser, or keep Framer work in a separate profile permanently.</li>
-    </ol>
-    <p class="after">This is a workaround for you, not a fix for the site. The site still ships the code path to everyone, and the GPU problem below hits every visitor regardless of this flag.</p>
-  </div>
-
-  <section id="evidence">
-    <div class="sec-head"><h2>Evidence, and two corrections</h2><span class="lbl">Read first</span></div>
+  <section id="corrections">
+    <div class="sec-head"><h2>Three corrections to my earlier diagnosis</h2><span class="lbl">Read first</span></div>
     <div class="prose">
-      <p>The file supplied as &ldquo;the test site code&rdquo; was not the site&rsquo;s HTML. It was a <b>Lighthouse report</b>, carrying 1.6 MB of audit JSON. That proved more useful than markup would have, because it contains the network waterfall and the main-thread trace. Now that the site is live, I also pulled the production HTML and JS directly and re-checked every claim against it.</p>
-      <p>Two corrections to what the staging evidence suggested:</p>
-      <ul>
-        <li><b><code>framer.link</code> is not on the live site.</b> An earlier grep of mine reported 530 occurrences. That was a regex artifact &mdash; the <code>.</code> matched the hyphen in Framer&rsquo;s own <code>framer-link</code> class. The literal count is <b>zero</b>, so the affiliate-link P0 from the pre-launch audit appears resolved on production.</li>
-        <li><b>The unicorn.studio WebGL layer is not on the live homepage.</b> Zero references in production HTML &mdash; it was in the staging build only. Check other pages before acting on it.</li>
-      </ul>
-      <p>Production is, however, <b>worse than staging in the place that matters most</b>: the hero video is larger.</p>
-    </div>
-  </section>
-
-  <section id="split">
-    <div class="sec-head"><h2>Two separate problems, two audiences</h2><span class="lbl">Orientation</span></div>
-    <div class="prose">
-      <p>The crashes have two independent causes, and conflating them wastes effort. One is a <b>RAM</b> problem gated behind a flag your browser happens to have. The other is a <b>GPU</b> problem that every visitor pays on every scroll.</p>
+      <p>The live runs contradict three things I told you. Taking them first, because two of them change what you should work on.</p>
     </div>
 
-    <figure>
-      <p class="fig-t">Staging transfer by path</p>
-      <p class="fig-s">Total 40.5 MB &middot; 1,090 requests &middot; from the Lighthouse trace where the editor did load</p>
-      <div class="split">
-        <div class="split-seg split-a">30.4 MB &middot; site content</div>
-        <div class="split-seg split-b">9.2 MB &middot; editor</div>
-      </div>
-      <div class="legend">
-        <span><i class="swatch sw-a"></i>Site content &mdash; 162 requests, every visitor pays it</span>
-        <span><i class="swatch sw-b"></i>Framer editor runtime &mdash; 928 requests</span>
-      </div>
-      <figcaption>The editor half is only 9.2 MB of transfer but 928 of the 1,090 requests. Transfer size badly understates it: what it leaves resident is the problem, not what it costs to download.</figcaption>
-    </figure>
-
-    <figure>
-      <p class="fig-t">Site-content payload by resource type</p>
-      <p class="fig-s">30.4 MB across 162 requests</p>
-      <div class="bars">
-        <div class="bar-row">
-          <span class="bk">Media (8)</span>
-          <span class="bar-track"><span class="bar-fill" style="width:100%"></span></span>
-          <span class="bv">25.86 MB</span>
-        </div>
-        <div class="bar-row">
-          <span class="bk">Fonts (68)</span>
-          <span class="bar-track"><span class="bar-fill" style="width:10.4%"></span></span>
-          <span class="bv">2.68 MB</span>
-        </div>
-        <div class="bar-row quiet">
-          <span class="bk">Images (27)</span>
-          <span class="bar-track"><span class="bar-fill" style="width:3.4%"></span></span>
-          <span class="bv">0.87 MB</span>
-        </div>
-        <div class="bar-row quiet">
-          <span class="bk">Scripts (27)</span>
-          <span class="bar-track"><span class="bar-fill" style="width:3.1%"></span></span>
-          <span class="bv">0.80 MB</span>
-        </div>
-        <div class="bar-row quiet">
-          <span class="bk">Fetch / other (32)</span>
-          <span class="bar-track"><span class="bar-fill" style="width:0.6%"></span></span>
-          <span class="bv">0.15 MB</span>
-        </div>
-      </div>
-      <figcaption>Eight media requests are 85% of everything a visitor downloads, and six of the eight are the same file.</figcaption>
-    </figure>
-  </section>
-
-  <section id="f1">
-    <div class="sec-head"><h2>Finding 1 &mdash; The editor boots inside the page</h2><span class="lbl">This is the crash</span></div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">01</span>
-        <span class="chip chip-p0">P0</span>
-        <span class="chip chip-area">Memory</span>
-        <span class="chip chip-area">Confirmed</span>
-      </div>
-      <h3 class="find-h">The live site ships Framer&rsquo;s On-Page Editing, and it escalates into the full editor</h3>
-      <div class="prose">
-        <p class="claim">One import pulls in 928 requests, three documents, and a 1.47 MB collaborative document tree.</p>
-        <p>Confirmed in <b>production HTML fetched with no Framer session at all</b>. The published page carries this gate in <code>&lt;head&gt;</code>:</p>
-      </div>
-
-      <div class="ev">
-        <span class="lbl">smrtsystems.com, served HTML</span>
-<pre>try{
-  if(localStorage.getItem(<em>"__framer_force_showing_editorbar_since"</em>)){
-    const n=document.createElement("link");
-    n.rel="modulepreload";
-    n.href="https://framer.com/edit/init.mjs";
-    document.head.appendChild(n)
-  }
-}catch(e){}</pre>
-      </div>
-
-      <div class="prose">
-        <p>And the site&rsquo;s main bundle, <code>script_main.DmvqdYT3.mjs</code>, holds the import that actually runs it:</p>
-      </div>
-
-      <div class="ev">
-        <span class="lbl">script_main.DmvqdYT3.mjs</span>
-<pre>EditorBar: a === void 0 ? void 0 : (() =&gt; {
-  if (K) { console.log(`[Framer On-Page Editing] <em>Unavailable because navigator is bot</em>`); return }
-  return w(async () =&gt; {
-    a.__framer_editorBarDependencies = { __version: 3, framer: {...}, react: {...} };
-    let { createEditorBar: e } = await import(`<em>https://framer.com/edit/init.mjs</em>`);
-    return { default: e() }
-  })
-})()</pre>
-      </div>
-
-      <div class="prose">
-        <p>Two guards, and neither protects a real user: <code>a === void 0</code> is a server-side-rendering check, and <code>K</code> is a <b>bot user-agent check</b>.</p>
-        <p><b>That bot check is why nobody caught this before launch.</b> Lighthouse, PageSpeed Insights, and essentially every automated auditing tool identify as bots, so they take the early return and never load the editor. The problem is invisible to automated testing by construction. It only shows up in a real browser &mdash; which is why it reached production, and why it is your machine that dies rather than a monitoring dashboard.</p>
-        <p>Once that import fires, this is what arrives &mdash; measured from the staging trace, where it did run:</p>
-      </div>
-
+    <div class="corr">
+      <span class="lbl">Correction 1 &mdash; changes the priority</span>
+      <h3>The Framer editor does not fully boot on the live site</h3>
+      <p class="was">I said: the page loads the entire editor &mdash; three documents, 928 requests, 282 blob: scripts, a 1.47 MB CRDT tree.</p>
+      <p>That was measured on <b>staging</b>. Searching both live runs for the escalation returns nothing:</p>
       <div class="tbl-scroll">
         <table>
-          <thead><tr><th>What it pulls in</th><th class="n">Requests</th><th class="n">Bytes</th></tr></thead>
+          <thead><tr><th>Marker</th><th class="n">Live desktop</th><th class="n">Live mobile</th></tr></thead>
           <tbody>
-            <tr><td>app.framerstatic.com editor bundles</td><td class="n">269</td><td class="n">4.17 MB</td></tr>
-            <tr><td>framercanvas.com editor app</td><td class="n">291</td><td class="n">&mdash;</td></tr>
-            <tr><td>blob: scripts from in-browser compilation</td><td class="n">282</td><td class="n">&mdash;</td></tr>
-            <tr><td>Project source, including 76 raw .tsx files</td><td class="n">338</td><td class="n">2.10 MB</td></tr>
-            <tr><td>Multiplayer CRDT project document</td><td class="n">2</td><td class="n">1.47 MB</td></tr>
-            <tr><td>Full Google Fonts catalog (font picker)</td><td class="n">4</td><td class="n">0.94 MB</td></tr>
-            <tr><td>Full Fontshare catalog (font picker)</td><td class="n">14</td><td class="n">0.47 MB</td></tr>
+            <tr><td>framercanvas</td><td class="n vg">0</td><td class="n vg">0</td></tr>
+            <tr><td>multiplayer / crdt</td><td class="n vg">0</td><td class="n vg">0</td></tr>
+            <tr><td>blob: scripts</td><td class="n vg">0</td><td class="n vg">0</td></tr>
+            <tr><td>EditButton</td><td class="n vg">0</td><td class="n vg">0</td></tr>
+            <tr><td>edit/init.mjs</td><td class="n vw">4 KiB loaded</td><td class="n vw">4 KiB loaded</td></tr>
           </tbody>
-          <tfoot><tr><td>Editor runtime total</td><td class="n">928</td><td class="n">9.15 MB</td></tr></tfoot>
         </table>
       </div>
+      <p>The code path ships and the 4 KiB bootstrap does load, but it never escalates. <b>So the editor is not the established cause of your crashes.</b> It stays a real latent risk worth closing, but it drops from P0 to P2.</p>
+    </div>
 
-      <div class="prose">
-        <p>Three documents are live in the tab simultaneously &mdash; the site, the edit shell, and the full editor application. Each carries its own JS heap, its own React tree, and its own listeners. The site&rsquo;s React runs alongside the editor&rsquo;s React.</p>
-        <h3>Why this behaves as a leak, not just as bloat</h3>
-        <ol>
-          <li><b>282 <code>blob:</code> script URLs.</b> The editor fetches the project&rsquo;s TypeScript and compiles it in the browser, publishing each module as an object URL. A blob passed to <code>createObjectURL()</code> is pinned until <code>revokeObjectURL()</code> is called &mdash; garbage collection cannot touch it, because the URL string is itself a live reference. That is a floor of 282 retained modules that never drops.</li>
-          <li><b>A live CRDT replica and its websocket.</b> A CRDT retains tombstones for deleted content so replicas can converge, so the structure grows with the project&rsquo;s edit history and never shrinks. The opening snapshot alone is 1.47 MB, and the socket keeps applying deltas for as long as the tab is open.</li>
-          <li><b>It had not finished.</b> Editor requests were still firing at 12.8 s, when Lighthouse stopped recording. Memory was still climbing at the moment measurement ended &mdash; the signature of a tab that grows until it is killed, rather than one that settles high.</li>
-          <li><b>Garbage collection got 36 ms out of 6.2 s.</b> The heap is not being reclaimed because almost none of it is reclaimable.</li>
-        </ol>
-      </div>
+    <div class="corr">
+      <span class="lbl">Correction 2 &mdash; reinstates a finding</span>
+      <h3>unicorn.studio is on the live site after all</h3>
+      <p class="was">I said: it was absent from the live homepage, based on zero references in the served HTML.</p>
+      <p>That check was inadequate. It is loaded at runtime by a Framer code component, so it never appears in the initial markup. Both live runs show it plainly &mdash; <code>unicornStudio.umd.js</code>, <code>controls.umd.js</code>, a 206.6 KiB noise texture and its own Google font: <b>~331 KiB and a live WebGL context</b>. The finding is reinstated, and it now has a measured consequence in the CLS breakdown below.</p>
+    </div>
 
-      <figure>
-        <p class="fig-t">The escalation, on a real time axis</p>
-        <p class="fig-s">Seconds from navigation start &middot; trace ends at 13 s with editor requests still in flight</p>
-        <div class="wf-scroll">
-          <div class="wf">
-            <div class="wf-axis">
-              <span>0s</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
-            </div>
-            <div class="wf-row"><span class="wf-mark site" style="left:0%;width:1%"></span><span class="wf-lab" style="left:1%">Site document <i>47 KB</i></span></div>
-            <div class="wf-row"><span class="wf-mark crit" style="left:3.8%;width:1%"></span><span class="wf-lab" style="left:4.8%">framer.com/edit/init.mjs <i>the trigger</i></span></div>
-            <div class="wf-row"><span class="wf-mark" style="left:16%;width:1%"></span><span class="wf-lab" style="left:17%">EditButton.mjs</span></div>
-            <div class="wf-row"><span class="wf-mark" style="left:16.1%;width:1%"></span><span class="wf-lab" style="left:17.1%">2nd document &mdash; framer.com/edit</span></div>
-            <div class="wf-row"><span class="wf-mark" style="left:16.5%;width:75.4%"></span><span class="wf-lab flip" style="left:91.9%">338 project-source requests <i>2.10 MB</i></span></div>
-            <div class="wf-row"><span class="wf-mark crit" style="left:23.1%;width:1%"></span><span class="wf-lab" style="left:24.1%">Hero video, full file <i>23.94 MB</i></span></div>
-            <div class="wf-row"><span class="wf-mark" style="left:39%;width:1%"></span><span class="wf-lab" style="left:40%">3rd document &mdash; framercanvas.com editor app</span></div>
-            <div class="wf-row"><span class="wf-mark crit" style="left:44.2%;width:1.5%"></span><span class="wf-lab" style="left:45.7%">Multiplayer CRDT tree <i>1.47 MB</i></span></div>
-            <div class="wf-row"><span class="wf-mark" style="left:39%;width:59.5%"></span><span class="wf-lab flip" style="left:98.5%">282 blob: scripts compiled</span></div>
-            <div class="wf-row"><span class="wf-mark site" style="left:88.8%;width:1%"></span><span class="wf-lab flip" style="left:88.8%">Video re-fetched <i>2nd wave</i></span></div>
-            <div class="wf-row"><span class="wf-mark" style="left:98.4%;width:1.6%"></span><span class="wf-lab flip" style="left:98.4%">Last request before trace ends <i>still going</i></span></div>
-          </div>
-        </div>
-        <figcaption>Nothing here converges. The two long bars are still extending when the recording stops.</figcaption>
-      </figure>
+    <div class="corr">
+      <span class="lbl">Correction 3 &mdash; narrows a finding</span>
+      <h3>The images are not as badly mis-scaled as I said</h3>
+      <p class="was">I said: a phone downloads the same asset a desktop does, roughly 3&times; oversampled.</p>
+      <p>Wrong. Mobile is served <code>scale-down-to=1024</code> variants &mdash; 164 KiB against the desktop&rsquo;s 235 KiB &mdash; and Lighthouse <b>passes</b> &ldquo;Serves images with appropriate resolution&rdquo; on both form factors. The real image problem is narrower: <b>compression, not dimensions</b>. PNG where WebP belongs, worth 188 KiB desktop and 244 KiB mobile.</p>
+    </div>
 
-      <div class="prose">
-        <h3>Who this actually hits</h3>
-        <p>The escalation is gated on that local-storage key, so a first-time anonymous visitor with a clean browser does not boot the editor. <b>Anyone who has browsed the site while signed into Framer does</b> &mdash; which is you, your developer, and anyone else who has touched the project. The staging trace confirms it fired there: 5.9 MB of injected extension JavaScript in the script treemap shows that run used a real signed-in profile, not a clean one.</p>
-        <p>So the flag is a workaround and the settings toggle is the fix. Priority is unchanged: the people who load this site most often are the people building it.</p>
-      </div>
-
-      <div class="fix">
-        <span class="lbl">Fix</span>
-        <ol>
-          <li><b>Clear the local-storage flag</b> on every machine that has browsed the site while signed into Framer &mdash; see the box at the top. This is what stops the crashes today.</li>
-          <li><b>Turn off On-Page Editing for the published site</b> in Framer&rsquo;s site settings. This removes the code path for everyone, and is the actual fix.</li>
-          <li><b>If the toggle does not exist on the current plan</b>, escalate to Framer support with the two excerpts above. A published site compiling 338 source modules and loading a 1.47 MB collaborative document in a visitor&rsquo;s browser is not intended behavior.</li>
-          <li><b>Meanwhile, use separate browser profiles</b> for building and for viewing, so an editor session is never attached to a normal page load.</li>
-        </ol>
-      </div>
+    <div class="prose">
+      <p>What survives unchanged: the video is the dominant payload problem, the per-character blur animation is the dominant compositing problem, and the breakpoint duplication multiplies both.</p>
     </div>
   </section>
 
-  <section id="f2">
-    <div class="sec-head"><h2>Finding 2 &mdash; 38.6 MB of video, one file wired to two elements</h2><span class="lbl">Every visitor</span></div>
+  <section id="metrics">
+    <div class="sec-head"><h2>Live metrics</h2><span class="lbl">Desktop vs mobile</span></div>
+    <div class="prose">
+      <p>The staging run scored 68. Desktop is now <b>24</b>. Targets are LCP under 2.5 s, TBT under 200 ms, CLS under 0.1.</p>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Metric</th><th class="n">Desktop</th><th class="n">Mobile</th><th class="n">Target</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>First Contentful Paint</td><td class="n">0.6 s</td><td class="n">2.1 s</td><td class="n">&lt; 1.8 s</td><td class="vg">Desktop good</td></tr>
+          <tr><td>Largest Contentful Paint</td><td class="n">3.2 s</td><td class="n">5.1 s</td><td class="n">&lt; 2.5 s</td><td class="vb">Both fail</td></tr>
+          <tr><td>Total Blocking Time</td><td class="n">1,280 ms</td><td class="n">3,940 ms</td><td class="n">&lt; 200 ms</td><td class="vb">Mobile 20&times; over</td></tr>
+          <tr><td>Cumulative Layout Shift</td><td class="n">0.817</td><td class="n">0.045</td><td class="n">&lt; 0.1</td><td class="vb">Desktop 8&times; over</td></tr>
+          <tr><td>Speed Index</td><td class="n">2.1 s</td><td class="n">7.4 s</td><td class="n">&lt; 3.4 s</td><td class="vw">Mobile fails</td></tr>
+          <tr><td>Total payload</td><td class="n">19,168 KiB</td><td class="n">18,169 KiB</td><td class="n">&mdash;</td><td class="vb">Enormous</td></tr>
+          <tr><td>Main-thread work</td><td class="n">3.3 s</td><td class="n">10.5 s</td><td class="n">&mdash;</td><td class="vb">Mobile severe</td></tr>
+          <tr><td>JavaScript execution</td><td class="n">0.9 s</td><td class="n">3.6 s</td><td class="n">&mdash;</td><td class="vw">Mobile poor</td></tr>
+          <tr><td>Long tasks</td><td class="n">6</td><td class="n">20</td><td class="n">&mdash;</td><td class="vb">Mobile severe</td></tr>
+          <tr><td>DOM elements</td><td class="n">1,207</td><td class="n">1,207</td><td class="n">&lt; 1,400</td><td class="vg">Acceptable</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <p>SEO at 100 on both is worth saying plainly: <b>the metadata work is done and in good shape.</b> Every remaining problem is performance, accessibility, or redirects.</p>
+    </div>
+  </section>
 
-    <div class="find">
+  <section id="psi">
+    <div class="sec-head"><h2>Why PageSpeed Insights times out</h2><span class="lbl">Not a separate bug</span></div>
+    <div class="prose">
+      <p><code>RPC::DEADLINE_EXCEEDED: context deadline exceeded</code> is not a fault in PSI and not something to chase separately. PSI runs Lighthouse on Google&rsquo;s infrastructure under a hard backend deadline. This page ships a <b>17 MB video</b>, spends <b>10.5 s of main-thread time</b> on mobile, and produces <b>20 long tasks</b>. It never reaches a stable state inside the deadline, so the RPC is killed.</p>
+      <p>Your local runs succeed because a local Lighthouse has no server-side deadline &mdash; it waits as long as the page needs. <b>The timeout is a symptom of the same payload problem and will resolve itself once the video is fixed.</b> It is also a useful canary: when PSI starts completing again, the page has genuinely improved.</p>
+    </div>
+  </section>
+
+  <section id="p1">
+    <div class="sec-head sec--p0"><h2>P0-1 &mdash; One video is 90% of the page</h2><span class="lbl">Both form factors</span></div>
+
+    <div class="find find--p0">
       <div class="find-top">
-        <span class="find-n">02</span>
+        <span class="find-n">P0-1</span>
         <span class="chip chip-p0">P0</span>
         <span class="chip chip-area">Payload</span>
         <span class="chip chip-area">Confirmed live</span>
       </div>
-      <h3 class="find-h">The resolution is fine. The bitrate is absurd, and the big file loads twice.</h3>
-      <div class="prose">
-        <p class="claim">28.90 MB for 29.3 seconds of silent 720p &mdash; about 7.9 Mbps, roughly eight times what that resolution needs.</p>
-        <p>Three <code>&lt;video&gt;</code> elements in the live HTML, two pointing at the same source:</p>
-      </div>
+      <h3 class="find-h">28.90 MB of 720p video, over-encoded roughly eight times, loaded by two elements</h3>
 
-      <div class="ev">
-        <span class="lbl">smrtsystems.com, served HTML</span>
-<pre>&lt;video src="...<em>wn1Qnn9RVuBbmppnl8PoCi0uLdk</em>.mp4" loop preload="none" muted playsinline&gt;
-&lt;video src="...uK3EmC6oURVtNKip3Y9EPF54vvI.mp4" loop preload="none" muted playsinline&gt;
-&lt;video src="...<em>wn1Qnn9RVuBbmppnl8PoCi0uLdk</em>.mp4" loop preload="none" muted playsinline&gt;</pre>
-      </div>
+      <figure>
+        <p class="fig-t">Share of total page payload</p>
+        <p class="fig-s">One asset against everything else on the page</p>
+        <div class="split">
+          <div class="split-seg split-b" style="flex:90.3">90.3% &middot; wn1Qnn9RV….mp4</div>
+          <div class="split-seg split-a" style="flex:9.7">9.7%</div>
+        </div>
+        <div class="legend">
+          <span><i class="swatch sw-b"></i>The hero video &mdash; 17,313.9 KiB</span>
+          <span><i class="swatch sw-a"></i>Everything else &mdash; images, scripts, fonts, CSS, HTML</span>
+        </div>
+        <figcaption>Desktop figures. Mobile is the same story at 90.6%, where the file arrives as two range requests of 15,508.2 KiB and 948.2 KiB.</figcaption>
+      </figure>
 
       <div class="tbl-scroll">
         <table>
-          <thead><tr><th>File</th><th class="n">Size</th><th class="n">Resolution</th><th class="n">Duration</th><th class="n">Audio</th><th class="n">Elements</th></tr></thead>
+          <thead><tr><th>Property</th><th>wn1Qnn9RV….mp4</th><th>uK3EmC6o….mp4</th></tr></thead>
           <tbody>
-            <tr><td>wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4</td><td class="n">28.90 MB</td><td class="n">1280 &times; 720</td><td class="n">29.3 s</td><td class="n">none</td><td class="n">2</td></tr>
-            <tr><td>uK3EmC6oURVtNKip3Y9EPF54vvI.mp4</td><td class="n">9.73 MB</td><td class="n">1022 &times; 540</td><td class="n">13.2 s</td><td class="n">none</td><td class="n">1</td></tr>
+            <tr><td>Size</td><td class="n">28.90 MB</td><td class="n">9.73 MB</td></tr>
+            <tr><td>Resolution</td><td class="n">1280 &times; 720</td><td class="n">1022 &times; 540</td></tr>
+            <tr><td>Duration</td><td class="n">29.3 s</td><td class="n">13.2 s</td></tr>
+            <tr><td>Audio track</td><td class="n">none</td><td class="n">none</td></tr>
+            <tr><td>Fast-start (<code>moov</code> first)</td><td class="n vb">no</td><td class="n vb">no</td></tr>
+            <tr><td><code>poster</code></td><td class="n vb">absent</td><td class="n vb">absent</td></tr>
+            <tr><td>Elements pointing at it</td><td class="n vb">2</td><td class="n">1</td></tr>
           </tbody>
-          <tfoot><tr><td>Distinct video shipped</td><td class="n">38.6 MB</td><td class="n">&mdash;</td><td class="n">42.5 s</td><td class="n">&mdash;</td><td class="n">3</td></tr></tfoot>
         </table>
       </div>
 
       <div class="prose">
-        <p><b>The file is not big because it is high-resolution.</b> It is big because it is over-encoded and 29 seconds long. A 720p background loop wants 6&ndash;10 seconds at 1&ndash;1.5 Mbps, which is where the &ldquo;under 1.5 MB&rdquo; target comes from. This matters for the GPU question specifically: at 720p, a decoded RGBA frame is only 3.5 MB, so all three elements together account for roughly 28 MB of texture. Real, but not what is saturating your GPU &mdash; see the next section.</p>
-        <p><b>The 28.90 MB file is loaded by two elements</b>, because desktop and mobile breakpoint variants are both in the DOM. The staging trace shows the consequence: six range requests for one file, one of them pulling 23.94 MB.</p>
-        <p><b>Neither file is fast-start optimized.</b> The <code>moov</code> metadata atom is absent from the first 3 MB of both files &mdash; it sits at the end. A player cannot begin until it has fetched the tail, which is exactly why the waterfall shows a small request, then a seek, then a bulk transfer. Re-muxing fixes this at zero quality cost.</p>
-        <p>All three carry <code>loop</code>, so decode buffers are never released. And <code>preload="none"</code> with <b>no <code>poster</code></b> means the hero paints nothing until buffering starts &mdash; a large share of the 3.1 s LCP.</p>
+        <p><b>The resolution is fine. The bitrate is absurd.</b> 28.90 MB for 29.3 seconds of silent 720p is about <b>7.9 Mbps</b> &mdash; roughly eight times what that resolution needs. The file is big because it is over-encoded and 29 seconds long, not because it is high-resolution.</p>
+        <p><b>Neither file is fast-start optimized.</b> The <code>moov</code> metadata atom sits at the end, so a player cannot begin until it has fetched the tail. That is why the waterfall shows a small request, then a seek, then a bulk transfer.</p>
+        <p>And it is not only bandwidth: <b>the video is the second-largest layout-shift contributor on desktop</b>, at 0.255 of 0.817, because with no <code>poster</code> and no reserved aspect-ratio box the layout reflows when it finally paints.</p>
       </div>
 
       <div class="fix">
         <span class="lbl">Fix</span>
         <ol>
-          <li><b>Re-encode.</b> Keep 720p; cut to 6&ndash;10 s; H.264 at CRF 28&ndash;30; confirm no audio track; add a VP9/WebM alternate. Target under 1.5 MB, down from 28.90 MB.</li>
-          <li><b>Re-mux with <code>-movflags +faststart</code></b> so playback can begin without fetching the tail.</li>
-          <li><b>One video element, not one per breakpoint.</b></li>
-          <li><b>Add a <code>poster</code></b> &mdash; first frame as compressed WebP. Fixes the empty hero and the LCP together.</li>
+          <li><b>Re-encode:</b> keep 720p, cut to 6&ndash;10 s, H.264 at CRF 28&ndash;30, confirm no audio track, add a VP9/WebM alternate. Target under 1.5 MB, from 28.90 MB.</li>
+          <li><b>Re-mux with <code>-movflags +faststart</code></b> so playback starts without fetching the tail.</li>
+          <li><b>Add a <code>poster</code> and an explicit aspect ratio.</b> This is a CLS fix as much as a perceived-speed fix.</li>
+          <li><b>One video element</b>, not one per breakpoint.</li>
           <li><b>Pause off-screen</b> with an <code>IntersectionObserver</code>.</li>
+        </ol>
+        <p>Fixing this single asset takes the page from ~19 MB to ~2.5 MB and should move desktop performance from 24 into the 60s on its own.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="p2">
+    <div class="sec-head sec--p0"><h2>P0-2 &mdash; Desktop layout shift is 0.817</h2><span class="lbl">Fonts are the trigger</span></div>
+
+    <div class="find find--p0">
+      <div class="find-top">
+        <span class="find-n">P0-2</span>
+        <span class="chip chip-p0">P0</span>
+        <span class="chip chip-area">Core Web Vital</span>
+        <span class="chip chip-area">Confirmed live</span>
+      </div>
+      <h3 class="find-h">Late-arriving web fonts reflow the page, and one of them belongs to the WebGL library</h3>
+      <div class="prose">
+        <p class="claim">Mobile CLS is fine at 0.045. Desktop is 0.817 &mdash; eight times the failure threshold.</p>
+      </div>
+
+      <figure>
+        <p class="fig-t">Layout shift score by element, desktop</p>
+        <p class="fig-s">Lighthouse attribution &middot; total 0.817</p>
+        <div class="bars">
+          <div class="bar-row"><span class="bk">div.framer-37j7oc</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bv">0.562</span></div>
+          <div class="bar-row"><span class="bk">video</span><span class="bar-track"><span class="bar-fill alt" style="width:45.4%"></span></span><span class="bv">0.255</span></div>
+          <div class="bar-row quiet"><span class="bk">span.framer-text</span><span class="bar-track"><span class="bar-fill dim" style="width:0.4%"></span></span><span class="bv">0.000</span></div>
+        </div>
+        <figcaption>The clay bar is the hero video, which is fixable by adding a <code>poster</code> and reserving its box &mdash; the same change listed under P0-1.</figcaption>
+      </figure>
+
+      <div class="ev">
+        <span class="lbl">Named culprits &mdash; all late fonts</span>
+<pre>fonts.gstatic.com   …v6/or3yQ6H-1….woff2          430 ms est savings
+fonts.gstatic.com   …v5/gyBjhwUxI….woff2          340 ms est savings
+<em>unicorn.studio      …google_fonts/JTUSjIg69….ttf    70 ms est savings</em></pre>
+      </div>
+
+      <div class="prose">
+        <p>Text renders in a fallback face, the real face arrives, and everything reflows. Lighthouse scores <b>430 ms</b> of savings on <code>font-display</code> alone. Note the third line: the WebGL library ships <b>its own Google font</b>, and it is measurably degrading a Core Web Vital.</p>
+      </div>
+
+      <div class="fix">
+        <span class="lbl">Fix</span>
+        <ol>
+          <li><b>Set <code>font-display: swap</code> and add font metric overrides</b> (<code>size-adjust</code>, <code>ascent-override</code>) so the fallback occupies the same space as the real face. Metric overrides are what actually kills font-driven CLS &mdash; <code>swap</code> alone just makes the shift visible instead of invisible.</li>
+          <li><b>Give the video and <code>div.framer-37j7oc</code> explicit dimensions</b> or <code>aspect-ratio</code>, so their boxes are reserved before content arrives.</li>
+          <li><b>Cut the font set.</b> Fewer faces, fewer opportunities to shift.</li>
+          <li><b>Remove unicorn.studio</b> and its bundled font goes with it.</li>
         </ol>
       </div>
     </div>
   </section>
 
-  <section id="gpu">
-    <div class="sec-head"><h2>The GPU load &mdash; it isn&rsquo;t the video</h2><span class="lbl">4 findings</span></div>
-    <div class="prose">
-      <p>You asked me to check image and video scaling, on the theory that oversized media is saturating the GPU. Media scaling <b>is</b> wrong here, and finding G4 covers it. But it is not what is loading your GPU. The videos are 720p and 540p; their decoded frames total roughly 28 MB, which does not trouble a modern GPU.</p>
-      <p>This is what does.</p>
+  <section id="p3">
+    <div class="sec-head sec--p1"><h2>P1 &mdash; WebGL, GPU compositing, and the rest</h2><span class="lbl">3 findings</span></div>
+
+    <div class="find find--p1">
+      <div class="find-top">
+        <span class="find-n">P1-1</span>
+        <span class="chip chip-p1">P1</span>
+        <span class="chip chip-area">WebGL</span>
+        <span class="chip chip-area">Reinstated</span>
+      </div>
+      <h3 class="find-h">A decorative gradient costs 331 KiB, a GPU context, and a Core Web Vital</h3>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Asset</th><th class="n">Size</th></tr></thead>
+          <tbody>
+            <tr><td>assets.unicorn.studio/media/blue_noise_med.png</td><td class="n">206.6 KiB</td></tr>
+            <tr><td>assets.unicorn.studio/controls/controls.umd.js</td><td class="n">61.6&ndash;67.1 KiB</td></tr>
+            <tr><td>cdn.jsdelivr.net/…/unicornStudio.umd.js</td><td class="n">36.2 KiB</td></tr>
+            <tr><td>assets.unicorn.studio/google_fonts/JTUSjIg69….ttf</td><td class="n">~56 KiB</td></tr>
+          </tbody>
+          <tfoot><tr><td>Total</td><td class="n">~331 KiB</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="prose">
+        <p>Three things make this poor value:</p>
+        <ol>
+          <li><b><code>controls.umd.js</code> is the library&rsquo;s authoring panel</b>, not its runtime &mdash; 71% unused in the staging trace. It has no business on a published page.</li>
+          <li><b>Its bundled font is a measured CLS contributor</b> (70 ms), so the effect is actively degrading a Core Web Vital.</li>
+          <li><b>A live WebGL context</b> allocates GPU textures and framebuffers that never show up in JS heap figures. If the component remounts without <code>loseContext()</code>, contexts accumulate until the browser starts discarding the oldest.</li>
+        </ol>
+      </div>
+      <div class="fix">
+        <span class="lbl">Fix</span>
+        <p>Remove <code>controls.umd.js</code> at minimum. Then decide whether the effect earns 331 KiB, a GPU context and a CLS penalty &mdash; a static WebP gradient costs none of those. If it stays, verify teardown by resizing across the mobile breakpoint repeatedly and watching the context count.</p>
+      </div>
     </div>
 
-    <div class="find">
+    <div class="find find--p1">
       <div class="find-top">
-        <span class="find-n">G1</span>
-        <span class="chip chip-p0">P0</span>
-        <span class="chip chip-area">Compositing</span>
+        <span class="find-n">P1-2</span>
+        <span class="chip chip-p1">P1</span>
+        <span class="chip chip-area">GPU</span>
         <span class="chip chip-area">Confirmed live</span>
       </div>
-      <h3 class="find-h">252 elements animate a blur filter, and every one of them is a separate offscreen render pass</h3>
-      <div class="prose">
-        <p class="claim">All 252 standalone <code>filter: blur()</code> declarations on the live homepage are inline styles, and all 252 share one signature.</p>
-      </div>
+      <h3 class="find-h">252 elements animate a blur filter &mdash; roughly 750 GPU render passes per frame</h3>
       <div class="ev">
         <span class="lbl">The inline style, identical across all 252 occurrences</span>
-<pre>display:inline-block;
-opacity:N;
-<em>filter:blur(Npx);</em>
+<pre>display:inline-block; opacity:N; <em>filter:blur(Npx);</em>
 transform:translateX(Npx) translateY(Npx) scale(N) rotate(Ndeg) skewX(Ndeg) skewY(Ndeg)</pre>
       </div>
       <figure>
         <p class="fig-t">Blur declarations on the live homepage</p>
-        <p class="fig-s">284 total blur declarations, separated by type</p>
+        <p class="fig-s">284 total, separated by type</p>
         <div class="bars">
           <div class="bar-row"><span class="bk">filter: blur(10px)</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bv">162</span></div>
           <div class="bar-row"><span class="bk">filter: blur(5px)</span><span class="bar-track"><span class="bar-fill" style="width:55.6%"></span></span><span class="bv">90</span></div>
           <div class="bar-row"><span class="bk">backdrop-filter</span><span class="bar-track"><span class="bar-fill alt" style="width:19.8%"></span></span><span class="bv">32</span></div>
         </div>
-        <figcaption>The clay bar is counted separately because <code>backdrop-filter</code> is a different and more expensive operation &mdash; see G2. An earlier count of mine folded the two together at 284; the standalone figure is 252.</figcaption>
+        <figcaption>The clay bar is counted separately because <code>backdrop-filter</code> is a different and costlier operation &mdash; it must sample the backdrop behind the element, defeating most compositor caching.</figcaption>
       </figure>
       <div class="prose">
-        <p><code>display:inline-block</code> plus a per-element transform plus a blur is the signature of a <b>per-character or per-word text reveal with the blur appear-effect enabled</b>. The page carries 1,074 <code>framer-text</code> spans; 252 of them are animating a blur.</p>
-        <p>The reason this is expensive is how blur must be implemented. A CSS blur cannot be composited in place. The element is rendered to an <b>offscreen render target</b>, convolved in two passes &mdash; horizontal, then vertical &mdash; then composited back. That is three GPU passes and one extra full-size texture allocation <b>per element, per frame</b>. With 252 of them animating together during a scroll reveal, the GPU is doing on the order of <b>750 render passes per frame</b>, each with its own texture.</p>
-        <p>Every one of those elements also carries a <code>transform</code>, which promotes it to its own compositor layer. Layers are not free: each holds a texture sized to its painted area.</p>
+        <p>That signature &mdash; <code>inline-block</code> plus a per-element transform plus a blur &mdash; is the per-character text reveal with the blur appear-effect enabled. There are also <b>31 permanent <code>will-change</code></b> declarations.</p>
+        <p>A CSS blur cannot composite in place. The element renders to an offscreen target, is convolved in two passes, then composites back: three GPU passes and an extra full-size texture <b>per element, per frame</b>. Layer textures are allocated in <i>device</i> pixels, so Windows display scaling at 150% multiplies every one by <b>2.25&times;</b>, and 200% on a 4K panel by <b>4&times;</b>. That is why this bites your machine specifically.</p>
+        <p>This is also very likely a large share of the <b>3,940 ms mobile TBT</b> and <b>10.5 s mobile main-thread time</b>.</p>
       </div>
       <div class="fix">
         <span class="lbl">Fix</span>
         <ol>
-          <li><b>Turn off the blur component of the text appear effect</b>, keeping the fade and the slide. This removes roughly 750 render passes per animated frame and is the single largest GPU win available. Visually it is a subtle change; measurably it is not.</li>
-          <li><b>Animate whole headings rather than per character.</b> That takes 252 animated layers down to about a dozen &mdash; and independently fixes the screen-reader problem the pre-launch audit raised about split text being read one character at a time.</li>
+          <li><b>Turn off the blur component of the text appear effect</b>, keeping the fade and slide. Largest GPU win available.</li>
+          <li><b>Animate whole headings rather than per character</b> &mdash; 252 animated layers down to about a dozen, and it fixes the screen-reader problem with split text at the same time.</li>
+          <li><b>Cut <code>backdrop-filter</code></b> to the one or two places that genuinely need glass.</li>
+          <li><b>Audit <code>will-change</code></b> so it is applied before an animation and removed after, not left on permanently.</li>
         </ol>
+        <p>Confirm in DevTools &rarr; <b>Layers</b> sorted by memory, and <b>Rendering</b> &rarr; Layer borders, before and after.</p>
       </div>
     </div>
 
-    <div class="find">
+    <div class="find find--p1">
       <div class="find-top">
-        <span class="find-n">G2</span>
+        <span class="find-n">P1-3</span>
         <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Compositing</span>
+        <span class="chip chip-area">Housekeeping</span>
         <span class="chip chip-area">Confirmed live</span>
       </div>
-      <h3 class="find-h">32 <code>backdrop-filter: blur(14px)</code>, the most expensive operation in CSS compositing</h3>
-      <div class="prose">
-        <p>Separate from G1, and individually worse. Unlike <code>filter</code>, <code>backdrop-filter</code> must sample <b>what is already painted behind the element</b>, so the compositor has to resolve and read back the backdrop, blur it, then re-composite. It defeats most of the compositor&rsquo;s caching. Thirty-two on one page is extreme.</p>
-      </div>
-      <div class="fix">
-        <span class="lbl">Fix</span>
-        <p>For frosted panels sitting over a static background, a semi-transparent solid fill is visually near-identical and costs nothing. Reserve <code>backdrop-filter</code> for the one or two places it genuinely needs to read as glass.</p>
-      </div>
-    </div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">G3</span>
-        <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Why it&rsquo;s your PC</span>
-        <span class="chip chip-area">Mechanism</span>
-      </div>
-      <h3 class="find-h">Windows display scaling multiplies every one of those textures</h3>
-      <div class="prose">
-        <p>Compositor layer textures are allocated in <b>device</b> pixels, not CSS pixels, so their memory scales with the square of the device pixel ratio. At Windows display scaling of 150%, every one of those 252 blur render targets is <b>2.25&times;</b> larger. On a 4K panel at 200%, <b>4&times;</b> larger.</p>
-        <p>That is the difference between a page that feels sluggish on a 1080p monitor and one that exhausts GPU memory on a scaled 4K one. It is also why this reproduces on your machine and may not on someone else&rsquo;s, with identical browsers.</p>
-      </div>
-    </div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">G4</span>
-        <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Image scaling</span>
-        <span class="chip chip-area">Confirmed live</span>
-      </div>
-      <h3 class="find-h">The images have no responsive variants at all, and they are PNG</h3>
-      <div class="prose">
-        <p class="claim">Six <code>&lt;img&gt;</code> tags, three unique images, up to 36 MB of RGBA texture for three screenshots.</p>
-      </div>
+      <h3 class="find-h">Everything else Lighthouse flags, including seven accessibility failures</h3>
       <div class="tbl-scroll">
         <table>
-          <thead><tr><th>Asset</th><th class="n">Intrinsic</th><th class="n">Megapixels</th><th class="n">RGBA texture</th><th class="n">srcset widths</th></tr></thead>
+          <thead><tr><th>Finding</th><th class="n">Desktop</th><th class="n">Mobile</th></tr></thead>
           <tbody>
-            <tr><td>uRIbeeWITWmpS8EstcVwCV94A.png</td><td class="n">1086 &times; 1448</td><td class="n">1.57 MP</td><td class="n">6.0 MB</td><td class="n">[1086] only</td></tr>
-            <tr><td>K2AIthgGqNzPB5xQDcdacsBwpc.png</td><td class="n">1086 &times; 1448</td><td class="n">1.57 MP</td><td class="n">6.0 MB</td><td class="n">[1086] only</td></tr>
-            <tr><td>xHNc5yzExs1xiVmNkcB3qDIlY.png</td><td class="n">1122 &times; 1402</td><td class="n">1.57 MP</td><td class="n">6.0 MB</td><td class="n">[1122] only</td></tr>
+            <tr><td>Unused JavaScript</td><td class="n">&mdash;</td><td class="n">2,074 KiB</td></tr>
+            <tr><td>Image delivery (compression)</td><td class="n">188 KiB</td><td class="n">244 KiB</td></tr>
+            <tr><td>Font display</td><td class="n">430 ms</td><td class="n">&mdash;</td></tr>
+            <tr><td>Unused <code>preconnect</code> hints</td><td class="n">&mdash;</td><td class="n">4</td></tr>
+            <tr><td>Legacy JavaScript / polyfills</td><td class="n">flagged</td><td class="n">flagged</td></tr>
+            <tr><td>Unminified CSS and JS</td><td class="n">flagged</td><td class="n">flagged</td></tr>
+            <tr><td>Duplicated JavaScript</td><td class="n">flagged</td><td class="n">flagged</td></tr>
+            <tr><td>Cache TTL (<code>licence-management.js</code>, 1 h)</td><td class="n">flagged</td><td class="n">flagged</td></tr>
+            <tr><td>Forced reflow</td><td class="n">flagged</td><td class="n">flagged</td></tr>
           </tbody>
-          <tfoot><tr><td>Each duplicated for breakpoint variants</td><td class="n">6 tags</td><td class="n">&mdash;</td><td class="n">36.0 MB</td><td class="n">&mdash;</td></tr></tfoot>
         </table>
       </div>
       <div class="prose">
-        <p>Three defects, in order of cost:</p>
-        <ol>
-          <li><b><code>srcset</code> offers exactly one width per image.</b> The <code>sizes</code> attribute is elaborate &mdash; <code>(min-width: 1200px) max(max((100vw - 192px) / 3, 1px), 100vw), &hellip;</code> &mdash; and entirely inert, because there is only one candidate to choose between. A phone downloads and decodes the identical 1086 &times; 1448 asset a desktop does.</li>
-          <li><b>They are PNG.</b> A 1.57 MP product screenshot as PNG is far heavier than the same image as WebP or AVIF. Lighthouse independently scores 351 KiB of savings on image delivery.</li>
-          <li><b>They are oversampled against their display size.</b> The <code>sizes</code> value implies a three-column layout &mdash; roughly a 360 px column at a 1200 px viewport &mdash; so a 1086 px-wide asset is about <b>3&times; wider than it is ever displayed</b>. Decode and texture upload happen at intrinsic size regardless of the CSS box, so that waste is paid in full.</li>
-        </ol>
+        <h3>Accessibility, 83 on both &mdash; and all of these were in the pre-launch audit</h3>
+        <ul>
+          <li><code>&lt;iframe&gt;</code> elements have no <code>title</code></li>
+          <li>Links have no discernible name &mdash; the logo and the social icons</li>
+          <li>Heading elements are not in sequentially-descending order</li>
+          <li><b><code>&lt;html&gt;</code> still has no <code>lang</code> attribute</b> &mdash; live HTML is <code>&lt;html dir="ltr"&gt;</code></li>
+          <li>No <code>main</code> landmark</li>
+          <li>Images missing <code>alt</code></li>
+          <li>ARIA attribute issues</li>
+        </ul>
+        <p>These are cheap to fix, they are WCAG Level A failures, and they have now survived two audits and a launch.</p>
+        <h3>A note on the runs themselves</h3>
+        <p>Three Chrome extensions appear in both traces, one contributing <b>1,951 KiB of JavaScript (1,865 KiB of it unused)</b> on mobile. That inflates the totals somewhat. Re-run in incognito with extensions disabled for a cleaner baseline &mdash; though it changes no conclusion here, since the video and the blur layers dominate regardless.</p>
       </div>
-      <div class="fix">
-        <span class="lbl">Fix</span>
-        <p>Give the images real <code>srcset</code> variants at 400 / 800 / 1200 px and serve WebP. Framer generates these automatically when an image is placed as a responsive image rather than a fixed asset &mdash; worth finding out why it did not here, since the elaborate-but-useless <code>sizes</code> attribute suggests the intent was there.</p>
-      </div>
-    </div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">G5</span>
-        <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Layer promotion</span>
-        <span class="chip chip-area">Confirmed live</span>
-      </div>
-      <h3 class="find-h">31 permanent <code>will-change</code> declarations</h3>
-      <div class="prose">
-        <p><code>transform</code> on 24 elements, <code>transform, opacity</code> on 3, <code>width</code> on 3, plus 4 set to <code>unset</code>. <code>will-change</code> is meant to be applied immediately before an animation and removed afterwards. Left on permanently, it pins a compositor layer and its texture for the entire life of the page &mdash; which is the opposite of the optimization it looks like.</p>
-      </div>
-    </div>
-
-    <div class="prose">
-      <h3>Confirm all of this yourself in two minutes</h3>
-      <p>In Chrome DevTools on the live site, before and after disabling the blur effect:</p>
-      <ul>
-        <li><b>Rendering</b> panel &rarr; enable <b>Layer borders</b>. Every border is a compositor layer; expect a great many over the animated headings.</li>
-        <li><b>Layers</b> panel &rarr; sort by memory. This gives the actual per-layer texture cost and names the worst offenders directly.</li>
-        <li><b>Performance</b> panel &rarr; record a scroll through the hero. Look for tall <i>Composite Layers</i> and <i>Paint</i> bands, and check the GPU track.</li>
-        <li><code>chrome://gpu</code> &rarr; watch the process memory figure while scrolling.</li>
-      </ul>
-      <p>That comparison is the cheapest way to prove where the load actually is, and it will give you real numbers where mine are arithmetic.</p>
     </div>
   </section>
 
-  <section id="f3">
-    <div class="sec-head"><h2>The compounding layer</h2><span class="lbl">4 findings</span></div>
+  <section id="indexing">
+    <div class="sec-head sec--p0"><h2>Indexing &mdash; is the sitemap new or stale?</h2><span class="lbl">You asked</span></div>
+    <div class="prose">
+      <p><b>It is the new one.</b> Not a leftover from the previous site.</p>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td><code>robots.txt</code></td><td class="vg">Allow: / with sitemap declared &mdash; correct</td></tr>
+          <tr><td>Sitemap URL count</td><td>49, all on <code>smrtsystems.com</code></td></tr>
+          <tr><td>Sitemap URL status</td><td class="vg">49 of 49 return 200</td></tr>
+          <tr><td>Structure</td><td>34 <code>/blogs/*</code>, 7 <code>/tech/*</code>, 3 <code>/smrt-marketing/*</code>, plus 5 top-level</td></tr>
+          <tr><td>Internal links vs sitemap</td><td class="vg">Consistent &mdash; all 7 <code>/tech/*</code> linked, no unexpected orphans</td></tr>
+          <tr><td><code>&lt;lastmod&gt;</code></td><td class="vw">Absent on every single entry</td></tr>
+          <tr><td>Old staging domain</td><td class="vg"><code>smrtwebsite.framer.website</code> now returns 404 &mdash; risk closed</td></tr>
+          <tr><td>Redirects from old URLs</td><td class="vb">None. Zero. See below.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="prose">
+      <p>Two pieces of good news. The staging domain is gone, which closes the duplicate-content and wrong-canonical P0 from the pre-launch audit &mdash; those URLs will drop out of the index on their own. And the sitemap matches the live site exactly, so there is nothing stale to clean up.</p>
+    </div>
 
-    <div class="find">
+    <div class="find find--p0">
       <div class="find-top">
-        <span class="find-n">R1</span>
-        <span class="chip chip-p2">Reference</span>
-        <span class="chip chip-area">WebGL</span>
-        <span class="chip chip-area">Not on live homepage</span>
+        <span class="find-n">SEO-1</span>
+        <span class="chip chip-p0">P0</span>
+        <span class="chip chip-area">Redirects</span>
+        <span class="chip chip-area">Confirmed live</span>
       </div>
-      <h3 class="find-h">Retained for reference: a WebGL layer that was in the staging build only</h3>
+      <h3 class="find-h">The relaunch shipped with no redirect map at all</h3>
+      <div class="prose">
+        <p class="claim">I probed 22 plausible old-site paths. Every single one returns a hard 404, with no <code>Location</code> header anywhere.</p>
+      </div>
       <div class="ev">
-        <span class="lbl">unicorn.studio, each loaded twice</span>
-<pre>173 KB  unicornStudio.umd.js       164 ms bootup, 55 ms long task
-248 KB  controls.umd.js            <em>177 KB unused (71%)</em>
-207 KB  blue_noise_med.png         requested twice</pre>
+        <span class="lbl">All 404, no redirects</span>
+<pre>/blog              /blog/{slug}       /pos            /point-of-sale
+/pricing           /about             /about-us       /features
+/products          /solutions         /demo           /request-a-demo
+/contact           /resources         /careers        /support
+/login             /tech              /smrt-marketing /testimonials-page
+/dry-cleaning-software                /nonexistent-control-xyz123</pre>
       </div>
       <div class="prose">
-        <p><b>None of this appears in the live homepage HTML</b> &mdash; zero references. It was in the staging build. Retained here in case it exists on other pages, and because it is the kind of thing that comes back.</p>
-        <p>These two libraries trigger <b>forced synchronous reflow from seven distinct call sites</b>. But WebGL is the memory concern: a context allocates GPU-side textures and framebuffers that never appear in JS heap measurements. A <code>blue_noise</code> texture indicates a shader-based dithered gradient running continuously.</p>
-        <p>The specific risk is remounting. If the effect&rsquo;s container re-renders &mdash; on a breakpoint change, a route transition, a scroll trigger &mdash; and the old context is not released via <code>loseContext()</code>, contexts accumulate. Browsers cap concurrent contexts around sixteen and then start discarding the oldest, which produces exactly the &ldquo;looks fine, then goes black or dies&rdquo; behavior.</p>
-        <p>That <code>controls.umd.js</code> is present at all is its own tell: it is the library&rsquo;s <b>authoring</b> control panel, 71% unused, and has no business on a published page.</p>
-      </div>
-      <div class="fix">
-        <span class="lbl">Fix</span>
-        <ol>
-          <li>Remove <code>controls.umd.js</code> &mdash; it is editor UI, not runtime.</li>
-          <li>Verify teardown: resize across the mobile breakpoint several times, then check the WebGL context count. If it climbs, the component needs an unmount handler calling <code>loseContext()</code>.</li>
-          <li>Deduplicate &mdash; all three assets load twice, again from breakpoint duplication.</li>
-          <li>Gate it behind <code>prefers-reduced-motion</code>, and consider skipping it on mobile entirely, where the RAM ceiling is lowest and the effect least visible.</li>
-          <li>Weigh it honestly: 630 KB, a permanent GPU allocation, and seven forced reflows for a decorative gradient. A static WebP costs nothing.</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">C1</span>
-        <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Fonts</span>
-        <span class="chip chip-area">Confirmed</span>
-      </div>
-      <h3 class="find-h">Eighty-five font requests, 3.16 MB</h3>
-      <figure>
-        <p class="fig-t">Font requests by family</p>
-        <p class="fig-s">85 requests &middot; 3.16 MB</p>
-        <div class="bars">
-          <div class="bar-row"><span class="bk">Geist</span><span class="bar-track"><span class="bar-fill" style="width:96.7%"></span></span><span class="bv">29</span></div>
-          <div class="bar-row"><span class="bk">Plus Jakarta Sans</span><span class="bar-track"><span class="bar-fill" style="width:53.3%"></span></span><span class="bv">16</span></div>
-          <div class="bar-row"><span class="bk">Fira Sans Ex. Cond.</span><span class="bar-track"><span class="bar-fill alt" style="width:13.3%"></span></span><span class="bv">4</span></div>
-          <div class="bar-row quiet"><span class="bk">Geist Mono</span><span class="bar-track"><span class="bar-fill" style="width:6.7%"></span></span><span class="bv">2</span></div>
-          <div class="bar-row quiet"><span class="bk">Inter</span><span class="bar-track"><span class="bar-fill" style="width:6.7%"></span></span><span class="bv">2</span></div>
-          <div class="bar-row quiet"><span class="bk">Space Grotesk</span><span class="bar-track"><span class="bar-fill" style="width:3.3%"></span></span><span class="bv">1</span></div>
-          <div class="bar-row quiet"><span class="bk">Instrument Sans</span><span class="bar-track"><span class="bar-fill" style="width:3.3%"></span></span><span class="bv">1</span></div>
-          <div class="bar-row quiet"><span class="bk">Editor font pickers</span><span class="bar-track"><span class="bar-fill dim" style="width:100%"></span></span><span class="bv">30</span></div>
-        </div>
-        <figcaption>Twenty-nine Geist requests is not a design decision anyone made &mdash; it is every weight and italic of a variable family being served as separate static files. Fira Sans Extra Condensed, in clay, is a fourth family at ~150 KB per file that no audited part of the design appears to use. The live HTML still references 51 font files.</figcaption>
-      </figure>
-      <div class="fix">
-        <span class="lbl">Fix</span>
-        <ol>
-          <li>Audit which families and weights the design actually uses. Expect the honest answer to be two families and three or four weights.</li>
-          <li>Remove Fira Sans Extra Condensed unless something specific needs it.</li>
-          <li>Use variable fonts &mdash; one file covers the whole weight range instead of twenty-nine.</li>
-          <li>Set <code>font-display: swap</code> and subset to Latin. Lighthouse scores 590 ms available here alone.</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">C2</span>
-        <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Main thread</span>
-        <span class="chip chip-area">Confirmed</span>
-      </div>
-      <h3 class="find-h">Framer Motion is the largest single main-thread cost, at 3,002 ms</h3>
-      <figure>
-        <p class="fig-t">Main-thread work by category</p>
-        <p class="fig-s">6.2 s total</p>
-        <div class="bars">
-          <div class="bar-row"><span class="bk">Other</span><span class="bar-track"><span class="bar-fill" style="width:100%"></span></span><span class="bv">3,105 ms</span></div>
-          <div class="bar-row"><span class="bk">Script evaluation</span><span class="bar-track"><span class="bar-fill" style="width:41%"></span></span><span class="bv">1,273 ms</span></div>
-          <div class="bar-row"><span class="bk">Style &amp; layout</span><span class="bar-track"><span class="bar-fill" style="width:27.5%"></span></span><span class="bv">853 ms</span></div>
-          <div class="bar-row quiet"><span class="bk">Rendering</span><span class="bar-track"><span class="bar-fill" style="width:16.8%"></span></span><span class="bv">522 ms</span></div>
-          <div class="bar-row quiet"><span class="bk">Parse &amp; compile</span><span class="bar-track"><span class="bar-fill" style="width:11.7%"></span></span><span class="bv">362 ms</span></div>
-          <div class="bar-row"><span class="bk">Garbage collection</span><span class="bar-track"><span class="bar-fill alt" style="width:1.1%"></span></span><span class="bv">36 ms</span></div>
-        </div>
-        <figcaption>The bottom bar, in clay, is the diagnostic one. Thirty-six milliseconds of garbage collection across 6.2 s of work is not an efficient heap &mdash; it is a heap with almost nothing collectable in it.</figcaption>
-      </figure>
-      <div class="prose">
-        <p><code>motion.C_WWXFrT.mjs</code> alone accounts for <b>3,002 ms</b> &mdash; more than the entire document&rsquo;s 1,425 ms &mdash; and appears twice in the forced-reflow table.</p>
-        <p>The likely amplifier is finding 19 of the pre-launch audit: heading text split into per-character spans for reveal animations. Every character becomes an animated node with its own transform and style recalculation. Across several headings, doubled for two breakpoints, that is thousands of animated nodes. It explains the 853 ms of style and layout, and it is a steady allocation load rather than a one-time cost.</p>
-      </div>
-      <div class="fix">
-        <span class="lbl">Fix</span>
-        <ol>
-          <li>Animate whole headings, not characters. A single opacity and transform on the heading gets most of the effect for a fraction of the cost &mdash; and it fixes the accessibility problem the pre-launch audit raised about screen readers reading split text one character at a time.</li>
-          <li>Animate only <code>transform</code> and <code>opacity</code>, which stay on the compositor and skip layout entirely.</li>
-          <li>Unmount reveal animations once they have played. A one-shot intro should not stay mounted and observed for the life of the page.</li>
-          <li>Honor <code>prefers-reduced-motion</code>.</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="find">
-      <div class="find-top">
-        <span class="find-n">C3</span>
-        <span class="chip chip-p1">P1</span>
-        <span class="chip chip-area">Structure</span>
-        <span class="chip chip-area">Raised from P2</span>
-      </div>
-      <h3 class="find-h">Breakpoint duplication multiplies every finding above it</h3>
-      <div class="prose">
-        <p>Already logged as finding 16 of the pre-launch audit at P2. <b>On this evidence it should be raised to P1.</b> It is not merely a DOM-size and duplicate-H1 issue &mdash; it is a multiplier on everything else in this report:</p>
+        <p>Every URL the old site had indexed that is not one of the new 49 is now a dead end, and its accumulated ranking equity is being discarded rather than passed forward. Two patterns in that list are near-misses, and so are the highest-probability old URLs:</p>
         <ul>
-          <li>the 24 MB video, fetched by two sets of elements</li>
-          <li>the WebGL effect, initialized twice, its assets fetched twice</li>
-          <li>every font file, requested twice</li>
-          <li>every animated character span, doubled</li>
-          <li>every one of the three unique images, present as six <code>&lt;img&gt;</code> tags</li>
-          <li>449 KB of live HTML where roughly 225 KB would do &mdash; the duplication survived launch</li>
+          <li><b><code>/blog/{slug}</code> &rarr; <code>/blogs/{slug}</code></b> &mdash; the new site pluralised the path. If the old site used <code>/blog/</code>, all 34 posts are currently 404ing for Google. This is the single most likely and most valuable redirect set.</li>
+          <li><b><code>/contact</code> &rarr; <code>/contact-us</code></b></li>
         </ul>
-        <p>Consolidating the header, hero, footer, and testimonial marquee into single responsive components is the highest-leverage structural change available, because it reduces four independent problems at once.</p>
+        <p>Also worth noting: <b><code>/tech</code> and <code>/smrt-marketing</code> themselves 404</b> even though they have children in the sitemap. Section index pages are natural breadcrumb and internal-link targets.</p>
+        <p>I could not enumerate the <i>actual</i> old URLs &mdash; this environment&rsquo;s egress policy blocks <code>web.archive.org</code>. <b>You can get the real list in ten minutes</b>, and you should before building the map.</p>
+      </div>
+      <div class="fix">
+        <span class="lbl">How to build the map properly</span>
+        <ol>
+          <li><b>Search Console &rarr; Indexing &rarr; Pages</b>, plus <b>Performance &rarr; Pages</b> filtered to the 16 months before cutover. That is the authoritative list of what Google had indexed and what was actually earning clicks.</li>
+          <li><b>Sort by impressions and redirect the top pages first.</b> A long tail of zero-traffic URLs can 404 without consequence; the top 20 cannot.</li>
+          <li><b>Point each old URL at its nearest relevant page, not the homepage.</b> Blanket homepage redirects get treated as soft 404s and pass nothing.</li>
+          <li><b>Resubmit the sitemap</b>, then watch Coverage for a 404 spike &mdash; that spike is your remaining redirect to-do list, arriving for free.</li>
+          <li><b>Add <code>&lt;lastmod&gt;</code></b> so Google has a recrawl signal. Framer should populate it from CMS timestamps.</li>
+          <li><b>Request indexing</b> for the homepage and the seven <code>/tech/*</code> pages to prime the crawl.</li>
+          <li>Two blog slugs still carry stale years &mdash; <code>seo-in-2025-…</code> and <code>decoding-local-seo-…-in-2024</code>. Decide now, since reslugging later means more redirects.</li>
+        </ol>
       </div>
     </div>
   </section>
 
   <section id="order">
-    <div class="sec-head"><h2>Fix order</h2><span class="lbl">Grouped by symptom</span></div>
-    <div class="prose">
-      <p>Steps 1 and 2 address the RAM crashes; 3 through 6 address the GPU load you saw in Task Manager; the rest is payload that every visitor pays. Step 1 is the only one that helps you in the next five minutes.</p>
-    </div>
+    <div class="sec-head"><h2>Fix order</h2><span class="lbl">By measured impact</span></div>
     <ol class="plan">
-      <li class="now"><b>Clear the local-storage flag</b> on affected machines. Stops your crashes today, changes nothing for anyone else.</li>
-      <li class="now"><b>Disable On-Page Editing</b> in Framer site settings. Removes the editor code path for everyone &mdash; the actual fix for the RAM problem.</li>
-      <li class="now"><b>Disable the blur on the text appear effect.</b> Removes roughly 750 GPU render passes per animated frame. Largest single GPU win.</li>
-      <li class="now"><b>Animate whole headings, not per character.</b> 252 animated layers down to about a dozen, and it fixes the split-text screen-reader problem at the same time.</li>
-      <li><b>Cut the 32 <code>backdrop-filter</code> blurs</b> to the one or two that genuinely need to read as glass.</li>
-      <li><b>Fix image delivery</b> &mdash; real <code>srcset</code> variants at 400/800/1200 px, WebP instead of PNG.</li>
-      <li><b>Re-encode both videos</b> &mdash; 38.6 MB to under 3 MB, and re-mux with <code>+faststart</code>.</li>
-      <li><b>Consolidate the hero to one video element</b>, then the header, footer, and marquee.</li>
-      <li>Cut the font set to the families and weights actually used; move to variable fonts.</li>
-      <li>Decide on the frameship licence script; add <code>lang="en"</code> to the document root.</li>
+      <li class="now"><b>Re-encode the hero video.</b> 28.90 MB to under 1.5 MB, <code>+faststart</code>, add a <code>poster</code>. Removes 90% of the payload, fixes 0.255 of desktop CLS, and should end the PageSpeed timeout.</li>
+      <li class="now"><b>Fix font loading</b> &mdash; <code>font-display: swap</code> plus metric overrides. Attacks the 0.562 CLS contributor and 430 ms.</li>
+      <li class="now"><b>Turn off the blur on the text appear effect.</b> Largest GPU win; large TBT win.</li>
+      <li class="now"><b>Build the redirect map</b> from Search Console. Every day without it leaks ranking equity.</li>
+      <li>Consolidate the hero to one video element, then the header, footer and marquee.</li>
+      <li>Remove <code>controls.umd.js</code>; decide whether the WebGL effect stays at all.</li>
+      <li>Animate whole headings, not per character.</li>
+      <li>Convert the three PNGs to WebP; remove the four unused <code>preconnect</code> hints.</li>
+      <li>Fix the seven accessibility failures &mdash; <code>lang="en"</code>, <code>alt</code> text, <code>aria-label</code> on logo and social icons, <code>&lt;iframe title&gt;</code>, heading order, <code>main</code> landmark.</li>
+      <li>Add <code>&lt;lastmod&gt;</code> to the sitemap and resubmit.</li>
+      <li>Cut the font set to what is actually used; move to variable fonts.</li>
+      <li><b>Close the editor path</b> &mdash; disable On-Page Editing in Framer settings. Now P2, since it does not escalate on live, but the bootstrap still ships and staging proved what happens when it fires.</li>
     </ol>
     <div class="prose">
-      <p><b>Expected result:</b> visitor payload from roughly 30 MB to 3&ndash;4 MB; requests from 1,090 to under 120; main-thread work from 6.2 s toward 2 s; GPU compositing from 252 animated blur layers to about a dozen plain ones; and a heap that settles instead of climbing.</p>
+      <p><b>Expected result:</b> desktop performance from 24 into the 70s; payload from 19 MB to 2&ndash;3 MB; desktop CLS from 0.817 under 0.1; mobile TBT from 3,940 ms toward the hundreds; and PageSpeed Insights completing instead of timing out.</p>
     </div>
   </section>
 
@@ -939,25 +839,24 @@ transform:translateX(Npx) translateY(Npx) scale(N) rotate(Ndeg) skewX(Ndeg) skew
     <div class="sec-head"><h2>Confirmed versus inferred</h2><span class="lbl">Read before acting</span></div>
     <div class="conf">
       <div>
-        <h3 class="ok">Measured directly</h3>
-        <p><b>From live production:</b> the local-storage gate and the <code>framer.com/edit/init.mjs</code> import with its SSR and bot guards; three <code>&lt;video&gt;</code> elements with two sharing one source; both files&rsquo; size, resolution, duration, absent audio track and <code>moov</code>-at-end layout; 252 inline blurs and 32 <code>backdrop-filter</code>s; 31 <code>will-change</code> declarations; 1,074 <code>framer-text</code> spans; six <code>&lt;img&gt;</code> tags over three 1.57 MP PNGs with single-width <code>srcset</code>; 449 KB of HTML; no <code>lang</code> attribute; zero <code>framer.link</code>; zero unicorn.studio.</p>
-        <p><b>From the staging trace:</b> all request counts, byte totals and timings; the three live documents; 282 <code>blob:</code> URLs; the 1.47 MB CRDT fetch; six range requests for one video; seven forced-reflow call sites; 36 ms of GC.</p>
+        <h3 class="ok">Measured</h3>
+        <p>All scores, metrics, payload figures, per-element CLS attributions, long-task counts, DOM statistics and per-asset sizes come from the two Lighthouse 13.4.0 runs. Video properties from production <code>Content-Length</code> and MP4 metadata. The 252 blurs, 32 <code>backdrop-filter</code>s, 31 <code>will-change</code>es, three <code>&lt;video&gt;</code> elements and missing <code>lang</code> from production HTML. <code>robots.txt</code>, all 49 sitemap URL statuses, the 22 probed 404s, the staging 404 and the internal-link comparison from live requests made today.</p>
       </div>
       <div>
-        <h3 class="maybe">Inferred &mdash; verify in a browser</h3>
-        <p>That blob URLs are never revoked. That the 252 blurred elements are the per-character text reveal &mdash; the style signature is strong evidence, but the Layers panel will confirm it. That clearing the local-storage flag suffices on its own, since an authenticated Framer session may re-set it (hence also signing out).</p>
-        <p>The render-pass and texture-memory figures are arithmetic from the declaration counts and how blur is standardly implemented, not measurements. DevTools will give you real numbers.</p>
+        <h3 class="maybe">Inferred &mdash; verify</h3>
+        <p>That the 252 blurred elements are the per-character text reveal &mdash; the style signature is strong evidence, but the Layers panel will confirm. That blur work is a large share of mobile TBT: plausible from the counts, not separately attributed by Lighthouse. Render-pass and texture figures are arithmetic, not measurements. <b>That <code>/blog/{slug}</code> was the old blog path</b> &mdash; a near-miss inference from the 404 probe, so verify in Search Console before building redirects on it.</p>
       </div>
       <div>
-        <h3 class="no">Not verified at all</h3>
-        <p>I could not run a live browser measurement. This environment&rsquo;s proxy refuses headless Chromium connections &mdash; it resets even on <code>example.com</code> &mdash; so there is no before/after heap figure, no layer-memory readout, and no GPU-process number from <code>smrtsystems.com</code> itself. Everything above is static analysis of the served HTML and JS plus the staging trace.</p>
+        <h3 class="no">Not established</h3>
+        <p>The cause of the RAM crashes specifically. The editor escalation I originally blamed does not reproduce on live, so while the 19 MB payload, the WebGL context and 10.5 s of main-thread work are all plausible contributors, I have no heap measurement from your machine and this environment&rsquo;s proxy blocks headless Chromium. <b>A DevTools Memory timeline with snapshots 30 s apart on an idle tab would settle it</b> &mdash; worth doing before and after step 1. If RAM still climbs on an idle tab once the video is fixed, something else is retaining memory and we should look again.</p>
+        <p>Also not checkable here: <code>web.archive.org</code> and <code>support.smrtsystems.com</code> are both egress-blocked, so there is no historical URL inventory and the support links are unverified &mdash; I am not claiming they are broken.</p>
       </div>
     </div>
   </section>
 
   <div class="foot">
-    <span>SMRT Systems &middot; live-site RAM and GPU diagnosis</span>
-    <span>Live HTML 2026-08-13 &middot; Lighthouse trace 2026-08-12</span>
+    <span>SMRT Systems &middot; live performance, memory and indexing diagnosis</span>
+    <span>Lighthouse 13.4.0 &middot; 2026-08-13</span>
   </div>
 
 </div>

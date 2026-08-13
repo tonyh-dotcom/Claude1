@@ -1,0 +1,2349 @@
+https://smrtsystems.com/
+Values are estimated and may vary. The performance score is calculated
+directly from these metrics. See calculator.
+0–49
+50–89
+90–100
+Performance
+24
+Accessibility
+83
+Best
+Practices
+77
+SEO
+100
+24
+Performance
+METRICS
+Expand view
+First Contentful Paint
+0.6 s
+Largest Contentful Paint
+3.2 s
+8/13/26, 11:35 AM
+about:blank
+about:blank
+1/53
+
+Show audits relevant to:
+All
+FCP
+LCP
+TBT
+CLS
+Total Blocking Time
+1,280 ms
+Cumulative Layout Shift
+0.817
+Speed Index
+2.1 s
+INSIGHTS
+Improve image delivery — Est savings of 188 KiB
+Reducing the download time of images can improve the perceived load time of the page and LCP. Learn more about
+optimizing image size FCP
+LCP
+Unscored
+Framer CDN Hosting 
+369.2 KiB
+187.7 KiB
+/images/xHNc5yzEx….png?
+width=1122&height=1402
+235.1 KiB
+141.3 KiB
+Increasing the image compression factor could improve this
+image's download size.
+141.3 KiB
+/images/K2AIthgGq….png?
+width=1086&height=1448
+134.1 KiB
+46.3 KiB
+Increasing the image compression factor could improve this
+image's download size.
+46.3 KiB
+img
+(framerusercontent.com)
+img
+(framerusercontent.com)
+URL
+Resource
+Size
+Est Savings
+8/13/26, 11:35 AM
+about:blank
+about:blank
+2/53
+
+Font display — Est savings of 430 ms
+Consider setting font-display to swap or optional to ensure text is consistently visible. swap can be further optimized to
+mitigate layout shifts with font metric overrides. FCP
+Unscored
+Layout shift culprits
+Layout shifts occur when elements move absent any user interaction. Investigate the causes of layout shifts, such as elements
+being added, removed, or their fonts changing as the page loads. CLS
+Unscored
+Forced reflow
+Google Fonts Cdn 
+…v6/or3yQ6H-1….woff2
+430 ms
+…v5/gyBjhwUxI….woff2
+340 ms
+unicorn.studio
+…google_fonts/JTUSjIg69….ttf
+70 ms
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(assets.unicorn.studio)
+Total
+0.817
+0.562
+0.255
+0.000
+…v5/gyBhhwUxI….woff2
+Web font
+div.framer-37j7oc
+video
+span.framer-text
+(fonts.gstatic.com)
+URL
+Est Savings
+Element
+Layout shift score
+8/13/26, 11:35 AM
+about:blank
+about:blank
+3/53
+
+A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been
+invalidated by a change to the DOM state. This can result in poor performance. Learn more about forced reflows and
+possible mitigations. Unscored
+LCP request discovery
+Optimize LCP by making the LCP image discoverable from the HTML immediately, and avoiding lazy-loading LCP
+Unscored
+fetchpriority=high should be applied
+Request is discoverable in initial document
+LCP resources should not use loading=lazy
+Network dependency tree
+Warnings: More than 4 `preconnect` connections were found. These should be used sparingly and only to the most
+important origins.
+Avoid chaining critical requests by reducing the length of chains, reducing the download size of resources, or deferring the
+about:srcdoc:170
+11 ms
+[unattributed]
+26 ms
+js?id=GT-NC6ZPCZ:931
+0 ms
+about:srcdoc:170
+11 ms
+about:srcdoc:338
+11 ms
+motion.CtNTFlgw.mjs:9
+1 ms
+lOle_4BbPxdyt5tX67V4…Gw.8o48X--o.mjs:633
+0 ms
+lOle_4BbPxdyt5tX67V4…Gw.8o48X--o.mjs:633
+0 ms
+video
+Top function call
+Total reflow time
+Source
+Total reflow time
+8/13/26, 11:35 AM
+about:blank
+about:blank
+4/53
+
+download of unnecessary resources to improve page load. LCP
+Unscored
+Maximum critical path latency: 3,444 ms
+Initial Navigation
+https://smrtsystems.com - 401 ms, 47.56 KiB
+…google_fonts/JTUSjIg69….ttf
+ - 3,444 ms, 56.90 KiB
+…v5/gyBjhwUxI….woff2
+ - 1,020 ms, 34.71 KiB
+…v6/or3yQ6H-1….woff2
+ - 997 ms, 34.05 KiB
+…v5/gyBhhwUxI….woff2
+ - 988 ms, 33.43 KiB
+…v5/gyBhhwUxI….woff2
+ - 952 ms, 33.35 KiB
+…v5/gyBjhwUxI….woff2
+ - 902 ms, 34.31 KiB
+/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap
+ - 719 ms, 0.61 KiB
+…v22/V8mDoQDjQ….woff2
+ - 893 ms, 21.83 KiB
+…v5/gyBhhwUxI….woff2
+ - 860 ms, 32.58 KiB
+…v5/gyBhhwUxI….woff2
+ - 823 ms, 33.39 KiB
+/assets/GrgcKwrN6….woff2
+ - 822 ms, 27.34 KiB
+/assets/syRNPWzAM….woff2
+ - 821 ms, 27.81 KiB
+…v22/V8mQoQDjQ….woff2
+ - 718 ms, 13.06 KiB
+/css2?family=Geist:wght@400;500;600;700;800&display=swap
+ - 716 ms, 0.00 KiB
+/css2?family=Geist:wght@400;500;600;700;800&display=swap
+ - 715 ms, 1.12 KiB
+Preconnected origins
+preconnect hints help the browser establish a connection earlier in the page load, saving time when the first
+request for that origin is made. The following are the origins that the page preconnected to.
+(assets.unicorn.studio)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.googleapis.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(fonts.gstatic.com)
+(fonts.googleapis.com)
+(fonts.googleapis.com)
+https://fonts.gstatic.com/
+https://fonts.gstatic.com/
+Unused preconnect. Only use `preconnect` for
+origins that the page is likely to request.
+Unused preconnect. Only use `preconnect` for
+origins that the page is likely to request.
+link
+link
+link
+link
+Origin
+Source
+8/13/26, 11:35 AM
+about:blank
+about:blank
+5/53
+
+Preconnect candidates
+Add preconnect hints to your most important origins, but try to use no more than 4.
+Use efficient cache lifetimes — Est savings of 72 KiB
+A long cache lifetime can speed up repeat visits to your page. Learn more about caching. FCP
+LCP
+Unscored
+https://framerusercontent.com
+<https://framerusercontent.com>;
+rel="preconnect"
+https://framerusercontent.com
+<https://framerusercontent.com>;
+rel="preconnect"; crossorigin=""
+https://googleads.g.doubleclick.net
+270 ms
+https://app.framerstatic.com
+230 ms
+https://framer.com
+230 ms
+https://cdn.jsdelivr.net
+110 ms
+unicorn.studio
+67 KiB
+/controls/controls.umd.js
+1h
+67 KiB
+Framer CDN Hosting 
+15 KiB
+/script?v=2
+5m
+8 KiB
+/edit/init.mjs
+5m
+4 KiB
+/bootstrap.74b9e1d….js
+1h
+1 KiB
+…phosphor-icons/ArrowRight.js@0.0.57
+1h
+1 KiB
+…hZzGgUtf1…/ArrowRight.js
+7d
+1 KiB
+workers.dev
+6 KiB
+(assets.unicorn.studio)
+(events.framer.com)
+(framer.com)
+(framer.com)
+(framer.com)
+(framerusercontent.com)
+Origin
+Source
+Origin
+Est LCP savings
+Request
+Cache TTL
+Transfer
+Size
+8/13/26, 11:35 AM
+about:blank
+about:blank
+6/53
+
+Optimize DOM size
+A large DOM can increase the duration of style calculations and layout reflows, impacting page responsiveness. A large DOM
+will also increase memory usage. Learn how to avoid an excessive DOM size. Unscored
+LCP breakdown
+Each subpart has specific improvement strategies. Ideally, most of the LCP time should be spent on loading the resources,
+not within delays. LCP
+Unscored
+…js/licence-management.js
+1h
+6 KiB
+(frameship-backend.account-ba7.workers.dev)
+Total
+elements
+1,207
+DOM depth
+20
+Most
+children
+The late nights, missed dinners, weekends at the store, and family celebrations…
+<p class="framer-text framer-styles-preset-pw4y1b" data-styles-preset="phO_22THl" dir="auto"
+style="--framer-text-alignment: left; --framer-text-color: var(--token-67d981e7-2754…;">
+32
+a.framer-text.framer-styles-preset-6mqvbf
+Time to first byte
+100 ms
+Resource load delay
+1,200 ms
+Resource load duration
+80 ms
+Element render delay
+250 ms
+video
+Request
+Cache TTL
+Transfer
+Size
+Statistic
+Element
+Value
+Subpart
+Duration
+8/13/26, 11:35 AM
+about:blank
+about:blank
+7/53
+
+3rd parties
+3rd party code can significantly impact load performance. Reduce and defer loading of 3rd party code to prioritize your
+page's content. Unscored
+framerusercontent.com
+943 KiB
+273 ms
+…6yKtdzE0A…/react.BpKPsBQp.mjs
+45 KiB
+186 ms
+…6yKtdzE0A…/motion.CtNTFlgw.mjs
+49 KiB
+58 ms
+…6yKtdzE0A…/lOle_4BbP….8o48X--o.mjs
+42 KiB
+27 ms
+…6yKtdzE0A…/framer.D0-v1jVu.mjs
+128 KiB
+1 ms
+…6yKtdzE0A…/shared-lib.DSscRRjK.mjs
+49 KiB
+1 ms
+…6yKtdzE0A…/Embed.B3Os5XUD.mjs
+3 KiB
+0 ms
+…6yKtdzE0A…/script_main.C0_bSJCc.mjs
+5 KiB
+0 ms
+/images/xHNc5yzEx….png?width=1122&height=1402
+236 KiB
+0 ms
+/images/K2AIthgGq….png?width=1086&height=1448
+135 KiB
+0 ms
+/assets/wn1Qnn9RV….mp4
+94 KiB
+0 ms
+/images/uRIbeeWIT….png?width=1086&height=1448
+85 KiB
+0 ms
+/assets/syRNPWzAM….woff2
+28 KiB
+0 ms
+/assets/GrgcKwrN6….woff2
+27 KiB
+0 ms
+…6yKtdzE0A…/gadZCGjvR.Dt5ECa20.mjs
+3 KiB
+0 ms
+/images/eVv3JgnBO….svg?width=1440&height=1312
+3 KiB
+0 ms
+/images/YHFfnBAlk….svg
+2 KiB
+0 ms
+…6yKtdzE0A…/TE6N6Ammm.ldxBYzVT.mjs
+2 KiB
+0 ms
+…6yKtdzE0A…/SP_Q9J9oR….C04hJATj.mjs
+2 KiB
+0 ms
+…6yKtdzE0A…/BH8xTBWNl.nJJCqpeG.mjs
+1 KiB
+0 ms
+…6yKtdzE0A…/T5aYr5e_s.DDRsBt6Y.mjs
+1 KiB
+0 ms
+…hZzGgUtf1…/ArrowRight.js
+1 KiB
+0 ms
+…6yKtdzE0A…/rolldown-runtime.Dh6celcD.mjs
+1 KiB
+0 ms
+ioalpmibngobedobkmbhgmadaphocjdn
+0 KiB
+200 ms
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+3rd party
+Transfer
+size
+Main thread
+time
+8/13/26, 11:35 AM
+about:blank
+about:blank
+8/53
+
+chrome-extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedMethodUS.js
+0 KiB
+166 ms
+chrome-extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedMethodEU.js
+0 KiB
+29 ms
+chrome-extension://ioalpmibngobedobkmbhgmadaphocjdn/contentAll.js
+0 KiB
+5 ms
+Google Tag Manager Tag-Manager 
+191 KiB
+124 ms
+/gtag/js?id=GT-NC6ZPCZ
+191 KiB
+124 ms
+unicorn.studio
+331 KiB
+11 ms
+/controls/controls.umd.js
+67 KiB
+11 ms
+/media/blue_noise_med.png
+207 KiB
+0 ms
+…google_fonts/JTUSjIg69….ttf
+57 KiB
+0 ms
+JSDelivr CDN Cdn 
+47 KiB
+10 ms
+…dist/unicornStudio.umd.js
+47 KiB
+10 ms
+fdgfkebogiimcoedlicjlajpkdmockpc
+0 KiB
+4 ms
+chrome-extension://fdgfkebogiimcoedlicjlajpkdmockpc/content/index.iife.js
+0 KiB
+4 ms
+framer.com
+13 KiB
+3 ms
+/script?v=2
+8 KiB
+2 ms
+/edit/init.mjs
+4 KiB
+0 ms
+…phosphor-icons/ArrowRight.js@0.0.57
+1 KiB
+0 ms
+/anonymous
+0 KiB
+0 ms
+fcoeoabgfenejglbffodgkkbkcdhcgfn
+0 KiB
+2 ms
+chrome-extension://fcoeoabgfenejglbffodgkkbkcdhcgfn/assets/agent-visual-
+indicator.js-CwioqiOd.js
+0 KiB
+2 ms
+chrome-extension://fcoeoabgfenejglbffodgkkbkcdhcgfn/assets/accessibility-tree.js-B-
+oUarrX.js
+0 KiB
+1 ms
+workers.dev
+6 KiB
+2 ms
+…js/licence-management.js
+6 KiB
+2 ms
+Google/Doubleclick Ads Ad 
+3 KiB
+1 ms
+…viewthrou…/111…?random=…
+3 KiB
+1 ms
+Google Fonts Cdn 
+282 KiB
+0 ms
+…v5/gyBjhwUxI….woff2
+35 KiB
+0 ms
+(www.googletagmanager.com)
+(assets.unicorn.studio)
+(assets.unicorn.studio)
+(assets.unicorn.studio)
+(cdn.jsdelivr.net)
+(events.framer.com)
+(framer.com)
+(framer.com)
+(events.framer.com)
+(frameship-backend.account-ba7.workers.dev)
+(googleads.g.doubleclick.net)
+(fonts.gstatic.com)
+3rd party
+Transfer
+size
+Main thread
+time
+8/13/26, 11:35 AM
+about:blank
+about:blank
+9/53
+
+These insights are also available in the Chrome DevTools Performance Panel - record a trace to view more detailed information.
+…v5/gyBjhwUxI….woff2
+34 KiB
+0 ms
+…v6/or3yQ6H-1….woff2
+34 KiB
+0 ms
+…v5/gyBhhwUxI….woff2
+33 KiB
+0 ms
+…v5/gyBhhwUxI….woff2
+33 KiB
+0 ms
+…v5/gyBhhwUxI….woff2
+33 KiB
+0 ms
+…v5/gyBhhwUxI….woff2
+33 KiB
+0 ms
+…v22/V8mDoQDjQ….woff2
+22 KiB
+0 ms
+…v22/V8mQoQDjQ….woff2
+13 KiB
+0 ms
+/css2?family=Geist:wght@400;500;600;700;800&display=swap
+10 KiB
+0 ms
+/css2?family=…
+1 KiB
+0 ms
+/css2?
+family=Space+Grotesk:wght@400;500;600;700&display=swap
+1 KiB
+0 ms
+Other Google APIs/SDKs Utility 
+43 KiB
+0 ms
+…embeds/8bgvnIMYF…?v=178…
+43 KiB
+0 ms
+…1p-user-list/111…?random=…
+0 KiB
+0 ms
+/ccm/collect?rcb=…
+0 KiB
+0 ms
+…collect/111…?random=…
+0 KiB
+0 ms
+framerstatic.com
+3 KiB
+0 ms
+/chunk-GL6GZPCT.mjs
+3 KiB
+0 ms
+Google Analytics Analytics 
+1 KiB
+0 ms
+/g/collect?v=…
+1 KiB
+0 ms
+/g/collect?v=…
+0 KiB
+0 ms
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.gstatic.com)
+(fonts.googleapis.com)
+(fonts.googleapis.com)
+(fonts.googleapis.com)
+(storage.googleapis.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(app.framerstatic.com)
+(analytics.google.com)
+(analytics.google.com)
+DIAGNOSTICS
+Minimize main-thread work — 3.3 s
+Consider reducing the time spent parsing, compiling and executing JS. You may find delivering smaller JS payloads helps
+3rd party
+Transfer
+size
+Main thread
+time
+8/13/26, 11:35 AM
+about:blank
+about:blank
+10/53
+
+ Show 3rd-party resources (5)
+with this. Learn how to minimize main-thread work TBT
+Unscored
+Reduce unused JavaScript — Est savings of 2,088 KiB
+Reduce unused JavaScript and defer loading scripts until they are required to decrease bytes consumed by network activity.
+Learn how to reduce unused JavaScript. FCP
+LCP
+Unscored
+Other
+1,794 ms
+Script Evaluation
+760 ms
+Style & Layout
+293 ms
+Script Parsing & Compilation
+221 ms
+Rendering
+213 ms
+Parse HTML & CSS
+48 ms
+Garbage Collection
+17 ms
+Unattributable
+1,951.1 KiB
+1,864.8 KiB
+chrome-extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedMethodUS.js
+1,630.2 KiB
+1,554.1 KiB
+chrome-extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedMethodEU.js
+320.9 KiB
+310.7 KiB
+Framer CDN Hosting 
+175.7 KiB
+100.3 KiB
+…6yKtdzE0A…/framer.D0-v1jVu.mjs
+127.6 KiB
+73.8 KiB
+…
+112.9 KiB
+70.8 KiB
+…6yKtdzE0A…/motion.CtNTFlgw.mjs
+48.1 KiB
+26.5 KiB
+…chunk-B2CCIJNA.mjs
+46.7 KiB
+26.0 KiB
+Google Tag Manager Tag-Manager 
+187.7 KiB
+57.8 KiB
+(framerusercontent.com)
+(framerusercontent.com)
+Category
+Time Spent
+URL
+Transfer Size
+Est Savings
+8/13/26, 11:35 AM
+about:blank
+about:blank
+11/53
+
+Page prevented back/forward cache restoration — 1 failure reason
+Many navigations are performed by going back to a previous page, or forwards again. The back/forward cache (bfcache) can
+speed up these return navigations. Learn more about the bfcache Unscored
+Avoid enormous network payloads — Total size was 19,168 KiB
+Large network payloads cost users real money and are highly correlated with long load times. Learn how to reduce payload
+sizes. Unscored
+/gtag/js?id=GT-NC6ZPCZ
+187.7 KiB
+57.8 KiB
+unicorn.studio
+61.6 KiB
+44.0 KiB
+/controls/controls.umd.js
+61.6 KiB
+44.0 KiB
+JSDelivr CDN Cdn 
+36.2 KiB
+21.5 KiB
+…dist/unicornStudio.umd.js
+36.2 KiB
+21.5 KiB
+(www.googletagmanager.com)
+(assets.unicorn.studio)
+(cdn.jsdelivr.net)
+Internal error.
+Not actionable
+https://smrtsystems.com
+Framer CDN Hosting 
+17,948.1 KiB
+/assets/wn1Qnn9RV….mp4
+17,313.9 KiB
+/images/xHNc5yzEx….png?width=1122&height=1402
+235.9 KiB
+/images/K2AIthgGq….png?width=1086&height=1448
+135.2 KiB
+…6yKtdzE0A…/framer.D0-v1jVu.mjs
+128.2 KiB
+/images/uRIbeeWIT….png?width=1086&height=1448
+85.5 KiB
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+URL
+Transfer Size
+Est Savings
+Failure reason
+Failure type
+URL
+Transfer Size
+8/13/26, 11:35 AM
+about:blank
+about:blank
+12/53
+
+ Show 3rd-party resources (2)
+Avoid long main-thread tasks — 6 long tasks found
+Lists the longest tasks on the main thread, useful for identifying worst contributors to input delay. Learn how to avoid long
+main-thread tasks TBT
+Unscored
+…6yKtdzE0A…/shared-lib.DSscRRjK.mjs
+49.5 KiB
+unicorn.studio
+331.3 KiB
+/media/blue_noise_med.png
+206.9 KiB
+/controls/controls.umd.js
+67.5 KiB
+…google_fonts/JTUSjIg69….ttf
+56.9 KiB
+Google Tag Manager Tag-Manager 
+190.5 KiB
+/gtag/js?id=GT-NC6ZPCZ
+190.5 KiB
+(framerusercontent.com)
+(assets.unicorn.studio)
+(assets.unicorn.studio)
+(assets.unicorn.studio)
+(www.googletagmanager.com)
+Unattributable
+1,205 ms
+Unattributable
+922 ms
+1,205 ms
+smrtsystems.com 1st Party
+362 ms
+https://smrtsystems.com
+463 ms
+224 ms
+https://smrtsystems.com
+701 ms
+71 ms
+https://smrtsystems.com
+841 ms
+67 ms
+JSDelivr CDN Cdn 
+109 ms
+…dist/unicornStudio.umd.js
+3,019 ms
+109 ms
+Google Tag Manager Tag-Manager 
+82 ms
+(cdn.jsdelivr.net)
+URL
+Transfer Size
+URL
+Start Time
+Duration
+8/13/26, 11:35 AM
+about:blank
+about:blank
+13/53
+
+User Timing marks and measures — 34 user timings
+Consider instrumenting your app with the User Timing API to measure your app's real-world performance during key user
+experiences. Learn more about User Timing marks. Unscored
+/gtag/js?id=GT-NC6ZPCZ
+2,164 ms
+82 ms
+(www.googletagmanager.com)
+framer-appear
+Measure
+593.53 ms
+3.89 ms
+framer-rewrite-breakpoints
+Measure
+981.83 ms
+5.10 ms
+framer-hydration-render
+Measure
+987.29 ms
+114.64 ms
+framer-hydration-time-to-first-paint
+Measure
+987.29 ms
+175.16 ms
+framer-hydration-insertion-effects
+Measure
+1,102.07 ms
+0.94 ms
+framer-hydration-layout-effects
+Measure
+1,103.13 ms
+15.66 ms
+framer-hydration-commit
+Measure
+1,118.79 ms
+0.41 ms
+framer-hydration-effects
+Measure
+1,119.20 ms
+2.46 ms
+framer-hydration-uho
+Measure
+1,121.66 ms
+13.86 ms
+framer-hydration-raf
+Measure
+1,135.52 ms
+1.74 ms
+framer-hydration-browser-render
+Measure
+1,137.26 ms
+25.20 ms
+framer-appear-start
+Mark
+593.53 ms
+framer-appear-end
+Mark
+597.42 ms
+framer-rewrite-breakpoints-start
+Mark
+981.83 ms
+framer-rewrite-breakpoints-end
+Mark
+986.93 ms
+framer-hydration-start
+Mark
+987.29 ms
+URL
+Start Time
+Duration
+Name
+Type
+Start Time
+Duration
+8/13/26, 11:35 AM
+about:blank
+about:blank
+14/53
+
+Avoid non-composited animations — 54 animated elements found
+Animations which are not composited can be janky and increase CLS. Learn how to avoid non-composited animations CLS
+Unscored
+framer-react-event-handling-start
+Mark
+987.34 ms
+framer-hydration-router-insertion-effect
+Mark
+1,017.12 ms
+framer-hydration-router-layout-effect
+Mark
+1,017.97 ms
+framer-history-set-initial-state
+Mark
+1,018.01 ms
+framer-history-replace
+Mark
+1,018.08 ms
+framer-hydration-router-effect
+Mark
+1,019.06 ms
+framer-hydration-render-end
+Mark
+1,101.93 ms
+framer-hydration-insertion-effects-start
+Mark
+1,102.07 ms
+framer-hydration-insertion-effects-end
+Mark
+1,103.01 ms
+framer-hydration-layout-effects-start
+Mark
+1,103.13 ms
+framer-hydration-layout-effects-end
+Mark
+1,118.79 ms
+framer-hydration-effects-start
+Mark
+1,119.20 ms
+framer-hydration-effects-sync
+Mark
+1,119.25 ms
+framer-react-event-handling-end
+Mark
+1,121.61 ms
+framer-hydration-effects-end
+Mark
+1,121.66 ms
+framer-hydration-browser-render-start
+Mark
+1,135.52 ms
+framer-hydration-browser-raf-end
+Mark
+1,137.26 ms
+framer-hydration-first-paint
+Mark
+1,162.45 ms
+Name
+Type
+Start Time
+Duration
+8/13/26, 11:35 AM
+about:blank
+about:blank
+15/53
+
+Target has another animation which is incompatible
+Target has another animation which is incompatible
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+div.framer-1m60j44-container
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+16/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+17/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+18/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+19/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+20/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+21/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+22/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+23/53
+
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+Filter-related property may move pixels
+span
+span
+span
+span
+span
+span
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+24/53
+
+More information about the performance of your application. These numbers don't directly affect the Performance score.
+Filter-related property may move pixels
+PASSED AUDITS (12)
+Hide
+Document request latency
+Your first network request is the most important. Reduce its latency by avoiding redirects, ensuring a fast server response,
+and enabling text compression. FCP
+LCP
+Unscored
+Avoids redirects
+Server responds quickly (observed 27 ms)
+Applies text compression
+Duplicated JavaScript
+Remove large, duplicate JavaScript modules from bundles to reduce unnecessary bytes consumed by network activity. FCP
+LCP
+Unscored
+INP breakdown
+Start investigating how to improve INP by looking at the longest subpart. Unscored
+Legacy JavaScript
+Polyfills and transforms enable older browsers to use new JavaScript features. However, many aren't necessary for modern
+browsers. Consider modifying your JavaScript build process to not transpile Baseline features, unless you know you must
+support older browsers. Learn why most sites can deploy ES6+ code without transpiling FCP
+LCP
+Unscored
+Modern HTTP
+HTTP/2 and HTTP/3 offer many benefits over HTTP/1.1, such as multiplexing. Learn more about using modern HTTP. FCP
+LCP
+Unscored
+Render-blocking requests
+Requests are blocking the page's initial render, which may delay LCP. Deferring or inlining can move these network requests
+out of the critical path. FCP
+LCP
+Unscored
+Element
+8/13/26, 11:35 AM
+about:blank
+about:blank
+25/53
+
+ Show 3rd-party resources (4)
+Optimize viewport for mobile
+Tap interactions may be delayed by up to 300 ms if the viewport is not optimized for mobile. Unscored
+Minify CSS
+Minifying CSS files can reduce network payload sizes. Learn how to minify CSS. FCP
+LCP
+Unscored
+Minify JavaScript
+Minifying JavaScript files can reduce payload sizes and script parse time. Learn how to minify JavaScript. FCP
+LCP
+Unscored
+Reduce unused CSS
+Reduce unused rules from stylesheets and defer CSS not used for above-the-fold content to decrease bytes consumed by
+network activity. Learn how to reduce unused CSS. FCP
+LCP
+Unscored
+JavaScript execution time — 0.9 s
+Consider reducing the time spent parsing, compiling, and executing JS. You may find delivering smaller JS payloads helps
+with this. Learn how to reduce Javascript execution time. TBT
+Unscored
+meta
+Unattributable
+1,572 ms
+49 ms
+2 ms
+Unattributable
+1,498 ms
+41 ms
+0 ms
+about:srcdoc
+74 ms
+8 ms
+2 ms
+smrtsystems.com 1st Party
+716 ms
+32 ms
+193 ms
+https://smrtsystems.com
+716 ms
+32 ms
+193 ms
+Framer CDN Hosting 
+574 ms
+270 ms
+0 ms
+URL
+Total CPU
+Time
+Script Evaluation
+Script Parse
+8/13/26, 11:35 AM
+about:blank
+about:blank
+26/53
+
+These checks highlight opportunities to improve the accessibility of your
+web app. Automatic detection can only detect a subset of issues and does
+not guarantee the accessibility of your web app, so manual testing is also
+encouraged.
+Image elements have explicit width and height
+Set an explicit width and height on image elements to reduce layout shifts and improve CLS. Learn how to set image
+dimensions CLS
+Unscored
+…6yKtdzE0A…/motion.CtNTFlgw.mjs
+357 ms
+72 ms
+0 ms
+…6yKtdzE0A…/react.BpKPsBQp.mjs
+217 ms
+198 ms
+0 ms
+JSDelivr CDN Cdn 
+235 ms
+220 ms
+3 ms
+…dist/unicornStudio.umd.js
+235 ms
+220 ms
+3 ms
+Google Tag Manager Tag-Manager 
+126 ms
+113 ms
+12 ms
+/gtag/js?id=GT-NC6ZPCZ
+126 ms
+113 ms
+12 ms
+(framerusercontent.com)
+(framerusercontent.com)
+(cdn.jsdelivr.net)
+(www.googletagmanager.com)
+Accessibility
+83
+NAMES AND LABELS
+<frame> or <iframe> elements do not have a title
+Screen reader users rely on frame titles to describe the contents of frames. Learn more about frame titles.
+iframe
+URL
+Total CPU
+Time
+Script Evaluation
+Script Parse
+Failing Elements
+8/13/26, 11:35 AM
+about:blank
+about:blank
+27/53
+
+Links do not have a discernible name
+Link text (and alternate text for images, when used as links) that is discernible, unique, and focusable improves the
+navigation experience for screen reader users. Learn how to make links accessible.
+a.framer-octla5.framer-o98a1v
+a.framer-a5iYa.framer-166p7pu.framer-v-1cnlqr6.framer-15kljrx
+a.framer-a5iYa.framer-166p7pu.framer-v-166p7pu.framer-15kljrx
+a.framer-a5iYa.framer-166p7pu.framer-v-1qm1fhv.framer-15kljrx
+a.framer-a5iYa.framer-166p7pu.framer-v-vvj28o.framer-15kljrx
+Failing Elements
+Failing Elements
+8/13/26, 11:35 AM
+about:blank
+about:blank
+28/53
+
+These are opportunities to improve the semantics of the controls in your application. This may enhance the experience for users of
+assistive technology, like a screen reader.
+INTERNATIONALIZATION AND LOCALIZATION
+<html> element does not have a [lang] attribute
+If a page doesn't specify a lang attribute, a screen reader assumes that the page is in the default language that the user
+chose when setting up the screen reader. If the page isn't actually in the default language, then the screen reader might not
+announce the page's text correctly. Learn more about the lang attribute.
+These are opportunities to improve the interpretation of your content by users in different locales.
+html
+NAVIGATION
+Heading elements are not in a sequentially-descending order
+Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate
+and understand when using assistive technologies. Learn more about heading order.
+h3.framer-text
+h5.framer-text
+h5.framer-text
+Failing Elements
+Failing Elements
+8/13/26, 11:35 AM
+about:blank
+about:blank
+29/53
+
+These are opportunities to improve keyboard navigation in your application.
+BEST PRACTICES
+Document does not have a main landmark.
+One main landmark helps screen reader users navigate a web page. Learn more about landmarks.
+These items highlight common accessibility best practices.
+html
+AUDIO AND VIDEO
+<video> elements contain a <track> element with [kind="captions"]
+When a video provides a caption it is easier for deaf and hearing impaired users to access its information. Learn more about
+video captions. Unscored
+These are opportunities to provide alternative content for audio and video. This may improve the experience for users with hearing
+or vision impairments.
+video
+Failing Elements
+Failing Elements
+Failing Elements
+8/13/26, 11:35 AM
+about:blank
+about:blank
+30/53
+
+ADDITIONAL ITEMS TO MANUALLY CHECK (10)
+Hide
+Interactive controls are keyboard focusable
+Custom interactive controls are keyboard focusable and display a focus indicator. Learn how to make custom controls
+focusable. Unscored
+Interactive elements indicate their purpose and state
+Interactive elements, such as links and buttons, should indicate their state and be distinguishable from non-interactive
+elements. Learn how to decorate interactive elements with affordance hints. Unscored
+The page has a logical tab order
+Tabbing through the page follows the visual layout. Users cannot focus elements that are offscreen. Learn more about logical
+tab ordering. Unscored
+Visual order on the page follows DOM order
+DOM order matches the visual order, improving navigation for assistive technology. Learn more about DOM and visual
+ordering. Unscored
+User focus is not accidentally trapped in a region
+A user can tab into and out of any control or region without accidentally trapping their focus. Learn how to avoid focus
+traps. Unscored
+The user's focus is directed to new content added to the page
+If new content, such as a dialog, is added to the page, the user's focus is directed to it. Learn how to direct focus to new
+content. Unscored
+HTML5 landmark elements are used to improve navigation
+Landmark elements (<main>, <nav>, etc.) are used to improve the keyboard navigation of the page for assistive technology.
+Learn more about landmark elements. Unscored
+Offscreen content is hidden from assistive technology
+Offscreen content is hidden with display: none or aria-hidden=true. Learn how to properly hide offscreen content. Unscored
+8/13/26, 11:35 AM
+about:blank
+about:blank
+31/53
+
+Custom controls have associated labels
+Custom interactive controls have associated labels, provided by aria-label or aria-labelledby. Learn more about custom
+controls and labels. Unscored
+Custom controls have ARIA roles
+Custom interactive controls have appropriate ARIA roles. Learn how to add roles to custom controls. Unscored
+These items address areas which an automated testing tool cannot cover. Learn more in our guide on conducting an accessibility
+review.
+PASSED AUDITS (17)
+Hide
+[aria-*] attributes match their roles
+Each ARIA role supports a specific subset of aria-* attributes. Mismatching these invalidates the aria-* attributes. Learn
+how to match ARIA attributes to their roles.
+[aria-hidden="true"] is not present on the document <body>
+Assistive technologies, like screen readers, work inconsistently when aria-hidden="true" is set on the document <body>.
+Learn how aria-hidden affects the document body.
+[role]s have all required [aria-*] attributes
+Some ARIA roles have required attributes that describe the state of the element to screen readers. Learn more about roles
+and required attributes.
+[role] values are valid
+ARIA roles must have valid values in order to perform their intended accessibility functions. Learn more about valid ARIA
+roles.
+[aria-*] attributes have valid values
+Assistive technologies, like screen readers, can't interpret ARIA attributes with invalid values. Learn more about valid values
+for ARIA attributes.
+[aria-*] attributes are valid and not misspelled
+8/13/26, 11:35 AM
+about:blank
+about:blank
+32/53
+
+Assistive technologies, like screen readers, can't interpret ARIA attributes with invalid names. Learn more about valid ARIA
+attributes.
+Image elements have [alt] attributes
+Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt
+attribute. Learn more about the alt attribute.
+[user-scalable="no"] is not used in the <meta name="viewport"> element and the [maximum-scale] attribute is not less
+than 5.
+Disabling zooming is problematic for users with low vision who rely on screen magnification to properly see the contents of
+a web page. Learn more about the viewport meta tag.
+ARIA attributes are used as specified for the element's role
+Some ARIA attributes are only allowed on an element under certain conditions. Learn more about conditional ARIA
+attributes.
+[aria-hidden="true"] elements do not contain focusable descendents
+Focusable descendents within an [aria-hidden="true"] element prevent those interactive elements from being available
+to users of assistive technologies like screen readers. Learn how aria-hidden affects focusable elements.
+Elements use only permitted ARIA attributes
+Using ARIA attributes in roles where they are prohibited can mean that important information is not communicated to users
+of assistive technologies. Learn more about prohibited ARIA roles.
+Background and foreground colors have a sufficient contrast ratio
+Low-contrast text is difficult or impossible for many users to read. Learn how to provide sufficient color contrast.
+Document has a <title> element
+The title gives screen reader users an overview of the page, and search engine users rely on it heavily to determine if a page
+is relevant to their search. Learn more about document titles.
+No element has a [tabindex] value greater than 0
+A value greater than 0 implies an explicit navigation ordering. Although technically valid, this often creates frustrating
+8/13/26, 11:35 AM
+about:blank
+about:blank
+33/53
+
+experiences for users who rely on assistive technologies. Learn more about the tabindex attribute.
+Touch targets have sufficient size and spacing.
+Touch targets with sufficient size and spacing help users who may have difficulty targeting small controls to activate the
+targets. Learn more about touch targets.
+Deprecated ARIA roles were not used
+Deprecated ARIA roles may not be processed correctly by assistive technology. Learn more about deprecated ARIA roles.
+Elements with role="none" or role="presentation" do not have conflicts
+There are certain cases where the semantic role of an element with role="none" or role="presentation" does not
+resolve to none or presentation. To ensure the element remains removed from the accessibility tree, you should not add any
+global ARIA attributes to the element or make it focusable. Learn more about presentation role conflict.
+NOT APPLICABLE (40)
+Hide
+[accesskey] values are unique
+Access keys let users quickly focus a part of the page. For proper navigation, each access key must be unique. Learn more
+about access keys. Unscored
+button, link, and menuitem elements have accessible names
+When an element doesn't have an accessible name, screen readers announce it with a generic name, making it unusable for
+users who rely on screen readers. Learn how to make command elements more accessible. Unscored
+Elements with role="dialog" or role="alertdialog" have accessible names.
+ARIA dialog elements without accessible names may prevent screen readers users from discerning the purpose of these
+elements. Learn how to make ARIA dialog elements more accessible. Unscored
+ARIA input fields have accessible names
+When an input field doesn't have an accessible name, screen readers announce it with a generic name, making it unusable
+for users who rely on screen readers. Learn more about input field labels. Unscored
+ARIA meter elements have accessible names
+8/13/26, 11:35 AM
+about:blank
+about:blank
+34/53
+
+When a meter element doesn't have an accessible name, screen readers announce it with a generic name, making it
+unusable for users who rely on screen readers. Learn how to name meter elements. Unscored
+ARIA progressbar elements have accessible names
+When a progressbar element doesn't have an accessible name, screen readers announce it with a generic name, making it
+unusable for users who rely on screen readers. Learn how to label progressbar elements. Unscored
+Elements with an ARIA [role] that require children to contain a specific [role] have all required children.
+Some ARIA parent roles must contain specific child roles to perform their intended accessibility functions. Learn more about
+roles and required children elements. Unscored
+[role]s are contained by their required parent element
+Some ARIA child roles must be contained by specific parent roles to properly perform their intended accessibility functions.
+Learn more about ARIA roles and required parent element. Unscored
+Elements with the role=text attribute do not have focusable descendents.
+Adding role=text around a text node split by markup enables VoiceOver to treat it as one phrase, but the element's
+focusable descendents will not be announced. Learn more about the role=text attribute. Unscored
+ARIA toggle fields have accessible names
+When a toggle field doesn't have an accessible name, screen readers announce it with a generic name, making it unusable
+for users who rely on screen readers. Learn more about toggle fields. Unscored
+ARIA tooltip elements have accessible names
+When a tooltip element doesn't have an accessible name, screen readers announce it with a generic name, making it
+unusable for users who rely on screen readers. Learn how to name tooltip elements. Unscored
+ARIA treeitem elements have accessible names
+When a treeitem element doesn't have an accessible name, screen readers announce it with a generic name, making it
+unusable for users who rely on screen readers. Learn more about labeling treeitem elements. Unscored
+Buttons have an accessible name
+When a button doesn't have an accessible name, screen readers announce it as "button", making it unusable for users who
+8/13/26, 11:35 AM
+about:blank
+about:blank
+35/53
+
+rely on screen readers. Learn how to make buttons more accessible. Unscored
+The page contains a heading, skip link, or landmark region
+Adding ways to bypass repetitive content lets keyboard users navigate the page more efficiently. Learn more about bypass
+blocks. Unscored
+<dl>'s contain only properly-ordered <dt> and <dd> groups, <script>, <template> or <div> elements.
+When definition lists are not properly marked up, screen readers may produce confusing or inaccurate output. Learn how to
+structure definition lists correctly. Unscored
+Definition list items are wrapped in <dl> elements
+Definition list items (<dt> and <dd>) must be wrapped in a parent <dl> element to ensure that screen readers can properly
+announce them. Learn how to structure definition lists correctly. Unscored
+ARIA IDs are unique
+The value of an ARIA ID must be unique to prevent other instances from being overlooked by assistive technologies. Learn
+how to fix duplicate ARIA IDs. Unscored
+No form fields have multiple labels
+Form fields with multiple labels can be confusingly announced by assistive technologies like screen readers which use either
+the first, the last, or all of the labels. Learn how to use form labels. Unscored
+<html> element has a valid value for its [lang] attribute
+Specifying a valid BCP 47 language helps screen readers announce text properly. Learn how to use the lang attribute.
+Unscored
+<html> element has an [xml:lang] attribute with the same base language as the [lang] attribute.
+If the webpage does not specify a consistent language, then the screen reader might not announce the page's text correctly.
+Learn more about the lang attribute. Unscored
+Input buttons have discernible text.
+Adding discernable and accessible text to input buttons may help screen reader users understand the purpose of the input
+button. Learn more about input buttons. Unscored
+8/13/26, 11:35 AM
+about:blank
+about:blank
+36/53
+
+<input type="image"> elements have [alt] text
+When an image is being used as an <input> button, providing alternative text can help screen reader users understand the
+purpose of the button. Learn about input image alt text. Unscored
+Form elements have associated labels
+Labels ensure that form controls are announced properly by assistive technologies, like screen readers. Learn more about
+form element labels. Unscored
+Links are distinguishable without relying on color.
+Low-contrast text is difficult or impossible for many users to read. Link text that is discernible improves the experience for
+users with low vision. Learn how to make links distinguishable. Unscored
+Lists contain only <li> elements and script supporting elements (<script> and <template>).
+Screen readers have a specific way of announcing lists. Ensuring proper list structure aids screen reader output. Learn more
+about proper list structure. Unscored
+List items (<li>) are contained within <ul>, <ol> or <menu> parent elements
+Screen readers require list items (<li>) to be contained within a parent <ul>, <ol> or <menu> to be announced properly.
+Learn more about proper list structure. Unscored
+The document does not use <meta http-equiv="refresh">
+Users do not expect a page to refresh automatically, and doing so will move focus back to the top of the page. This may
+create a frustrating or confusing experience. Learn more about the refresh meta tag. Unscored
+<object> elements have alternate text
+Screen readers cannot translate non-text content. Adding alternate text to <object> elements helps screen readers convey
+meaning to users. Learn more about alt text for object elements. Unscored
+Select elements have associated label elements.
+Form elements without effective labels can create frustrating experiences for screen reader users. Learn more about the
+select element. Unscored
+Skip links are focusable.
+8/13/26, 11:35 AM
+about:blank
+about:blank
+37/53
+
+Including a skip link can help users skip to the main content to save time. Learn more about skip links. Unscored
+Cells in a <table> element that use the [headers] attribute refer to table cells within the same table.
+Screen readers have features to make navigating tables easier. Ensuring <td> cells using the [headers] attribute only refer
+to other cells in the same table may improve the experience for screen reader users. Learn more about the headers
+attribute. Unscored
+<th> elements and elements with [role="columnheader"/"rowheader"] have data cells they describe.
+Screen readers have features to make navigating tables easier. Ensuring table headers always refer to some set of cells may
+improve the experience for screen reader users. Learn more about table headers. Unscored
+[lang] attributes have a valid value
+Specifying a valid BCP 47 language on elements helps ensure that text is pronounced correctly by a screen reader. Learn how
+to use the lang attribute. Unscored
+autocomplete attributes are used correctly
+The autocomplete attribute values must be valid and correctly applied for screen readers to function correctly. Learn more
+about valid autocomplete values. Unscored
+SVG elements with an img role have an accessible text alternative
+Ensures SVG elements with an img, graphics-document or graphics-symbol role have an accessible text alternative. Learn
+more about SVG alt text. Unscored
+Tables have different content in the summary attribute and <caption>.
+The summary attribute should describe the table structure, while <caption> should have the onscreen title. Accurate table
+mark-up helps users of screen readers. Learn more about summary and caption. Unscored
+All heading elements contain content.
+A heading with no content or inaccessible text prevent screen reader users from accessing information on the page's
+structure. Learn more about headings. Unscored
+Uses ARIA roles only on compatible elements
+Many HTML elements can only be assigned certain ARIA roles. Using ARIA roles where they are not allowed can interfere
+8/13/26, 11:35 AM
+about:blank
+about:blank
+38/53
+
+with the accessibility of the web page. Learn more about ARIA roles. Unscored
+Image elements do not have [alt] attributes that are redundant text.
+Informative elements should aim for short, descriptive alternative text. Alternative text that is exactly the same as the text
+adjacent to the link or image is potentially confusing for screen reader users, because the text will be read twice. Learn more
+about the alt attribute. Unscored
+Identical links have the same purpose.
+Links with the same destination should have the same description, to help users understand the link's purpose and decide
+whether to follow it. Learn more about identical links. Unscored
+Best Practices
+77
+GENERAL
+Uses third-party cookies — 48 cookies found
+Third-party cookies may be blocked in some contexts. Learn more about preparing for third-party cookie restrictions.
+Framer CDN Hosting 
+__ps_r
+/script?v=2
+__ps_lu
+/script?v=2
+__ps_fva
+/script?v=2
+session.edit
+/script?v=2
+Other Google APIs/SDKs Utility 
+COMPASS
+/ccm/collect?rcb=…
+(events.framer.com)
+(events.framer.com)
+(events.framer.com)
+(events.framer.com)
+(www.google.com)
+Name
+URL
+8/13/26, 11:35 AM
+about:blank
+about:blank
+39/53
+
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+LSOLH
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+Name
+URL
+8/13/26, 11:35 AM
+about:blank
+about:blank
+40/53
+
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+__Host-3PLSID
+/ccm/collect?rcb=…
+__Secure-OSID
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+COMPASS
+/ccm/collect?rcb=…
+NID
+/ccm/collect?rcb=…
+__Secure-3PSID
+/ccm/collect?rcb=…
+__Secure-3PAPISID
+/ccm/collect?rcb=…
+__Secure-3PSIDTS
+/ccm/collect?rcb=…
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+(www.google.com)
+Name
+URL
+8/13/26, 11:35 AM
+about:blank
+about:blank
+41/53
+
+Issues were logged in the Issues panel in Chrome Devtools
+Issues logged to the Issues panel in Chrome Devtools indicate unresolved problems. They can come from network request
+failures, insufficient security controls, and other browser concerns. Open up the Issues panel in Chrome DevTools for more
+details on each issue.
+__Secure-3PSIDCC
+/ccm/collect?rcb=…
+Google/Doubleclick Ads Ad 
+ar_debug
+…viewthrou…/111…?random=…
+IDE
+…viewthrou…/111…?random=…
+(www.google.com)
+(googleads.g.doubleclick.net)
+(googleads.g.doubleclick.net)
+Cookie
+/script?v=2
+/ccm/collect?rcb=…
+…collect/111…?random=…
+…viewthrou…/111…?random=…
+…1p-user-list/111…?random=…
+/anonymous
+/edit?framerSiteId=…
+/bootstrap.74b9e1d….js
+…web/access-token?source=editorbar
+/g/collect?v=…
+/g/collect?v=…
+(events.framer.com)
+(www.google.com)
+(www.google.com)
+(googleads.g.doubleclick.net)
+(www.google.com)
+(events.framer.com)
+(framer.com)
+(framer.com)
+(api.framer.com)
+(analytics.google.com)
+(analytics.google.com)
+TRUST AND SAFETY
+Ensure CSP is effective against XSS attacks
+A strong Content Security Policy (CSP) significantly reduces the risk of cross-site scripting (XSS) attacks. Learn how to use a
+Name
+URL
+Issue type
+8/13/26, 11:35 AM
+about:blank
+about:blank
+42/53
+
+CSP to prevent XSS Unscored
+Use a strong HSTS policy
+Deployment of the HSTS header significantly reduces the risk of downgrading HTTP connections and eavesdropping attacks.
+A rollout in stages, starting with a low max-age is recommended. Learn more about using a strong HSTS policy. Unscored
+Ensure proper origin isolation with COOP
+The Cross-Origin-Opener-Policy (COOP) can be used to isolate the top-level window from other documents such as pop-
+ups. Learn more about deploying the COOP header. Unscored
+Mitigate clickjacking with XFO or CSP
+The X-Frame-Options (XFO) header or the frame-ancestors directive in the Content-Security-Policy (CSP) header
+control where a page can be embedded. These can mitigate clickjacking attacks by blocking some or all sites from
+embedding the page. Learn more about mitigating clickjacking. Unscored
+Mitigate DOM-based XSS with Trusted Types
+No CSP found in enforcement mode
+High
+No `includeSubDomains` directive found
+includeSubDomains
+Medium
+No `preload` directive found
+preload
+Medium
+No COOP header found
+High
+No frame control policy found
+High
+Description
+Directive
+Severity
+Description
+Directive
+Severity
+Description
+Directive
+Severity
+Description
+Severity
+8/13/26, 11:35 AM
+about:blank
+about:blank
+43/53
+
+The require-trusted-types-for directive in the Content-Security-Policy (CSP) header instructs user agents to
+control the data passed to DOM XSS sink functions. Learn more about mitigating DOM-based XSS with Trusted Types.
+Unscored
+No `Content-Security-Policy` header with Trusted Types directive found
+High
+ Show 3rd-party resources (15)
+BROWSER COMPATIBILITY
+Baseline Features
+Lists web features used on the page and their Baseline status as of 2026-06-05. Learn more about Baseline. Unscored
+smrtsystems.com 1st Party
+page-visibility-state
+Limited Availability
+(index):1
+long-animation-frames
+Limited Availability
+(index):1
+layout-instability
+Limited Availability
+(index):1
+font-metric-overrides
+Limited Availability
+(index):-1
+background-clip-text
+Limited Availability
+(index):-1
+requestidlecallback
+Limited Availability
+(index):1
+masks
+Newly Available (2023-
+12-07)
+(index):-1
+backdrop-filter
+Newly Available (2024-
+09-16)
+(index):-1
+text-wrap
+Newly Available (2024-
+10-17)
+(index):-1
+Description
+Severity
+Web-features
+Baseline Status
+Source
+8/13/26, 11:35 AM
+about:blank
+about:blank
+44/53
+
+white-space-collapse
+Newly Available (2024-
+03-19)
+(index):-1
+scrollbar-width
+Newly Available (2024-
+12-11)
+(index):-1
+zstd
+Newly Available (2026-
+02-11)
+(index):-1
+text-wrap-balance
+Newly Available (2024-
+05-13)
+(index):-1
+avif
+Newly Available (2024-
+01-25)
+(index):-1
+fetch-priority
+Newly Available (2024-
+10-29)
+(index):-1
+abortsignal-any
+Newly Available (2024-
+03-19)
+(index):1
+nullish-coalescing
+Widely Available
+(2020-09-16)
+(index):1
+aborting
+Widely Available
+(2019-03-25)
+(index):1
+color-function
+Widely Available
+(2023-05-09)
+(index):-1
+not
+Widely Available
+(2021-01-21)
+(index):-1
+overflow-clip
+Widely Available
+(2022-09-12)
+(index):-1
+contain-intrinsic-size
+Widely Available
+(2023-09-18)
+(index):-1
+will-change
+Widely Available
+(2020-01-15)
+(index):-1
+Web-features
+Baseline Status
+Source
+8/13/26, 11:35 AM
+about:blank
+about:blank
+45/53
+
+aspect-ratio
+Widely Available
+(2021-09-20)
+(index):-1
+outline
+Widely Available
+(2023-03-27)
+(index):-1
+text-underline-offset
+Widely Available
+(2020-11-19)
+(index):-1
+logical-properties
+Widely Available
+(2021-09-20)
+(index):-1
+overflow-shorthand
+Widely Available
+(2020-03-24)
+(index):-1
+canvas
+Widely Available
+(2015-07-29)
+(index):-1
+flexbox
+Widely Available
+(2015-09-30)
+(index):-1
+grid
+Widely Available
+(2017-10-17)
+(index):-1
+request-animation-frame
+Widely Available
+(2015-07-29)
+(index):1488
+js-modules
+Widely Available
+(2018-05-09)
+(index):-1
+web-animations
+Widely Available
+(2020-09-16)
+(index):1486
+weak-references
+Widely Available
+(2021-04-26)
+(index):1
+logical-assignments
+Widely Available
+(2020-09-16)
+(index):1
+Unattributable
+text-wrap-pretty
+Limited Availability
+about:srcdoc:-1
+Web-features
+Baseline Status
+Source
+8/13/26, 11:35 AM
+about:blank
+about:blank
+46/53
+
+beforeunload
+Limited Availability
+about:srcdoc:436
+container-queries
+Widely Available
+(2023-02-14)
+about:srcdoc:-1
+viewport-unit-variants
+Widely Available
+(2022-12-05)
+about:srcdoc:-1
+clip-path
+Widely Available
+(2021-01-21)
+referrer-policy
+Widely Available
+(2021-09-20)
+Google Tag Manager Tag-Manager 
+ua-client-hints
+Limited Availability
+js?id=GT-NC6ZPCZ:882
+scrollend
+Newly Available (2025-
+12-12)
+js?id=GT-NC6ZPCZ:343
+Framer CDN Hosting 
+scheduler
+Limited Availability
+framer.D0-v1jVu.mjs:7
+parse-html-unsafe
+Newly Available (2025-
+09-15)
+framer.D0-v1jVu.mjs:56
+reporting
+Newly Available (2026-
+03-24)
+framer.com/edit?fram…
+rt=1786635322780:-1
+intersection-observer
+Widely Available
+(2019-03-25)
+framer.D0-v1jVu.mjs:49
+string-replaceall
+Widely Available
+(2020-08-27)
+framer.D0-v1jVu.mjs:1
+webgl
+Widely Available
+(2015-07-29)
+lOle_4BbPxdyt5tX67V4…
+Gw.8o48X--o.mjs:633
+color-scheme
+Widely Available
+(2022-02-03)
+init.mjs:34
+Web-features
+Baseline Status
+Source
+8/13/26, 11:35 AM
+about:blank
+about:blank
+47/53
+
+storage-access
+Widely Available
+(2023-12-05)
+app.framerstatic.com…hunk-
+MQW74XT6.mjs:1
+JSDelivr CDN Cdn 
+canvas-2d-alpha
+Limited Availability
+unicornStudio.umd.js:1
+canvas-2d
+Widely Available
+(2015-07-29)
+unicornStudio.umd.js:1
+webgl2
+Widely Available
+(2021-09-20)
+unicornStudio.umd.js:1
+unicorn.studio
+appearance
+Widely Available
+(2022-03-14)
+assets.unicorn.studi…
+s/controls.umd.js:1
+template
+Widely Available
+(2015-11-12)
+assets.unicorn.studi…
+s/controls.umd.js:2
+PASSED AUDITS (11)
+Hide
+Uses HTTPS
+All sites should be protected with HTTPS, even ones that don't handle sensitive data. This includes avoiding mixed content,
+where some resources are loaded over HTTP despite the initial request being served over HTTPS. HTTPS prevents intruders
+from tampering with or passively listening in on the communications between your app and your users, and is a prerequisite
+for HTTP/2 and many new web platform APIs. Learn more about HTTPS.
+Avoids deprecated APIs
+Deprecated APIs will eventually be removed from the browser. Learn more about deprecated APIs.
+Allows users to paste into input fields
+Preventing input pasting is a bad practice for the UX, and weakens security by blocking password managers.Learn more
+about user-friendly input fields.
+Web-features
+Baseline Status
+Source
+8/13/26, 11:35 AM
+about:blank
+about:blank
+48/53
+
+ Show 3rd-party resources (14)
+Avoids requesting the geolocation permission on page load
+Users are mistrustful of or confused by sites that request their location without context. Consider tying the request to a user
+action instead. Learn more about the geolocation permission. Also consider using the <geolocation> element.
+Avoids requesting the notification permission on page load
+Users are mistrustful of or confused by sites that request to send notifications without context. Consider tying the request to
+user gestures instead. Learn more about responsibly getting permission for notifications.
+Displays images with correct aspect ratio
+Image display dimensions should match natural aspect ratio. Learn more about image aspect ratio.
+Serves images with appropriate resolution
+Image natural dimensions should be proportional to the display size and the pixel ratio to maximize image clarity. Learn how
+to provide responsive images.
+Page has the HTML doctype
+Specifying a doctype prevents the browser from switching to quirks-mode. Learn more about the doctype declaration.
+Properly defines charset
+A character encoding declaration is required. It can be done with a <meta> tag in the first 1024 bytes of the HTML or in the
+Content-Type HTTP response header. Learn more about declaring the character encoding.
+No browser errors logged to the console
+Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser
+concerns. Learn more about this errors in console diagnostic audit
+Page has valid source maps
+Source maps translate minified code to the original source code. This helps developers debug in production. In addition,
+Lighthouse is able to provide further insights. Consider deploying source maps to take advantage of these benefits. Learn
+more about source maps. Unscored
+8/13/26, 11:35 AM
+about:blank
+about:blank
+49/53
+
+Framer CDN Hosting 
+/edit/init.mjs
+/editorbar….XBW5MMS5.mjs.map
+Error: Map has no `mappings` field
+/chunk-GL6GZPCT.mjs
+/chunk-GL6GZPCT.mjs.map
+Error: Map has no `mappings` field
+…
+6yKtdzE0A…/TE6N6Ammm.ldxBYzVT.mjs
+…
+6yKtdzE0A…/TE6N6Ammm.ldxBYzVT.mjs.map
+…
+6yKtdzE0A…/T5aYr5e_s.DDRsBt6Y.mjs
+…
+6yKtdzE0A…/T5aYr5e_s.DDRsBt6Y.mjs.map
+…
+6yKtdzE0A…/SP_Q9J9oR….C04hJATj.mjs
+…
+6yKtdzE0A…/SP_Q9J9oR….C04hJATj.mjs.map
+…6yKtdzE0A…/shared-
+lib.DSscRRjK.mjs
+…6yKtdzE0A…/shared-
+lib.DSscRRjK.mjs.map
+…
+6yKtdzE0A…/script_main.C0_bSJCc.mjs
+…
+6yKtdzE0A…/script_main.C0_bSJCc.mjs.map
+…
+6yKtdzE0A…/react.BpKPsBQp.mjs
+…
+6yKtdzE0A…/react.BpKPsBQp.mjs.map
+…
+6yKtdzE0A…/motion.CtNTFlgw.mjs
+…
+6yKtdzE0A…/motion.CtNTFlgw.mjs.map
+…6yKtdzE0A…/lOle_4BbP….8o48X--
+o.mjs
+…6yKtdzE0A…/lOle_4BbP….8o48X--
+o.mjs.map
+…
+6yKtdzE0A…/gadZCGjvR.Dt5ECa20.mjs
+…
+6yKtdzE0A…/gadZCGjvR.Dt5ECa20.mjs.map
+(framer.com)
+(app.framerstatic.com)
+(app.framerstatic.com)
+(app.framerstatic.com)
+(framerusercont
+ent.com)
+(frameruser
+content.com)
+(framerusercontent.
+com)
+(framerusercon
+tent.com)
+(frameruserconte
+nt.com)
+(frameruserc
+ontent.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(frameruserconten
+t.com)
+(frameruserco
+ntent.com)
+(framerusercontent.com)
+(framerusercontent.
+com)
+(framerusercontent.co
+m)
+(frameruserconten
+t.com)
+(framerusercontent.com)
+(framerusercontent.com)
+(frameruserconten
+t.com)
+(frameruserco
+ntent.com)
+URL
+Map URL
+8/13/26, 11:35 AM
+about:blank
+about:blank
+50/53
+
+…6yKtdzE0A…/framer.D0-
+v1jVu.mjs
+…6yKtdzE0A…/framer.D0-
+v1jVu.mjs.map
+…
+6yKtdzE0A…/Embed.B3Os5XUD.mjs
+…
+6yKtdzE0A…/Embed.B3Os5XUD.mjs.map
+…
+6yKtdzE0A…/BH8xTBWNl.nJJCqpeG.mjs
+…
+6yKtdzE0A…/BH8xTBWNl.nJJCqpeG.mjs.map
+Unattributable
+chrome-
+extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedM
+ethodUS.js
+chrome-
+extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedM
+ethodUS.js.map
+Error: Failed fetching source map (null)
+chrome-
+extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedM
+ethodEU.js
+chrome-
+extension://ioalpmibngobedobkmbhgmadaphocjdn/injectedM
+ethodEU.js.map
+Error: Failed fetching source map (null)
+chrome-
+extension://ioalpmibngobedobkmbhgmadaphocjdn/contentAl
+l.js
+chrome-
+extension://ioalpmibngobedobkmbhgmadaphocjdn/contentAl
+l.js.map
+Error: Failed fetching source map (null)
+(framerusercontent.com)
+(framerusercontent.com)
+(framerusercontent.co
+m)
+(frameruserconte
+nt.com)
+(frameruserconte
+nt.com)
+(frameruserc
+ontent.com)
+NOT APPLICABLE (2)
+Hide
+Redirects HTTP traffic to HTTPS
+Make sure that you redirect all HTTP traffic to HTTPS in order to enable secure web features for all your users. Learn more.
+Unscored
+Detected JavaScript libraries
+All front-end JavaScript libraries detected on the page. Learn more about this JavaScript library detection diagnostic audit.
+Unscored
+URL
+Map URL
+8/13/26, 11:35 AM
+about:blank
+about:blank
+51/53
+
+These checks ensure that your page is following basic search engine
+optimization advice. There are many additional factors Lighthouse does not
+score here that may affect your search ranking, including performance on
+Core Web Vitals. Learn more about Google Search Essentials.
+SEO
+100
+ADDITIONAL ITEMS TO MANUALLY CHECK (1)
+Hide
+Structured data is valid
+Run the Structured Data Testing Tool to validate structured data. Learn more about Structured Data. Unscored
+Run these additional validators on your site to check additional SEO best practices.
+PASSED AUDITS (10)
+Hide
+Page isn’t blocked from indexing
+Search engines are unable to include your pages in search results if they don't have permission to crawl them. Learn more
+about crawler directives.
+Document has a <title> element
+The title gives screen reader users an overview of the page, and search engine users rely on it heavily to determine if a page
+is relevant to their search. Learn more about document titles.
+Document has a meta description
+Meta descriptions may be included in search results to concisely summarize page content. Learn more about the meta
+description.
+Page has successful HTTP status code
+Pages with unsuccessful HTTP status codes may not be indexed properly. Learn more about HTTP status codes.
+8/13/26, 11:35 AM
+about:blank
+about:blank
+52/53
+
+Generated by Lighthouse 13.4.0 | File an issue
+Links have descriptive text
+Descriptive link text helps search engines understand your content. Learn how to make links more accessible.
+Links are crawlable
+Search engines may use href attributes on links to crawl websites. Ensure that the href attribute of anchor elements links to
+an appropriate destination, so more pages of the site can be discovered. Learn how to make links crawlable
+robots.txt is valid
+If your robots.txt file is malformed, crawlers may not be able to understand how you want your website to be crawled or
+indexed. Learn more about robots.txt.
+Image elements have [alt] attributes
+Informative elements should aim for short, descriptive alternate text. Decorative elements can be ignored with an empty alt
+attribute. Learn more about the alt attribute.
+Document has a valid hreflang
+hreflang links tell search engines what version of a page they should list in search results for a given language or region.
+Learn more about hreflang.
+Document has a valid rel=canonical
+Canonical links suggest which URL to show in search results. Learn more about canonical links.
+Captured at Aug 13, 2026,
+11:35 AM EDT
+Emulated Desktop with
+Lighthouse 13.4.0
+Single page session
+Initial page load
+Custom throttling
+Using Chromium 151.0.0.0 with
+devtools
+8/13/26, 11:35 AM
+about:blank
+about:blank
+53/53
