@@ -1,217 +1,319 @@
 # SMRT Website — Browser Memory Exhaustion Diagnosis
 
-**Site:** https://smrtwebsite.framer.website/
-**Evidence:** Lighthouse 13.4.0 report, captured 2026-08-12T16:03:22Z, desktop, simulated throttling
-**Date:** August 13, 2026
+**Live site:** https://smrtsystems.com/ (confirmed serving 200, 449 KB of HTML)
+**Staging evidence:** Lighthouse 13.4.0 report for `smrtwebsite.framer.website`, captured 2026-08-12
+**Live evidence:** production HTML and JS fetched anonymously 2026-08-13
+**Status:** Live and crashing machines. Two P0s, one with a 30-second personal workaround.
 
 ---
 
-## Note on the evidence
+## Stop your PC crashing first — do this now
 
-The file supplied as "the test site code" is not the site's HTML. It is a **Lighthouse
-report** for the site, with 1.6 MB of audit JSON embedded in it. That turned out to be
-better evidence than the served markup, because it carries the full network waterfall,
-main-thread trace, and script attribution — which is where a memory problem is actually
-visible. The served HTML would not have shown any of this.
+Your browser has a Framer flag set in local storage for `smrtsystems.com`. That flag,
+and only that flag, is what makes the page boot the entire Framer design editor on every
+load. Clearing it should stop your crashes immediately, without touching the site.
 
-Every number below is extracted from that report. Nothing is estimated unless labeled
-as such.
+**Clear it without loading the page** (loading it is what crashes you):
 
----
+1. In Chrome, go to `chrome://settings/content/all?searchSubpage=smrtsystems.com`
+2. Find `smrtsystems.com` and click the trash icon to delete its stored data.
+3. Also sign out of `framer.com` in that browser, or keep a separate browser profile for
+   Framer work and never browse the live site from it.
 
-## Headline
+The key being cleared is `__framer_force_showing_editorbar_since`. If you would rather
+verify before deleting, open the site with JavaScript disabled for that origin, then run
+`localStorage.getItem('__framer_force_showing_editorbar_since')` in the console — a
+non-null value confirms it.
 
-The page transfers **40.5 MB across 1,090 requests**. Two independent problems account
-for almost all of it, and they have different audiences:
-
-| Path | Requests | Transfer | Who pays it |
-|---|---|---|---|
-| Site content | 162 | **30.4 MB** | every visitor |
-| Framer editor runtime | 928 | **9.2 MB** | anyone logged into Framer |
-| **Total** | **1,090** | **40.5 MB** | |
-
-Performance score is 0.68. LCP 3.1 s, TTI 3.1 s, Speed Index 3.3 s, TBT 190 ms,
-main-thread work **6.2 s**, JS bootup 1.5 s.
-
-There is no leak in code that anyone at SMRT wrote. The site is not a badly built
-webapp. It is a **statically published marketing site that boots the entire Framer
-design editor inside itself**, on top of a 24 MB video that it downloads six times.
+This is a workaround for you, not a fix for the site. The site still ships the code path
+to every visitor, and the video problem below hits everyone regardless.
 
 ---
 
-## Finding 1 — The published page loads the whole Framer editor (P0)
+## Note on the evidence, and two corrections
 
-**This is the crash.**
+The file supplied as "the test site code" was not the site's HTML — it was a **Lighthouse
+report**, with 1.6 MB of audit JSON embedded. That proved more useful than markup would
+have, because it carries the network waterfall and main-thread trace. Now that the site is
+live, I also pulled the production HTML and JS directly and re-checked every claim.
 
-The published HTML ships Framer's edit-mode bootstrap. From the waterfall:
+Two corrections to what the staging evidence suggested:
 
+- **`framer.link` is not on the live site.** An earlier grep of mine reported 530
+  occurrences. That was a regex artifact — the `.` matched the hyphen in Framer's own
+  `framer-link` CSS class. The literal count is **zero**. The affiliate-link P0 from the
+  pre-launch audit appears resolved on production.
+- **The unicorn.studio WebGL layer is not on the live homepage.** Zero references in
+  production HTML. It was in the staging build. The WebGL finding below is retained for
+  reference but **does not apply to the live homepage** — check other pages before acting
+  on it.
+
+Production is, however, **worse than staging in the one place that matters most**: the
+hero video is bigger.
+
+---
+
+## The two P0s
+
+### P0-1 — The live site ships Framer's On-Page Editing, which boots the whole editor
+
+This is your crash, and it is now confirmed in production HTML fetched with no Framer
+session at all.
+
+The published page carries this gate in `<head>`:
+
+```js
+try{
+  if(localStorage.getItem("__framer_force_showing_editorbar_since")){
+    const n=document.createElement("link");
+    n.rel="modulepreload";
+    n.href="https://framer.com/edit/init.mjs";
+    document.head.appendChild(n)
+  }
+}catch(e){}
 ```
-  498 ms  Script    https://framer.com/edit/init.mjs
- 2082 ms  Script    https://app.framerstatic.com/EditButton-NI7O4KK3.mjs
- 2092 ms  Document  https://framer.com/edit?framerSiteId=a7a89f99...   <- 2nd document
- 5069 ms  Document  https://site-a7a89f99....framercanvas.com/s/app.625f8...  <- 3rd document
- 5744 ms  Fetch     https://api.framer.com/multiplayer/projects/rIPOJ8Cq5TjGpiou7t6A
-                      /tree/1786550063540000.crdt          1.47 MB
+
+And the site's main bundle, `script_main.DmvqdYT3.mjs`, contains the import that actually
+runs it:
+
+```js
+EditorBar: a === void 0 ? void 0 : (() => {
+  if (K) { console.log(`[Framer On-Page Editing] Unavailable because navigator is bot`); return }
+  return w(async () => {
+    a.__framer_editorBarDependencies = { __version: 3, framer: {…}, react: {…} };
+    let { createEditorBar: e } = await import(`https://framer.com/edit/init.mjs`);
+    return { default: e() }
+  })
+})()
 ```
 
-That escalates into:
+Two guards, and neither protects a real user: `a === void 0` is a server-side-rendering
+check, and `K` is a **bot user-agent check**.
 
-| What | Count | Bytes |
+**That bot check is why nobody caught this before launch.** Lighthouse, PageSpeed
+Insights, and essentially every automated auditing tool identify as bots, so they take the
+early return and never load the editor. The problem is invisible to automated testing by
+construction. It only appears in a real browser — which is why it reached production and
+why it is your machine that dies rather than a monitoring dashboard.
+
+What loads once that import fires, measured from the staging trace where it did run:
+
+| What it pulls in | Requests | Bytes |
 |---|---|---|
-| `app.framerstatic.com` editor bundles | 269 req | 4.17 MB |
-| `framercanvas.com` (editor app + compiled modules) | 291 req | — |
-| `blob:` script URLs from in-browser compilation | **282** | — |
-| `/modules/` project source, incl. 76 raw `.tsx` files | 338 req | 2.10 MB |
-| Multiplayer CRDT project document | 2 req | 1.47 MB |
-| Full Google Fonts catalog (editor font picker) | 4 req | 0.94 MB |
-| Full Fontshare catalog (editor font picker) | 14 req | 0.47 MB |
+| `app.framerstatic.com` editor bundles | 269 | 4.17 MB |
+| `framercanvas.com` editor application | 291 | — |
+| `blob:` scripts from in-browser compilation | **282** | — |
+| Project source, including 76 raw `.tsx` files | 338 | 2.10 MB |
+| Multiplayer CRDT project document | 2 | 1.47 MB |
+| Full Google Fonts catalog (editor font picker) | 4 | 0.94 MB |
+| Full Fontshare catalog (editor font picker) | 14 | 0.47 MB |
+| **Total** | **928** | **9.15 MB** |
 
-Three separate documents are live in the tab at once: the site, `framer.com/edit`, and
-the full editor application on `framercanvas.com`. Each carries its own JS heap, its own
-React tree, and its own event listeners.
+Three documents end up live in one tab — the site, `framer.com/edit`, and the full editor
+app on `framercanvas.com` — each with its own JS heap, React tree, and listeners.
 
-### Why this behaves as a leak rather than just as bloat
+**Why it behaves as a leak rather than as bloat:**
 
-Four mechanisms, in descending order of confidence:
+1. **282 `blob:` script URLs.** The editor fetches the project's TypeScript and compiles it
+   in-browser, publishing each module as an object URL. A blob passed to
+   `createObjectURL()` is pinned until `revokeObjectURL()` is called — GC cannot reclaim
+   it, because the URL string is a live reference. That is a floor of 282 retained modules
+   that never drops. *(That they are never revoked is inference from the count and the RAM
+   behavior, not directly observable in the trace.)*
+2. **A live CRDT replica and its websocket.** A CRDT keeps tombstones so replicas
+   converge, so the structure grows with edit history and never shrinks. The opening
+   snapshot alone is 1.47 MB and deltas keep arriving.
+3. **It had not finished.** Editor requests were still firing at 12.8 s when Lighthouse
+   stopped recording — the signature of a tab that grows until killed, not one that
+   settles high.
+4. **Garbage collection got 36 ms out of 6.2 s** of main-thread work. The heap is not
+   being reclaimed because almost none of it is reclaimable.
 
-1. **282 `blob:` script URLs.** The editor fetches the project's TypeScript source and
-   compiles it in the browser, publishing each compiled module as an object URL. A blob
-   handed to `URL.createObjectURL()` is pinned in memory until `revokeObjectURL()` is
-   called on it — garbage collection cannot reclaim it, because the URL string is a live
-   reference. 282 retained compiled modules is a large floor that never drops. *(That
-   blob URLs are never revoked is inference from the count and from RAM behavior; it is
-   not directly observable in a Lighthouse trace.)*
-2. **A live CRDT replica plus its websocket.** A CRDT keeps tombstones for deleted
-   content so replicas can converge. The structure grows monotonically with the project's
-   edit history and does not shrink. The initial snapshot alone is 1.47 MB, and the
-   socket keeps applying deltas for as long as the tab is open.
-3. **Editor requests were still firing at 12.8 s**, when Lighthouse stopped recording.
-   The escalation had not finished. Memory was still climbing at the point measurement
-   ended — consistent with a tab that grows until it is killed rather than one that
-   settles at a high number.
-4. **Garbage collection ran only 36 ms** out of 6.2 s of main-thread work. The heap is
-   not being reclaimed, because almost none of it is reclaimable.
+**Fix:**
 
-### Important scope caveat
+1. **Turn off On-Page Editing** for the published site in Framer's site settings. That
+   removes the code path for everyone. This is the actual fix.
+2. **Clear the local-storage flag** on every machine that has browsed the site while
+   signed into Framer — see the top of this document. This is what stops the crashes today.
+3. **If Framer offers no toggle on the current plan**, escalate with the two code excerpts
+   above. A published marketing site compiling 338 source modules and loading a 1.47 MB
+   collaborative document in a visitor's browser is not intended behavior.
+4. **Separate browser profiles** for building and for viewing, permanently.
 
-This path is authentication-gated. It fired during this audit because the run was made
-**in a signed-in Chrome profile** — confirmed by 5.9 MB of injected JavaScript from a
-browser extension (`chrome-extension://ioalpmibngobedobkmbhgmadaphocjdn`) appearing in
-the script treemap, which a clean Lighthouse profile would not have.
+### P0-2 — 38.6 MB of video, and the big file is wired to two elements
 
-So: this is what crashes **your** browser and your team's, not necessarily an anonymous
-visitor's. That distinction matters for prioritization but not for severity — it is
-almost certainly the answer to "it keeps crashing the browser," because the people
-loading this site most often are the people building it.
+Confirmed in live production HTML. Three `<video>` elements, two pointing at the same file:
 
-### Fix
+```html
+<video src="…/wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4" loop preload="none" muted playsinline>
+<video src="…/uK3EmC6oURVtNKip3Y9EPF54vvI.mp4" loop preload="none" muted playsinline>
+<video src="…/wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4" loop preload="none" muted playsinline>
+```
 
-1. **Verify the blast radius first.** Open the site in a clean incognito window with no
-   Framer session and watch the Network panel. Filter for `framercanvas.com`. If those
-   requests are absent, this is a logged-in-only problem — bad, but not a launch blocker.
-   If they are present, it is a P0 for every visitor and the site cannot launch.
-2. **Check Framer's edit-mode setting.** Framer's "Edit in Framer" / edit-button feature
-   is what injects `framer.com/edit/init.mjs`. Turn it off for the published site in Site
-   Settings. This is a toggle, not a code change.
-3. **If no such toggle exists on the current plan**, raise it with Framer support with the
-   waterfall above attached. A published marketing site loading a 1.5 MB collaborative
-   document tree and compiling 338 source modules in the visitor's browser is not
-   intended behavior for a published site.
-4. **Day to day, work on the site in a separate browser profile** from the one used to
-   view it, so an editor session is never attached to a normal page load.
+Actual properties, from `Content-Length` and the MP4 metadata on production:
+
+| File | Size | Resolution | Duration | Audio | Elements |
+|---|---|---|---|---|---|
+| `wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4` | **28.90 MB** | 1280 × 720 | 29.3 s | none | **2** |
+| `uK3EmC6oURVtNKip3Y9EPF54vvI.mp4` | **9.73 MB** | 1022 × 540 | 13.2 s | none | 1 |
+
+Three important things follow from those numbers, and one of them **corrects the GPU
+theory** — see the GPU section below.
+
+**The resolution is fine. The bitrate is absurd.** 28.90 MB for 29.3 s of 720p with no
+audio track is roughly **7.9 Mbps for 720p** — about eight times what that resolution
+needs. The file is not too big because it is high-resolution; it is too big because it is
+over-encoded and 29 seconds long. A 720p background loop should be 6–10 s at
+1–1.5 Mbps, which is where the "under 1.5 MB" target comes from.
+
+**The 28.90 MB file is loaded by two elements.** Desktop and mobile breakpoint variants
+are both in the DOM (finding 16 of the pre-launch audit). The staging trace shows exactly
+this: six range requests for one file, one pulling 23.94 MB.
+
+**Neither file is fast-start optimized.** The `moov` metadata atom is not in the first
+3 MB of either file — it sits at the end. A player therefore cannot begin until it has
+fetched the tail, which is why the waterfall shows a small request, then a seek, then a
+bulk transfer. Re-muxing with `-movflags +faststart` fixes this at zero quality cost.
+
+Decoded-frame memory is real but modest here, because the resolution is modest: a 720p
+RGBA frame is 3.5 MB, so a four-frame pipeline is ~14 MB per element, ~28 MB across all
+three. All three carry `loop`, so those buffers are never released. And `preload="none"`
+with **no `poster`** means the hero paints nothing until buffering starts — a large share
+of the 3.1 s LCP.
+
+**Fix:**
+
+1. **Re-encode.** Keep 720p; cut duration to 6–10 s; H.264 at CRF 28–30; confirm no audio
+   track; add a VP9/WebM alternate. Target under 1.5 MB, down from 28.90 MB.
+2. **Re-mux with `-movflags +faststart`** so playback can begin without fetching the tail.
+3. **One video element, not one per breakpoint.**
+4. **Add a `poster`** — first frame as compressed WebP.
+5. **Pause off-screen** with an `IntersectionObserver`.
 
 ---
 
-## Finding 2 — A 24 MB hero video, downloaded six times (P0)
+## GPU load — you were right that it's the GPU, but it isn't the video
 
-Eight media requests, **25.9 MB — 85% of the entire visitor payload.** All but two are
-the same file:
+You asked me to check image and video scaling on the theory that oversized media is
+saturating the GPU. Media scaling **is** a real problem here (details below), but it is not
+what is loading your GPU. The videos are 720p and 540p — small. Their decoded frames total
+roughly 28 MB. That does not saturate a modern GPU.
+
+Here is what does.
+
+### G1 — 252 elements animating a blur filter, all with the same signature
+
+Every one of the 252 standalone `filter: blur()` declarations on the live homepage is an
+inline style, and all 252 are structurally identical:
 
 ```
-status  transfer   resource   start      URL
-206      3.00 MB    3.04 MB   2016 ms    wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4
-206      0.03 MB    0.03 MB   2587 ms    wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4
-206     21.28 MB   23.94 MB   3005 ms    wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4   <-- full file
-206      0.00 MB    0.49 MB  11163 ms    uK3EmC6oURVtNKip3Y9EPF54vvI.mp4
-206      0.00 MB    1.00 MB  11533 ms    wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4
-206      1.51 MB    1.51 MB  11549 ms    wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4
-206      0.01 MB    0.01 MB  12024 ms    uK3EmC6oURVtNKip3Y9EPF54vvI.mp4
-206      0.03 MB    0.03 MB  12065 ms    wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4
+display:inline-block;
+opacity:N;
+filter:blur(Npx);
+transform:translateX(Npx) translateY(Npx) scale(N) rotate(Ndeg) skewX(Ndeg) skewY(Ndeg)
 ```
 
-`wn1Qnn9RVuBbmppnl8PoCi0uLdk.mp4` is **23.94 MB** and is requested **six times**. The
-repeat requests are the signature of multiple `<video>` elements pointing at one source —
-which matches finding 16 of the pre-launch audit, that desktop and mobile breakpoint
-variants are both present in the DOM. Each element opens its own range requests and its
-own decode pipeline.
+Blur radii: 162 at `blur(10px)`, 90 at `blur(5px)`.
 
-**Transfer size is not the memory cost here — decoded frames are.** A 1080p frame is
-~8 MB uncompressed in a decode buffer, and a player holds several at a time. Both videos
-carry `loop`, so the buffers are never released for as long as the page is open. Multiple
-elements decoding the same 24 MB loop simultaneously is a straightforward path to
-hundreds of MB resident.
+`display:inline-block` plus a per-element transform plus a blur is the signature of a
+**per-character or per-word text reveal animation with the "blur" appear effect enabled**.
+The page contains 1,074 `framer-text` spans; 252 of them are carrying an animated blur.
 
-Compounding it: `preload="none"` with **no `poster`** (audit finding 17) means the hero
-paints nothing until buffering starts, which is a significant part of the 3.1 s LCP.
+This is the GPU load, and the reason is how blur is implemented. A CSS blur filter cannot
+be composited in place — the element must be rendered to an **offscreen render target**,
+convolved in two passes (horizontal, then vertical), and composited back. That is three GPU
+passes and one extra full-size texture allocation **per element, per frame**. With 252 such
+elements animating simultaneously during a scroll reveal, the GPU is doing on the order of
+750 render passes per frame, each with its own texture.
 
-### Fix
+Every one of those elements also carries a `transform`, which promotes it to its own
+compositor layer. Layers are not free: each holds a texture sized to its painted area.
 
-1. **Re-encode.** 24 MB is roughly 20x too large for a background loop. Target under
-   1.5 MB: cap at 1080p (720p is fine for a blurred/overlaid background), 6–10 seconds,
-   H.264 CRF 28–30, **strip the audio track**, and ship a WebM/VP9 alternate. Most of
-   24 MB is usually excess duration and an unnecessary audio stream.
-2. **One video element, not one per breakpoint.** Consolidate the hero to a single
-   component with responsive properties. This is the same consolidation the pre-launch
-   audit recommends for the header, footer, and testimonial marquee.
-3. **Add a `poster`** — first frame as a compressed WebP. Fixes the empty hero box and
-   the LCP.
-4. **Pause off-screen.** Use an `IntersectionObserver` to `pause()` when the hero scrolls
-   out of view. A paused element stops accumulating decode buffers.
-5. **Check `uK3EmC6oURVtNKip3Y9EPF54vvI.mp4`** — 0.49 MB was pulled at 11.2 s, well after
-   load. Confirm it is intentional and not a second hidden breakpoint variant.
+### G2 — 32 `backdrop-filter: blur(14px)`
+
+Separate from the above, and individually the most expensive compositing operation in CSS.
+Unlike `filter`, `backdrop-filter` must **sample what is already painted behind the
+element**, which forces the compositor to resolve and read back the backdrop, blur it, then
+re-composite. It defeats most of the compositor's caching. Thirty-two of them on one page
+is extreme.
+
+### G3 — Display scaling multiplies every one of those textures
+
+This is why it is *your* PC. Every compositor layer texture is allocated in **device**
+pixels, not CSS pixels, so its memory scales with the square of the device pixel ratio.
+At Windows display scaling of 150%, or on a HiDPI/4K panel at 200%, each of those 252 blur
+render targets and every promoted layer is **2.25× to 4× larger** than on a 1× display.
+The same page that is merely sluggish on a 1080p monitor can exhaust GPU memory on a
+scaled 4K one.
+
+### G4 — Images: no responsive variants, PNG, oversampled
+
+Media scaling is genuinely wrong here, just not in the way that drives the GPU spike:
+
+| Asset | Intrinsic | Megapixels | RGBA texture | `srcset` widths |
+|---|---|---|---|---|
+| `uRIbeeWITWmpS8EstcVwCV94A.png` | 1086 × 1448 | 1.57 MP | 6.0 MB | **[1086] only** |
+| `K2AIthgGqNzPB5xQDcdacsBwpc.png` | 1086 × 1448 | 1.57 MP | 6.0 MB | **[1086] only** |
+| `xHNc5yzExs1xiVmNkcB3qDIlY.png` | 1122 × 1402 | 1.57 MP | 6.0 MB | **[1122] only** |
+
+Six `<img>` tags, three unique images — each one duplicated for the breakpoint variants.
+Up to **36 MB of RGBA texture** for three screenshots.
+
+Three defects:
+
+1. **`srcset` offers exactly one width per image.** The `sizes` attribute is elaborate —
+   `(min-width: 1200px) max(max((100vw - 192px) / 3, 1px), 100vw), …` — and completely
+   inert, because there is only one candidate to choose from. A phone downloads and decodes
+   the identical 1086 × 1448 asset a desktop does.
+2. **They are PNG.** A 1.57 MP product screenshot as PNG is far larger than the same image
+   as WebP or AVIF, and Lighthouse independently scores 351 KiB of savings on image
+   delivery.
+3. **They are oversampled against their display size.** `sizes` implies a three-column
+   layout — roughly a 360 px column at 1200 px viewport — so a 1086 px-wide asset is about
+   **3× wider than it is displayed**. Decoding and texturing happen at intrinsic size
+   regardless of the CSS box, so the waste is paid in full.
+
+### GPU fix, in order of impact
+
+1. **Turn off the blur component of the text appear effect.** In Framer, the appear effect
+   on those text layers has blur enabled; keep the fade and the slide, drop the blur. This
+   removes ~750 GPU render passes per animated frame and is the single largest GPU win
+   available. Visually it is a subtle change; measurably it is not.
+2. **Animate whole headings instead of per character.** Takes 252 animated layers down to
+   roughly a dozen — and independently fixes the screen-reader problem the pre-launch
+   audit raised about split text being read one character at a time.
+3. **Cut the `backdrop-filter` count.** For frosted panels over a static background, a
+   semi-transparent solid fill is visually near-identical and costs nothing. Reserve
+   `backdrop-filter` for the one or two places it genuinely reads as glass.
+4. **Give the images real `srcset` variants** at 400 / 800 / 1200 px and serve WebP.
+   Framer generates these automatically when the image is placed as a responsive image
+   rather than a fixed asset — worth checking why it did not here.
+5. **Re-encode the videos** per P0-2. Not the main GPU driver, but 38.6 MB of over-encoded
+   video is worth removing anyway.
+6. **Audit `will-change`.** 31 elements declare it (`transform` on 24, `transform, opacity`
+   on 3, `width` on 3). `will-change` is meant to be applied immediately before an
+   animation and removed after; left on permanently it pins a compositor layer and its
+   texture for the life of the page.
+
+### How to confirm this yourself in two minutes
+
+In Chrome DevTools on the live site:
+
+- **Rendering** panel → check **Layer borders**. Every orange/blue border is a compositor
+  layer. Expect a great many over the animated headings.
+- **Layers** panel → sort by memory. This gives the actual per-layer texture cost and will
+  identify the worst offenders directly.
+- **Performance** panel → record a scroll through the hero. Look for tall green
+  "Composite Layers" and "Paint" bands, and check the GPU track.
+- `chrome://gpu` → the process memory figure, watched while scrolling.
+
+Do this before and after step 1. It is the cheapest way to prove where the load is.
 
 ---
 
-## Finding 3 — A WebGL canvas layer with no teardown path (P1)
+## The compounding layer
 
-Three libraries, loaded twice each:
-
-```
-173 KB  cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.2.6/dist/unicornStudio.umd.js
-248 KB  assets.unicorn.studio/controls/controls.umd.js   (177 KB of it unused, 71%)
-207 KB  assets.unicorn.studio/media/blue_noise_med.png   (requested twice)
-```
-
-`unicornStudio.umd.js` costs 164 ms of bootup and 55 ms of long-task time; combined with
-`controls.umd.js` it triggers **forced synchronous reflow from seven distinct call sites**.
-
-WebGL is the concerning part for memory. A context allocates GPU-side textures and
-framebuffers that do not appear in JS heap measurements. A `blue_noise` texture indicates
-a shader-based dithered gradient or displacement effect, running continuously.
-
-The specific risk: **if the effect's container remounts** — on a breakpoint change, a
-route transition, or a scroll-triggered re-render — and the old context is not released
-with `WEBGL_lose_context.loseContext()`, contexts accumulate. Browsers cap concurrent
-contexts at ~16 and then begin discarding the oldest, which produces exactly the
-"renders fine, then goes black or crashes" behavior. That `controls.umd.js` is loaded at
-all is itself suspicious — it is the library's *authoring* control panel, 71% unused, and
-has no business on a published page.
-
-### Fix
-
-1. **Drop `controls.umd.js`.** It is the editor UI for the effect, not the runtime.
-2. **Confirm teardown.** In DevTools, resize the window across the mobile breakpoint
-   several times, then check the WebGL context count. If it climbs, the component needs an
-   unmount handler calling `loseContext()`.
-3. **Deduplicate.** All three assets load twice — again the breakpoint-variant duplication.
-4. **Gate it.** Disable the effect under `prefers-reduced-motion`, and consider skipping
-   it on mobile entirely, where the RAM ceiling is lowest and the effect is least visible.
-5. **Weigh it honestly.** ~630 KB, a permanent GPU allocation, and seven forced reflows
-   for a decorative gradient is a poor trade. A static WebP gradient is free.
-
----
-
-## Finding 4 — 85 font requests, 3.16 MB (P1)
+### P1 — 85 font requests, 3.16 MB
 
 | Family | Requests |
 |---|---|
@@ -221,116 +323,117 @@ has no business on a published page.
 | Geist Mono | 2 |
 | Inter | 2 |
 | Space Grotesk, Instrument Sans | 1 each |
-| (host-level / editor picker) | 30 |
+| Editor font pickers | 30 |
 
-29 weights of Geist is not a design decision anyone made — it is every weight and italic
-of a variable family being served as separate static files. Fira Sans Extra Condensed at
-~150 KB per file is a fourth family that no part of the audited design appears to use.
+Twenty-nine Geist requests is not a decision anyone made — it is every weight and italic
+of a variable family shipped as separate static files. The live HTML still references 51
+font files. Fira Sans Extra Condensed is a fourth family that no audited part of the
+design appears to use. Lighthouse scores 590 ms available from `font-display` alone.
 
-Lighthouse separately flags 590 ms of savings available from `font-display`.
+**Fix:** audit which families and weights are actually used (expect two families, three or
+four weights); drop Fira Sans Extra Condensed; move to variable fonts; set
+`font-display: swap` and subset to Latin.
 
-### Fix
+### P1 — Framer Motion at 3,002 ms of main-thread time
 
-1. **Audit which families and weights the design actually uses.** Expect the real answer
-   to be two families and three or four weights.
-2. **Remove Fira Sans Extra Condensed** unless a specific element needs it.
-3. **Prefer variable fonts** — one file covers the full weight range instead of 29.
-4. **Set `font-display: swap`** and subset to Latin.
+Main-thread work, 6.2 s total: Other 3,105 ms · Script evaluation 1,273 ms · Style &
+layout 853 ms · Rendering 522 ms · Parse & compile 362 ms · **Garbage collection 36 ms**.
 
----
+`motion.C_WWXFrT.mjs` alone accounts for 3,002 ms — more than the whole document's
+1,425 ms — and appears twice in the forced-reflow table. The likely amplifier is finding 19
+of the pre-launch audit: heading text split into per-character spans, each becoming an
+animated node with its own transform and style recalculation, doubled across breakpoints.
 
-## Finding 5 — Framer Motion is the largest single main-thread cost (P1)
+**Fix:** animate whole headings rather than characters (which also fixes the screen-reader
+problem the pre-launch audit raised); restrict animation to `transform` and `opacity`;
+unmount reveal animations once played; honor `prefers-reduced-motion`.
 
-Main-thread breakdown, 6.2 s total:
+### P1 — Breakpoint duplication multiplies everything above
 
-| Category | Time |
-|---|---|
-| Other | 3,105 ms |
-| Script evaluation | 1,273 ms |
-| Style & layout | 853 ms |
-| Rendering | 522 ms |
-| Script parse & compile | 362 ms |
-| **Garbage collection** | **36 ms** |
+Logged at P2 in the pre-launch audit. **Raise it to P1.** Live HTML is still 449 KB, so the
+duplication survived launch. It is a multiplier, not an isolated issue: the 29 MB video
+fetched by two elements, every font file requested twice, every animated span doubled.
+Consolidating header, hero, footer, and marquee into single responsive components reduces
+several problems at once.
 
-By script, `motion.C_WWXFrT.mjs` (Framer Motion) accounts for **3,002 ms** — more than
-the whole document's 1,425 ms — and shows up in the forced-reflow table twice.
+### P1 — Retained for reference: WebGL layer (not on the live homepage)
 
-The likely amplifier is finding 19 of the pre-launch audit: heading text split into
-per-character spans for reveal animations. Each character becomes an animated node with
-its own transform and style recalculation. Across several headings, duplicated for two
-breakpoints, that is thousands of animated nodes. It explains the 853 ms of style and
-layout, and it is a steady allocation load rather than a one-time cost.
+The staging build loaded `unicornStudio.umd.js` (173 KB), `controls.umd.js` (248 KB, 71%
+unused) and a 207 KB noise texture, together causing forced reflow from seven call sites.
+**None of it appears in the live homepage HTML.** If it exists on other pages: remove
+`controls.umd.js` (it is the authoring panel, not runtime), and verify contexts are
+released via `loseContext()` on unmount, since browsers cap concurrent WebGL contexts
+around sixteen and then start discarding them.
 
-### Fix
+### P2 — New on production: a third-party licence-enforcement script
 
-1. **Animate whole headings, not characters.** A single opacity/transform on the heading
-   element gets most of the visual effect at a fraction of the cost — and it fixes the
-   accessibility problem the pre-launch audit raised about screen readers reading split
-   text character by character.
-2. **Animate only `transform` and `opacity`**, which stay on the compositor and skip
-   layout entirely.
-3. **Unmount reveal animations once they have played.** A one-shot intro animation should
-   not stay mounted and observed for the life of the page.
-4. **Honor `prefers-reduced-motion`.**
+The live site loads `frameship-backend.account-ba7.workers.dev/static/js/licence-management.js`
+(14.4 KB). It contains a `BANNER_HTML` template that renders a fixed-position overlay in
+the lower-left of the page. This is a Framer template vendor's licence check, and it can
+inject a visible banner onto your production marketing site under conditions you do not
+control. Worth a decision before it surprises someone. Unrelated to memory.
 
----
-
-## Finding 6 — Breakpoint duplication multiplies all of the above (P1)
-
-Already logged as finding 16 of the pre-launch audit at P2. **On this evidence it should
-be raised to P1.** It is not merely a DOM-size and duplicate-H1 issue; it is a multiplier
-on every item in this document:
-
-- the 24 MB video, fetched by two sets of elements
-- the WebGL effect, initialized twice, its assets fetched twice
-- every font file, requested twice
-- every animated character span, doubled
-- 441 KB of HTML where ~220 KB would do
-
-Consolidating the header, hero, footer, and testimonial marquee to single responsive
-components is the highest-leverage structural change available, because it reduces
-several independent problems at once.
+Also still outstanding from the pre-launch audit: the document root is `<html dir="ltr">`
+with **no `lang` attribute** (WCAG 3.1.1, Level A).
 
 ---
 
 ## Fix order
 
-**Do first — these are the crash:**
+**RAM (your crashes):**
 
-1. Determine whether the editor runtime loads for anonymous visitors (incognito, no
-   Framer session, filter Network for `framercanvas.com`). This decides whether item 2
-   is a launch blocker or a team-workflow problem.
-2. Disable Framer edit mode on the published site. Escalate to Framer support if there is
-   no toggle on the current plan.
-3. Re-encode the hero video from 24 MB to under 1.5 MB, strip audio, add a `poster`.
-4. Consolidate the hero to one video element instead of one per breakpoint.
+1. **Clear the local-storage flag** on affected machines — stops your crashes today.
+2. **Disable On-Page Editing** in Framer site settings — removes the path for everyone.
 
-**Then:**
+**GPU (the load you saw in Task Manager):**
 
-5. Remove `controls.umd.js`; verify WebGL contexts are released on unmount.
-6. Cut the font set to the families and weights actually used; move to variable fonts.
-7. Replace per-character text animation with per-heading animation.
-8. Consolidate the remaining breakpoint variants — header, footer, marquee.
+3. **Disable the blur on the text appear effect** — removes ~750 render passes per frame.
+4. **Animate whole headings, not per character** — 252 animated layers down to ~12.
+5. **Cut the 32 `backdrop-filter` blurs** to the one or two that genuinely need glass.
+6. **Fix image delivery** — real `srcset` variants at 400/800/1200 px, WebP not PNG.
 
-**Expected result:** visitor payload from 30.4 MB to roughly 3–4 MB; total requests from
-1,090 to under 120; main-thread work from 6.2 s to somewhere near 2 s; and, most
-importantly, a heap that settles instead of climbing.
+**Payload (every visitor):**
+
+7. **Re-encode both videos** — 38.6 MB to under 3 MB, and re-mux with `+faststart`.
+8. **Consolidate the hero to one video element.**
+9. Cut the font set to what is used; move to variable fonts.
+10. Consolidate remaining breakpoint variants.
+11. Decide on the frameship licence script; add `lang="en"`.
+
+**Expected result:** visitor payload from roughly 30 MB to 3–4 MB; requests from 1,090 to
+under 120; main-thread work from 6.2 s toward 2 s; GPU compositing from 252 animated blur
+layers to roughly a dozen plain ones; and a heap that settles rather than climbing.
 
 ---
 
 ## Confirmed vs. inferred
 
-**Directly confirmed in the Lighthouse data:** all request counts, byte totals, status
-codes, timings, and main-thread attributions; the three live documents; the 282 `blob:`
-script URLs; the 1.47 MB CRDT fetch; the six requests for one 23.94 MB video; the
-forced-reflow call sites; the 85 font requests.
+**Measured directly.** From live production: the local-storage gate and the
+`framer.com/edit/init.mjs` import with its SSR and bot guards; three `<video>` elements
+with two sharing one source; 28.90 MB and 9.73 MB video sizes from `Content-Length`;
+449 KB of HTML; 51 font file references; no `lang` attribute; zero `framer.link`; zero
+unicorn.studio; the frameship licence script and its banner template. From the staging
+trace: all request counts, byte totals, timings, the three live documents, 282 `blob:`
+URLs, the 1.47 MB CRDT fetch, six range requests for one video, seven forced-reflow call
+sites, 36 ms of GC.
 
-**Inferred, and worth verifying in a browser:** that blob URLs are never revoked; that
-WebGL contexts leak on remount (needs the resize test); that per-character spans are what
-drives the style-and-layout cost; and whether the editor runtime loads for anonymous
-visitors. That last one is the single most important thing to check, and it takes about
-thirty seconds.
+Also measured on live: 252 inline `filter: blur()` declarations (162 at 10px, 90 at 5px),
+all sharing one signature; 32 `backdrop-filter: blur(14px)`; 31 `will-change` declarations;
+1,074 `framer-text` spans; six `<img>` tags over three unique 1.57 MP PNGs, each with a
+single-width `srcset`; both videos' resolution, duration, absent audio track, and
+`moov`-at-end layout.
 
-**Not measurable from this report:** actual resident memory over time. A DevTools Memory
-timeline with heap snapshots taken 30 s apart on an idle tab would confirm the growth rate
-directly and is worth capturing before and after the fixes above.
+**Inferred — worth verifying.** That blob URLs are never revoked. That the 252 blurred
+elements are the per-character text reveal (the style signature is strong evidence, but
+confirm in the Layers panel). That clearing the local-storage flag is sufficient on its own
+(an authenticated Framer session may re-set it — hence also signing out). The render-pass
+and texture-memory figures are arithmetic from the declaration counts and standard blur
+implementation, not measurements — the DevTools Layers panel will give you real numbers.
+
+**Not verified.** I could not run a live browser measurement: this environment's proxy
+refuses headless Chromium connections (it resets even on `example.com`), so I have no
+before/after heap number, no layer-memory readout, and no GPU-process figure from
+`smrtsystems.com` itself. Everything above is from static analysis of the served HTML and
+JS plus the staging trace. Worth capturing on a real machine — a DevTools Memory timeline
+with heap snapshots 30 s apart on an idle tab, before and after steps 1–4 — both to
+confirm the growth rate and to prove the fix landed.
