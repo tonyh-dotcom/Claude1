@@ -1,0 +1,542 @@
+<title>Twenty-One Things Still Wrong</title>
+<style>
+/* ---------- tokens: light is the complete set ---------- */
+:root{
+  --paper:#F6F7F5;
+  --panel:#FFFFFF;
+  --sunk:#F1F3EF;
+  --ink:#151D1B;
+  --slate:#55635F;
+  --mute:#737D77;
+  --rule:#E1E5E1;
+  --rule-soft:#EDEFEC;
+  --pine:#0A6B45;
+  --clay:#C96528;
+  --pine-bg:#EAF2ED;
+  --clay-bg:#FBF0E8;
+  --wine:#8F1D3A;
+  --wine-bg:#FAEEF1;
+  --bronze:#7A5B14;
+  --bronze-bg:#F8F3E6;
+  --shadow:0 1px 2px rgba(21,29,27,.05);
+
+  --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Mono","Menlo","Consolas","Liberation Mono",monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --wrap:1000px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101413;
+    --panel:#171E1B;
+    --sunk:#1B2320;
+    --ink:#E8EDEA;
+    --slate:#A3AFAA;
+    --mute:#7B867F;
+    --rule:#27302C;
+    --rule-soft:#1E2622;
+    --pine:#28A08C;
+    --clay:#D26E3C;
+    --pine-bg:#16302A;
+    --clay-bg:#2E2019;
+    --wine:#E8738D;
+    --wine-bg:#2F1A20;
+    --bronze:#CBA24E;
+    --bronze-bg:#2A2317;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101413;
+  --panel:#171E1B;
+  --sunk:#1B2320;
+  --ink:#E8EDEA;
+  --slate:#A3AFAA;
+  --mute:#7B867F;
+  --rule:#27302C;
+  --rule-soft:#1E2622;
+  --pine:#28A08C;
+  --clay:#D26E3C;
+  --pine-bg:#16302A;
+  --clay-bg:#2E2019;
+  --wine:#E8738D;
+  --wine-bg:#2F1A20;
+  --bronze:#CBA24E;
+  --bronze-bg:#2A2317;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+:where(a){color:var(--pine)}
+:where(a:hover){text-decoration-thickness:2px}
+:where(a,button):focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+code{
+  font-family:var(--mono);font-size:.84em;
+  background:var(--sunk);border:1px solid var(--rule-soft);
+  padding:.1em .34em;border-radius:3px;word-break:break-word;
+}
+h1,h2,h3,.lbl,.num,.chip,th{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- urgent callout ---------- */
+.now-box{
+  border:1px solid var(--wine);border-left:3px solid var(--wine);
+  background:var(--wine-bg);border-radius:5px;padding:24px 28px 26px;margin-top:34px;
+}
+.now-box .lbl{display:block;color:var(--wine);margin-bottom:11px}
+.now-box h2{
+  font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.022em;
+  margin:0 0 12px;text-transform:none;
+}
+.now-box p{margin:0 0 14px;max-width:64ch}
+.now-box ol{margin:0;padding-left:22px;max-width:64ch}
+.now-box li{margin-bottom:8px}
+.now-box li:last-child{margin-bottom:0}
+.now-box .after{margin-top:15px;font-size:15px;color:var(--slate);margin-bottom:0}
+
+/* ---------- shell ---------- */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
+.lbl{
+  font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--mute);font-weight:500;
+}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule);background:var(--panel)}
+.mast .wrap{padding-top:46px;padding-bottom:0}
+.mast-grid{display:flex;flex-direction:column;gap:16px}
+h1{
+  font-size:clamp(29px,4.6vw,46px);font-weight:600;
+  letter-spacing:-.035em;line-height:1.06;margin:0;max-width:19ch;
+  text-wrap:balance;
+}
+.dek{
+  font-size:19px;line-height:1.5;color:var(--slate);
+  margin:0;max-width:60ch;
+}
+.dek b{color:var(--ink);font-weight:600}
+.meta{
+  display:flex;flex-wrap:wrap;gap:6px 22px;
+  font-family:var(--mono);font-size:11.5px;color:var(--mute);
+  padding:20px 0 0;margin-top:8px;border-top:1px solid var(--rule-soft);
+}
+.meta span b{color:var(--slate);font-weight:500}
+
+/* ---------- headline stats ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  gap:0;margin-top:30px;border-top:1px solid var(--rule);
+}
+.stat{padding:17px 22px 20px;border-right:1px solid var(--rule-soft)}
+.stat:last-child{border-right:0}
+.stat-v{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:27px;font-weight:600;letter-spacing:-.035em;line-height:1;
+  display:block;margin-bottom:7px;
+}
+.stat-v.bad{color:var(--wine)}
+.stat-k{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.stat-n{display:block;font-size:13.5px;color:var(--slate);line-height:1.4;margin-top:6px}
+
+/* ---------- sections ---------- */
+main .wrap{padding-bottom:88px}
+section{padding-top:56px}
+.sec-head{
+  display:flex;align-items:baseline;gap:14px;
+  padding-bottom:10px;margin-bottom:8px;border-bottom:2px solid var(--ink);
+}
+.sec-head h2{font-size:15px;font-weight:600;letter-spacing:.04em;margin:0;text-transform:uppercase}
+.sec-head .lbl{margin-left:auto}
+.prose{max-width:68ch}
+.prose p{margin:18px 0}
+.prose > p:first-child{margin-top:22px}
+.prose ul,.prose ol{margin:18px 0;padding-left:22px}
+.prose li{margin-bottom:9px}
+.prose li:last-child{margin-bottom:0}
+.prose h3{
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  margin:32px 0 0;color:var(--ink);
+}
+
+/* ---------- figure scaffolding ---------- */
+figure{margin:30px 0;padding:0}
+figcaption{
+  font-family:var(--mono);font-size:11.5px;line-height:1.5;
+  color:var(--mute);margin-top:14px;max-width:74ch;
+}
+.fig-t{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;
+  letter-spacing:.02em;color:var(--ink);margin:0 0 3px;
+}
+.fig-s{font-family:var(--mono);font-size:11px;color:var(--mute);margin:0 0 18px}
+
+/* ---------- stacked split bar ---------- */
+.split{display:flex;gap:2px;height:46px;margin-bottom:12px}
+.split-seg{
+  border-radius:3px;display:flex;align-items:center;padding:0 13px;
+  font-family:var(--mono);font-size:12px;font-weight:600;color:#FFF;
+  min-width:0;overflow:hidden;white-space:nowrap;
+}
+:root[data-theme="dark"] .split-seg{color:#0E1211}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .split-seg{color:#0E1211}}
+.split-a{background:var(--pine);flex:30.41}
+.split-b{background:var(--clay);flex:9.15}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11.5px;color:var(--slate)}
+.legend span{display:flex;align-items:center;gap:7px}
+.swatch{width:10px;height:10px;border-radius:2px;flex:0 0 auto}
+.sw-a{background:var(--pine)} .sw-b{background:var(--clay)}
+
+/* ---------- bar rows ---------- */
+.bars{display:flex;flex-direction:column;gap:2px}
+.bar-row{
+  display:grid;grid-template-columns:132px 1fr 84px;
+  align-items:center;gap:14px;
+}
+.bar-row .bk{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.bar-track{height:19px;display:flex;align-items:center}
+.bar-fill{height:19px;border-radius:0 3px 3px 0;background:var(--pine);min-width:2px}
+.bar-fill.alt{background:var(--clay)}
+.bar-fill.dim{background:var(--rule)}
+.bar-row .bv{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:11.5px;color:var(--ink);font-weight:600;
+}
+.bar-row.quiet .bv{color:var(--slate);font-weight:400}
+
+/* ---------- waterfall timeline ---------- */
+.wf-scroll{overflow-x:auto}
+.wf{min-width:600px}
+.wf-axis{
+  display:grid;grid-template-columns:repeat(13,1fr);
+  border-bottom:1px solid var(--rule);margin-bottom:9px;
+}
+.wf-axis span{
+  font-family:var(--mono);font-size:10px;color:var(--mute);
+  padding-bottom:5px;border-left:1px solid var(--rule-soft);padding-left:4px;
+}
+.wf-row{
+  position:relative;height:26px;display:flex;align-items:center;
+  border-bottom:1px solid var(--rule-soft);
+}
+.wf-row:last-child{border-bottom:0}
+.wf-mark{
+  position:absolute;top:6px;height:14px;border-radius:2px;
+  background:var(--clay);min-width:4px;
+}
+.wf-mark.site{background:var(--pine)}
+.wf-mark.crit{background:var(--wine)}
+.wf-lab{
+  position:absolute;top:4px;font-family:var(--mono);font-size:10.5px;
+  line-height:18px;color:var(--ink);white-space:nowrap;
+  padding-left:7px;pointer-events:none;
+}
+.wf-lab.flip{padding-left:0;padding-right:7px;transform:translateX(-100%)}
+.wf-lab i{color:var(--mute);font-style:normal}
+
+/* ---------- findings ---------- */
+.find{
+  background:var(--panel);border:1px solid var(--rule);
+  border-radius:5px;box-shadow:var(--shadow);
+  padding:26px 30px 28px;margin-top:22px;
+}
+.find-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:13px}
+.find-n{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;color:var(--mute);
+}
+.chip{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:3px 8px;border-radius:3px;white-space:nowrap;
+}
+.chip-p0{color:var(--wine);background:var(--wine-bg)}
+.chip-p1{color:var(--bronze);background:var(--bronze-bg)}
+.chip-p2{color:var(--pine);background:var(--pine-bg)}
+.chip-area{color:var(--slate);background:var(--sunk);font-weight:500}
+.find-h{
+  font-size:21px;font-weight:600;letter-spacing:-.022em;line-height:1.25;
+  margin:0 0 4px;max-width:40ch;text-wrap:balance;font-family:var(--serif);
+}
+.find .prose{max-width:66ch}
+.find .prose > p:first-of-type{margin-top:14px}
+.claim{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--wine);
+  margin:0 0 4px;letter-spacing:.01em;
+}
+
+/* ---------- code / evidence ---------- */
+.ev{
+  background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:14px 16px;margin:22px 0;overflow-x:auto;
+}
+.ev pre{
+  margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;
+  white-space:pre;color:var(--ink);
+}
+.ev .lbl{display:block;margin-bottom:9px}
+.ev em{color:var(--wine);font-style:normal;font-weight:600}
+
+/* ---------- tables ---------- */
+.tbl-scroll{overflow-x:auto;margin:24px 0}
+table{
+  border-collapse:collapse;width:100%;
+  font-family:var(--mono);font-size:12px;min-width:400px;
+}
+th{
+  text-align:left;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--mute);font-weight:500;padding:0 14px 9px 0;
+  border-bottom:1px solid var(--rule);
+}
+td{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--slate)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink)}
+.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+tfoot td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink);font-weight:600;padding-top:10px}
+
+/* ---------- fix list ---------- */
+.fix{border-top:1px solid var(--rule-soft);margin-top:24px;padding-top:18px}
+.fix .lbl{display:block;margin-bottom:12px}
+.fix ol{margin:0;padding-left:20px;max-width:66ch}
+.fix li{margin-bottom:10px}
+.fix li:last-child{margin-bottom:0}
+
+/* ---------- ordered fix plan ---------- */
+.plan{list-style:none;margin:24px 0 0;padding:0;counter-reset:step}
+.plan li{
+  counter-increment:step;position:relative;
+  padding:15px 0 15px 46px;border-bottom:1px solid var(--rule-soft);
+  max-width:72ch;
+}
+.plan li:last-child{border-bottom:0}
+.plan li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;left:0;top:17px;
+  font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--mute);
+}
+.plan .now::before{color:var(--wine)}
+
+/* ---------- confidence split ---------- */
+.conf{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin-top:24px}
+.conf div{background:var(--panel);padding:20px 22px}
+.conf h3{margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.conf .ok{color:var(--pine)}
+.conf .maybe{color:var(--bronze)}
+.conf .no{color:var(--mute)}
+.conf p{margin:0;font-size:15px;line-height:1.55;color:var(--slate)}
+
+.foot{
+  border-top:1px solid var(--rule);margin-top:60px;padding:22px 0 0;
+  font-family:var(--mono);font-size:11px;color:var(--mute);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+}
+
+@media (max-width:700px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .find{padding:22px 20px 24px}
+  .bar-row{grid-template-columns:104px 1fr 72px;gap:10px}
+  .stat{border-right:0;border-bottom:1px solid var(--rule-soft)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+/* ---------- correction block ---------- */
+.corr{border:1px solid var(--rule);border-left:3px solid var(--bronze);background:var(--panel);
+  border-radius:5px;padding:24px 28px 26px;margin-top:22px;box-shadow:var(--shadow)}
+.corr .lbl{display:block;color:var(--bronze);margin-bottom:11px}
+.corr h3{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;text-transform:none;max-width:46ch}
+.corr p{margin:0 0 13px;max-width:70ch}
+.corr p:last-child{margin-bottom:0}
+.corr .was{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.01em}
+/* ---------- score comparison ---------- */
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin:26px 0 0}
+.sc{background:var(--panel);padding:16px 18px 18px}
+.sc-k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);margin-bottom:11px}
+.sc-pair{display:flex;gap:16px;align-items:flex-end}
+.sc-one{display:flex;flex-direction:column;gap:3px}
+.sc-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.sc-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--mute)}
+.sc-d .sc-v{color:var(--pine)} .sc-m .sc-v{color:var(--clay)}
+.sc-bad .sc-v{color:var(--wine)}
+/* ---------- grouped bars ---------- */
+.gb{display:flex;flex-direction:column;gap:9px}
+.gb-row{display:grid;grid-template-columns:112px 1fr;align-items:center;gap:14px}
+.gb-k{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.gb-pair{display:flex;flex-direction:column;gap:2px}
+.gb-bar{display:flex;align-items:center;gap:8px}
+.gb-fill{height:13px;border-radius:0 2px 2px 0;min-width:2px}
+.gb-d{background:var(--pine)} .gb-m{background:var(--clay)}
+.gb-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--slate)}
+/* ---------- verdict chips in tables ---------- */
+.vg{color:var(--pine);font-weight:600} .vb{color:var(--wine);font-weight:600} .vw{color:var(--bronze);font-weight:600}
+.mono-list{font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--slate);margin:0;max-width:none}
+
+.sec-head h2{text-transform:none;font-size:17px;letter-spacing:-.005em}
+.sec-head.sec--p0{border-bottom-color:var(--wine)}
+.sec-head.sec--p0 h2{color:var(--wine)}
+.sec-head.sec--p1{border-bottom-color:var(--bronze)}
+.sec-head.sec--p1 h2{color:var(--bronze)}
+h3.pg{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.018em;
+  margin:38px 0 6px;color:var(--ink);max-width:52ch;text-wrap:balance}
+.callout{border-left:3px solid var(--pine);background:var(--pine-bg);padding:15px 18px;
+  border-radius:0 4px 4px 0;margin:20px 0;font-size:16px;line-height:1.6;color:var(--ink);
+  max-width:70ch;font-style:italic}
+main .wrap > p{max-width:74ch;margin:16px 0}
+main .wrap > ul.prose{max-width:74ch;margin:16px 0;padding-left:22px}
+main .wrap > ul.prose li{margin-bottom:9px}
+hr{border:0;border-top:1px solid var(--rule);margin:50px 0 0}
+table{font-size:12px}
+</style>
+<header class="mast"><div class="wrap"><div class="mast-grid">
+<p class="lbl">Full site audit &middot; smrtsystems.com</p>
+<h1>Twenty-One Things Still Wrong</h1>
+<p class="dek">Two legal exposures, a 270 MB executable in your footer, and one SEO defect affecting 34 of your 49 pages that no single-page tool will ever show you.</p>
+<div class="meta">
+  <span><b>Scanned</b> 2026-08-13</span>
+  <span><b>Coverage</b> all 49 pages</span>
+  <span><b>Parsed</b> 5,373 links &middot; 2,668 images &middot; 4,064 headings</span>
+  <span><b>Excludes</b> link breakage and RAM/GPU, documented separately</span>
+</div></div></div></header>
+<main><div class="wrap">
+<p>Findings are ordered by what they cost you. Two are legal exposure, one is a security and trust problem I would treat as urgent, and the SEO section contains a defect affecting 34 of your 49 pages that no single-page tool would ever surface.</p>
+<hr>
+<div class="sec-head"><h2>Summary</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>#</th><th>Finding</th><th>Scale</th><th>Severity</th></tr></thead><tbody><tr><td>1</td><td>No privacy policy, terms, or cookie notice &mdash; while running four trackers</td><td>49/49 pages</td><td><strong>P0 legal</strong></td></tr><tr><td>2</td><td>270 MB <code>.exe</code> download labelled &quot;TEAMVIEWER&quot; from a <code>/tests/</code> bucket</td><td>49/49 pages</td><td><strong>P0 security/trust</strong></td></tr><tr><td>3</td><td>Unsubstantiated &quot;grew our business by 80%&quot; testimonial</td><td>Homepage</td><td><strong>P0 legal</strong></td></tr><tr><td>4</td><td>&quot;10,397,124 Satisfied Customers&quot; &mdash; not a credible figure</td><td>Homepage</td><td><strong>P0 credibility</strong></td></tr><tr><td>5</td><td>All 34 blog pages share one identical title and meta description</td><td>34/49 pages</td><td><strong>P0 SEO</strong></td></tr><tr><td>6</td><td>Four of five FAQ answers are empty in the DOM</td><td>Homepage</td><td>P1 content</td></tr><tr><td>7</td><td>Zero structured data sitewide</td><td>49/49</td><td>P1 SEO</td></tr><tr><td>8</td><td><code>og:image</code> absent while <code>twitter:card=summary_large_image</code> is declared</td><td>49/49</td><td>P1 SEO</td></tr><tr><td>9</td><td>2,592 of 2,668 images have no <code>alt</code></td><td>97%</td><td>P1 accessibility</td></tr><tr><td>10</td><td>No <code>lang</code> attribute</td><td>49/49</td><td>P1 accessibility</td></tr><tr><td>11</td><td>778 <code>&lt;h5&gt;</code> elements are buttons and nav, not headings</td><td>49/49</td><td>P1 semantics</td></tr><tr><td>12</td><td>Multiple <code>&lt;h1&gt;</code> per page; homepage has six</td><td>16 pages</td><td>P1 SEO</td></tr><tr><td>13</td><td>Split-text joins lose spaces &mdash; &quot;DryCleaning&quot;, &quot;Ecosystem.Built&quot;</td><td>Homepage</td><td>P1</td></tr><tr><td>14</td><td>Brand written &quot;SMrt&quot;</td><td>/tech/metalprogetti</td><td>P2 copy</td></tr><tr><td>15</td><td>One headline appears in three different casings</td><td>Sitewide</td><td>P2 copy</td></tr><tr><td>16</td><td>Six different labels for the same conversion action</td><td>Sitewide</td><td>P2 copy</td></tr><tr><td>17</td><td>Blog slug typo, and slug does not match the title</td><td>1 post</td><td>P2 SEO</td></tr><tr><td>18</td><td>24 of 33 blog posts predate 2024</td><td>73%</td><td>P2 content</td></tr><tr><td>19</td><td>Address, copyright and date-label formatting</td><td>Sitewide</td><td>P2 copy</td></tr><tr><td>20</td><td>Viewport missing <code>initial-scale=1</code></td><td>49/49</td><td>P2 mobile</td></tr><tr><td>21</td><td>404 page is branded &quot;Framer&quot;</td><td>Sitewide</td><td>P2 brand</td></tr></tbody></table></div>
+<hr>
+<div class="sec-head"><h2>1. No privacy policy, no terms, no cookie notice &mdash; with four trackers running</h2></div>
+<p>I searched all 49 pages for the words <em>privacy, terms, cookie, GDPR, CCPA, legal, do-not-sell, accessibility statement, DPA, sub-processor</em>. <strong>Every one returns zero matches.</strong> There is no such link anywhere on the site, in the footer or otherwise.</p>
+<p>Meanwhile, running on <strong>all 49 pages</strong>:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Tracker</th><th>Pages</th></tr></thead><tbody><tr><td>Google Tag Manager</td><td>49</td></tr><tr><td>gtag.js</td><td>49</td></tr><tr><td>Google Ads conversion (<code>AW-11131488593</code>)</td><td>49</td></tr><tr><td>LinkedIn</td><td>49</td></tr></tbody></table></div>
+<p>And I found <strong>no consent-management platform of any kind</strong> &mdash; no Cookiebot, OneTrust, Osano, Termly, Iubenda, Klaro, or Framer&#x27;s own cookie banner.</p>
+<p>Why this is more than a checkbox: your own footer advertises an <strong>EMEA sales line (+46, Sweden)</strong> and an <strong>AU sales line</strong>, and the site captures leads through a demo form. That is personal-data collection from EU and Australian visitors, with advertising and analytics cookies set <strong>before</strong> any consent, and no published privacy notice. Under GDPR and the ePrivacy Directive that is the straightforward version of the violation, not a marginal one.</p>
+<p><strong>Fix:</strong></p>
+<ol class="plan"><li>Publish a Privacy Policy and Terms of Service, and link both in the footer sitewide.</li><li>Add a consent banner that blocks GTM, gtag, Google Ads and LinkedIn until the visitor opts in. Framer has a built-in banner; a CMP is better given you have EU traffic.</li><li>Add a consent checkbox and a privacy-notice link at the point of collection on the demo form.</li><li>Given California traffic, add a &quot;Do Not Sell or Share My Personal Information&quot; link.</li></ol>
+<p>This is the single largest liability on the site and it is also among the cheapest to fix.</p>
+<div class="sec-head"><h2>2. A 270 MB executable in the footer of every page, labelled &quot;TEAMVIEWER&quot;</h2></div>
+<p>The footer link reading <strong>TEAMVIEWER</strong> &mdash; on all 49 pages, 98 anchor instances, <code>target=&quot;_blank&quot;</code> &mdash; points to:</p>
+<div class="ev"><pre>https://smrt-releases.s3.amazonaws.com/tests/SMRT-Tool-Portable-0.3.0-x64.exe</pre></div>
+<p>Verified live:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Property</th><th>Value</th></tr></thead><tbody><tr><td>HTTP status</td><td>200, publicly downloadable</td></tr><tr><td><code>Content-Length</code></td><td><strong>282,803,960 bytes (270 MB)</strong></td></tr><tr><td><code>Content-Type</code></td><td><code>application/octet-stream</code></td></tr><tr><td>Last modified</td><td>2026-05-28</td></tr><tr><td>Path segment</td><td><strong><code>/tests/</code></strong></td></tr><tr><td>Version</td><td><strong>0.3.0</strong></td></tr></tbody></table></div>
+<p>Five separate problems stack up:</p>
+<ol class="plan"><li><strong>The label does not match the file.</strong> It says TeamViewer &mdash; a well-known third-party remote-support product &mdash; and delivers <code>SMRT-Tool-Portable</code>. That is a third-party trademark on a link to your own binary.</li><li><strong>It is served from a <code>/tests/</code> path</strong> at version <code>0.3.0</code>. That is the URL of a test build, not a vetted release artifact.</li><li><strong>A 270 MB download starts with no warning</strong> &mdash; no file size, no format, no confirmation.</li><li><strong>An unexpected <code>.exe</code> from an unfamiliar S3 bucket is exactly the shape of a malware delivery</strong>, and it behaves that way to SmartScreen, corporate proxies and endpoint security. Some visitors will get a scary warning; some networks will block your domain.</li><li><strong>A public marketing footer is the wrong place for a support tool</strong> at all.</li></ol>
+<p><strong>Fix:</strong> remove the link from the footer today. If customers genuinely need a remote-support tool, put it behind the authenticated support portal, serve it from a domain you control, sign the binary, label it with its real name and size, and point it at a released version rather than <code>/tests/</code>.</p>
+<div class="sec-head"><h2>3. The 80% growth testimonial still has no substantiation</h2></div>
+<p>Unchanged from the pre-launch audit and still live on the homepage:</p>
+<div class="callout">&quot;SMRT grew our business by 80%, and our customers genuinely love how easy everything is. After 10 years, we still wouldn&#x27;t run our business without it.&quot; &mdash; Sarah Mitchell, Park Avenue Cleaners</div>
+<p>Two things still make it stand out.</p>
+<p><strong>It is formatted unlike every other testimonial.</strong> The other eight on the homepage attribute as <code>Elton Cerda / Owner · Dry Clean NYC</code>, <code>Eric D.</code>, <code>Harry B.</code>, <code>Phyllis F.</code>, <code>Gary M.</code>, <code>Chad E. / Town &amp; Country Cleaners – FL</code>, <code>Jason Y.</code> &mdash; first name plus last initial, which is how genuinely collected reviews read. This one is a full name plus a full business name, which is how template placeholder copy reads.</p>
+<p><strong>It carries a quantified performance claim.</strong> &quot;Grew our business by 80%&quot; is precisely what the FTC Endorsement Guides require substantiation for, plus either evidence it reflects typical results or a disclosure that it does not.</p>
+<p><strong>Fix:</strong> confirm Sarah Mitchell and Park Avenue Cleaners are a real, consenting customer and that the 80% figure is documented. If so, keep it and add a typicality qualifier. If it is template text, replace it with one of the eight verified quotes already on the page. Do not launch a homepage with an unverified quantified claim.</p>
+<div class="sec-head"><h2>4. &quot;10,397,124 Satisfied Customers&quot;</h2></div>
+<p>Still live. SMRT sells to dry-cleaning businesses; ten million satisfied <em>customers</em> is not a credible reading of that number. It is almost certainly garments tracked, orders processed, or end-consumers served across all customer plants &mdash; but the label says customers.</p>
+<p>An implausible number does the opposite of what a proof point is for. Any prospect who does the arithmetic discounts everything else on the page.</p>
+<p><strong>Fix:</strong> relabel to what the figure actually measures &mdash; &quot;Garments tracked&quot;, &quot;Orders processed&quot;, &quot;Customer notifications sent&quot;. Confirm the number with whoever owns the data and consider an as-of date.</p>
+<hr>
+<div class="sec-head"><h2>5. All 34 blog pages share one identical title and meta description</h2></div>
+<p>This is the biggest technical SEO defect on the site, and no single-page tool will show it &mdash; Lighthouse scored SEO 100 because it only ever looks at one page.</p>
+<div class="tbl-scroll"><table><thead><tr><th></th><th>Value</th><th>Pages</th></tr></thead><tbody><tr><td><code>&lt;title&gt;</code></td><td>`Dry Cleaning POS &amp; Business Software \</td><td>SMRT`</td><td><strong>34</strong></td></tr><tr><td><code>&lt;meta description&gt;</code></td><td><code>Cloud POS, routes, payments, assembly, and marketing built for dry cleaners…</code></td><td><strong>34</strong></td></tr></tbody></table></div>
+<p>That is the homepage&#x27;s metadata, copied onto the blog index and all 33 posts. So a post titled <em>&quot;What Your Customers Want (From Their Perspective, Not Ours)&quot;</em> tells Google it is called <em>&quot;Dry Cleaning POS &amp; Business Software | SMRT&quot;</em>.</p>
+<p>Consequences: those 34 pages compete with each other and with the homepage for the same phrase; none can rank for its own topic; and search results show the same meaningless title and snippet for every one, which destroys click-through.</p>
+<p><strong>The good news:</strong> the other 15 pages have genuinely well-written, unique titles and descriptions. Whoever wrote those did a good job &mdash; the blog template simply never got the same treatment.</p>
+<p><strong>Fix:</strong> in the Framer CMS blog collection, bind the SEO title and description fields to the post&#x27;s own title and excerpt rather than the site defaults. This is a template-level change that fixes all 34 at once.</p>
+<p>Two smaller title issues:</p>
+<ul class="prose"><li><code>/special-services</code> &mdash; 77 characters, will truncate in search results, and reads awkwardly: <em>&quot;Couture Dry Cleaning, Hotel, Uniform &amp; Restoration Job in one platform | SMRT&quot;</em>. &quot;Restoration Job&quot; should be plural, and the phrase needs restructuring. Aim for under 60.</li><li><code>/tech/metalprogetti</code> &mdash; <em>&quot;Metalprogetti + SMRT Integration&quot;</em> is the only page missing the <code>| SMRT</code> suffix every other page uses.</li></ul>
+<hr>
+<div class="sec-head"><h2>6. Four of the five homepage FAQ answers are empty</h2></div>
+<p>The pre-launch audit suspected this. <strong>Now confirmed</strong> &mdash; I measured the text between each question and the next:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Question</th><th>Answer text in the DOM</th></tr></thead><tbody><tr><td>What is SMRT dry cleaning software?</td><td>238 characters</td></tr><tr><td>Can SMRT manage pickup and delivery routes?</td><td><strong>0 characters</strong></td></tr><tr><td>Does SMRT support automated payments and customer billing?</td><td><strong>0 characters</strong></td></tr><tr><td>Can SMRT integrate with Metalprogetti equipment?</td><td><strong>0 characters</strong></td></tr><tr><td>Is SMRT suitable for both single- and multi-location dry cleaners?</td><td><strong>0 characters</strong></td></tr></tbody></table></div>
+<p>They are not lazy-mounted &mdash; there is no content to mount. A visitor who clicks any of the last four gets a blank panel.</p>
+<p><strong>Fix:</strong> write the four answers. Then add FAQPage schema (see below) &mdash; with real answers this is the easiest rich result on the site to win.</p>
+<div class="sec-head"><h2>7. Zero structured data sitewide</h2></div>
+<p><code>application/ld+json</code> appears <strong>0 times across all 49 pages.</strong></p>
+<p>Missing at minimum:</p>
+<ul class="prose"><li><strong>Organization</strong> &mdash; the Raleigh address, six phone numbers by department and region, logo, and <code>sameAs</code> for the four social profiles. All of it is already sitting in your footer as plain text.</li><li><strong>SoftwareApplication</strong> &mdash; this is a SaaS product site in a well-defined category. The single most relevant schema type available, and it is absent.</li><li><strong>FAQPage</strong> &mdash; homepage, once finding 6 is fixed.</li><li><strong>BlogPosting</strong> &mdash; 33 posts, with author and <code>datePublished</code>. You already have real <code>&lt;time datetime=&quot;…&quot;&gt;</code> values, so the data exists.</li><li><strong>BreadcrumbList</strong> &mdash; for <code>/tech/*</code> and <code>/blogs/*</code>.</li></ul>
+<div class="sec-head"><h2>8. No social share image anywhere, but a large-image card is declared</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Tag</th><th>Present on</th></tr></thead><tbody><tr><td><code>og:title</code>, <code>og:description</code>, <code>og:url</code>, <code>og:type</code></td><td>49/49 ✓</td></tr><tr><td><code>twitter:card</code> = <code>summary_large_image</code></td><td>49/49 ✓</td></tr><tr><td><strong><code>og:image</code></strong></td><td><strong>0/49</strong></td></tr><tr><td><strong><code>twitter:image</code></strong></td><td><strong>0/49</strong></td></tr><tr><td><strong><code>og:site_name</code></strong></td><td><strong>0/49</strong></td></tr></tbody></table></div>
+<p>This is the worst combination available: the site explicitly requests a large-image card and then supplies no image. Every link shared to LinkedIn, Facebook, X, Slack or iMessage renders as a blank or grey card. Given SMRT posts actively to LinkedIn, Facebook and Instagram, this costs click-through on every organic and paid post.</p>
+<p><strong>Fix:</strong> a default 1200×630 <code>og:image</code> at site level, plus per-page images for the homepage, <code>/book-a-demo</code>, the seven <code>/tech/*</code> pages and the blog index. Add <code>og:site_name</code> and <code>og:image:alt</code>.</p>
+<div class="sec-head"><h2>9. 2,592 of 2,668 images have no <code>alt</code> attribute</h2></div>
+<p><strong>97% missing.</strong> Thirteen pages have no alt text on any image at all.</p>
+<p>Not empty <code>alt=&quot;&quot;</code>, which would at least be a deliberate decorative marker &mdash; the attribute is absent. WCAG 1.1.1 Level A failure, and lost SEO value on product screenshots.</p>
+<p><strong>Fix:</strong> descriptive alt on every meaningful image; explicit <code>alt=&quot;&quot;</code> on genuinely decorative ones. Prioritise the product screenshots on the homepage and <code>/tech/*</code>.</p>
+<div class="sec-head"><h2>10. No <code>lang</code> attribute on any page</h2></div>
+<p>All 49 pages serve <code>&lt;html dir=&quot;ltr&quot;&gt;</code> with no <code>lang</code>. WCAG 3.1.1 Level A. Screen readers fall back to the user&#x27;s default voice, so English content can be read with Swedish or Spanish pronunciation. Flagged pre-launch, still unfixed.</p>
+<p><strong>Fix:</strong> <code>&lt;html lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;</code> &mdash; Framer Site Settings &rarr; Language.</p>
+<div class="sec-head"><h2>11. 778 <code>&lt;h5&gt;</code> elements are buttons and navigation, not headings</h2></div>
+<p>Sitewide heading usage: <strong>h1 × 76, h2 × 819, h3 × 2,391, h5 × 778.</strong></p>
+<p>Every frequent <code>&lt;h5&gt;</code> is a UI control:</p>
+<div class="tbl-scroll"><table><thead><tr><th><code>&lt;h5&gt;</code> content</th><th>Count</th></tr></thead><tbody><tr><td>Contact Us</td><td>138</td></tr><tr><td>Products / Solutions / Resources</td><td>98 each</td></tr><tr><td>See SMRT in Action</td><td>66</td></tr><tr><td>Book a Demo</td><td>56</td></tr><tr><td>Schedule a Demo</td><td>50</td></tr><tr><td>Home</td><td>49</td></tr><tr><td>Testimonials</td><td>49</td></tr><tr><td>Talk to Sales</td><td>12</td></tr></tbody></table></div>
+<p>Only 37 distinct <code>&lt;h5&gt;</code> strings exist and <strong>none of them is a content heading.</strong> A screen reader user who pulls up the heading list to navigate gets a list of buttons instead of an outline of the page. It also means <strong>all 49 pages have heading-order violations</strong> (h1 &rarr; h5, h2 &rarr; h5 jumps).</p>
+<p><strong>Fix:</strong> in Framer, switch these text layers from Heading 5 to Paragraph, or to a real <code>&lt;button&gt;</code> for the menu triggers. This one change fixes the heading outline on every page.</p>
+<div class="sec-head"><h2>12. Multiple <code>&lt;h1&gt;</code> elements on 16 pages</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Page</th><th>H1 count</th></tr></thead><tbody><tr><td><code>/</code></td><td><strong>6</strong></td></tr><tr><td><code>/tech/conveyor-assembly</code>, <code>/tech/point-of-sale</code></td><td>4</td></tr><tr><td><code>/contact-us</code>, <code>/special-services</code>, <code>/tech/reporting</code></td><td>3</td></tr><tr><td>10 more pages</td><td>2</td></tr></tbody></table></div>
+<p>Two distinct causes. <strong>Breakpoint duplication</strong> doubles them. And <strong>two-line headlines are marked up as two separate H1s</strong> &mdash; <code>/blogs</code> has &quot;Ideas Worth Reading.&quot; and &quot;Insights Worth Using.&quot; as two H1s; <code>/tech/metalprogetti</code> has &quot;The Best in Machinery.&quot; and &quot;Now Enhanced with SMRT.&quot;.</p>
+<p>The homepage is worst: its H1s are <code>Get</code>, <code>The behind every great dry cleaner.</code>, <code>Seeing is Believing.</code> ×2, <code>behind every great dry cleaner.</code>, <code>The behind every great dry cleaner.</code> The primary H1 on your highest-value page is the single word <strong>&quot;Get&quot;</strong>, because the rotating word is injected by JavaScript and never exists in the HTML.</p>
+<p><strong>Fix:</strong> one H1 per page. Make the second line of a two-line headline a <code>&lt;span&gt;</code> inside the same H1, not a second H1. Rewrite the hero H1 as a complete, static, keyword-bearing sentence with the animated word as a styled span inside it.</p>
+<div class="sec-head"><h2>13. Split-text animation is joining words without spaces</h2></div>
+<p>The per-character reveal animation concatenates its spans, and the joins lose spaces. What crawlers and screen readers actually receive:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Rendered as</th><th>In the markup</th></tr></thead><tbody><tr><td>For Your Dry Cleaning Business.</td><td><code>For Your DryCleaning Business.</code></td></tr><tr><td>Powerful Ecosystem. Built For Dry Cleaners.</td><td><code>Powerful Ecosystem.Built For Dry Cleaners.</code></td></tr></tbody></table></div>
+<p>Note this is your <strong>primary keyword phrase</strong> &mdash; &quot;Dry Cleaning&quot; &mdash; being emitted as &quot;DryCleaning&quot;. On the highest-value page.</p>
+<p><strong>Fix:</strong> ensure the split-text component preserves whitespace between segments. Better, per the GPU findings: animate whole headings rather than per character, which removes this class of bug entirely.</p>
+<hr>
+<div class="sec-head"><h2>14. The brand is written &quot;SMrt&quot; once</h2></div>
+<p><code>/tech/metalprogetti</code> contains:</p>
+<div class="callout">&quot;Your Trusted Metalprogetti <strong>Now Enhanced with SMRT.</strong>&quot; … &quot;now enhanced by <strong>SMrt</strong>&quot;</div>
+<p>Against 1,192 correct uses of &quot;SMRT&quot; sitewide, this is the only miscapitalisation &mdash; and it sits next to a near-duplicate of itself with a different preposition (&quot;with&quot; vs &quot;by&quot;), which suggests leftover alternate copy that was never deleted.</p>
+<p><strong>Fix:</strong> correct the capitalisation and delete whichever of the two lines is redundant.</p>
+<div class="sec-head"><h2>15. The same headline appears in three different casings</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Casing</th><th>Where</th></tr></thead><tbody><tr><td><code>Your Customers Deserve the Best.</code></td><td>Homepage</td></tr><tr><td><code>Your customers deserve the best. So do you.</code></td><td>Homepage / testimonials</td></tr><tr><td><code>YOUR CUSTOMERS DESERVE THE BEST. so do you.</code></td><td>Testimonials</td></tr></tbody></table></div>
+<p>The third is the clear error &mdash; all-caps for the first sentence, lowercase for the second, inside one line.</p>
+<p>Sitewide, heading case style splits roughly <strong>2,152 Title Case / 746 Mixed / 137 Sentence case / 4 ALL CAPS</strong>. Pick one convention for headings and one for buttons, then apply it.</p>
+<div class="sec-head"><h2>16. Six different labels for the same conversion action</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Label</th><th>Instances</th></tr></thead><tbody><tr><td>Book a Demo</td><td>56</td></tr><tr><td>Schedule a Demo</td><td>50</td></tr><tr><td>Talk to Sales</td><td>12</td></tr><tr><td>Book a demo <em>(sentence case)</em></td><td>4</td></tr><tr><td>Book a SMRT demo</td><td>2</td></tr><tr><td>Book a SMRT Marketing demo</td><td>2</td></tr><tr><td>Schedule a demo <em>(sentence case)</em></td><td>2</td></tr><tr><td>Let&#x27;s kick-start your marketing</td><td>2</td></tr></tbody></table></div>
+<p>All lead to the same destination. Some casing variation is legitimate &mdash; the ALL-CAPS footer variants are a design treatment, and sentence case inside blog body copy reads correctly &mdash; but <strong>eight distinct label strings for one action</strong> is not a design decision, it is drift.</p>
+<p>One more, a genuine mismatch: on <code>/blogs/dominate-local-search</code> a link labelled <strong>&quot;Contact us&quot;</strong> points to <code>/book-a-demo</code>.</p>
+<p><strong>Fix:</strong> settle on one primary CTA label and one secondary. Apply consistently outside blog body copy. Fix the &quot;Contact us&quot; destination.</p>
+<div class="sec-head"><h2>17. A blog slug has a typo and does not match its title</h2></div>
+<div class="ev"><pre>URL   : /blogs/improve-how-your-treat-your-customers
+Title : &quot;What Your Customers Want (From Their Perspective, Not Ours)&quot;</pre></div>
+<p><code>your-treat</code> should be <code>you-treat</code> &mdash; and beyond the typo, the slug describes a different article than the title does.</p>
+<p><strong>Fix:</strong> reslug to something matching the title, e.g. <code>/blogs/what-your-customers-want</code>, and 301 the old slug. Do it now rather than after the post accrues links.</p>
+<div class="sec-head"><h2>18. 24 of 33 blog posts predate 2024</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Year</th><th>Posts</th></tr></thead><tbody><tr><td>2021</td><td>11</td></tr><tr><td>2022</td><td>8</td></tr><tr><td>2023</td><td>5</td></tr><tr><td>2024</td><td>4</td></tr><tr><td>2025</td><td>5</td></tr></tbody></table></div>
+<p><strong>73% of the blog is three or more years old</strong>, and every post displays its date, so visitors see it. Two slugs also carry stale years in the URL itself: <code>seo-in-2025-a-dry-cleaners-cheat-sheet…</code> and <code>decoding-local-seo-…-in-2024</code>. A 2024 SEO guide and a 2021 inflation piece are not assets on a freshly relaunched site.</p>
+<p><strong>Fix:</strong> triage into refresh / archive / delete. Refresh and re-date the ones with search value; remove the rest from the main index. Decide on the year-stamped slugs before they accumulate links.</p>
+<div class="sec-head"><h2>19. Footer formatting details</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Item</th><th>Current</th><th>Should be</th></tr></thead><tbody><tr><td>Address</td><td><code>1017 Main Campus Dr, Suite 1600 Raleigh, NC - 27606</code></td><td><code>1017 Main Campus Dr, Suite 1600, Raleigh, NC 27606</code></td></tr><tr><td>Copyright</td><td><code>© SMRT Systems, Inc. - 2026</code></td><td><code>© 2026 SMRT Systems, Inc.</code></td></tr><tr><td>Blog date label</td><td><code>Publishing Date</code> above the date</td><td><code>Published</code> &mdash; or drop the label</td></tr></tbody></table></div>
+<p>The address is missing the comma after the suite and uses a hyphen before the ZIP. &quot;Publishing Date&quot; reads like a CMS field name that escaped into the interface.</p>
+<p>Phone formatting is otherwise consistent and correct across all six numbers.</p>
+<div class="sec-head"><h2>20. Viewport is missing <code>initial-scale=1</code></h2></div>
+<p>All 49 pages serve:</p>
+<div class="ev"><pre>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</pre></div>
+<p>The conventional pairing is <code>width=device-width, initial-scale=1</code>. Without <code>initial-scale</code>, iOS Safari can apply an unexpected zoom level, most visibly after an orientation change.</p>
+<p><strong>Fix:</strong> <code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;</code>.</p>
+<div class="sec-head"><h2>21. The 404 page is branded Framer</h2></div>
+<div class="ev"><pre>URL    : any non-existent path
+Status : 404  (correct)
+Title  : &quot;Page Not Found | Framer&quot;
+Body   : &quot;The page you are looking for does not exist or may have been moved.&quot;
+Links  : 1 — &quot;Back to Home&quot;. No nav, no search, no suggested content.</pre></div>
+<p>The status code is right, which matters most. But the page carries <strong>Framer&#x27;s brand rather than SMRT&#x27;s</strong>, has no navigation, and offers a single link. Given there is currently no redirect map from the old site, this page is receiving real traffic from every stale inbound link.</p>
+<p><strong>Fix:</strong> build a branded 404 in Framer with the site header and footer, a search box or links to the main sections, and a demo CTA. Given the missing redirects, this is worth more than it normally would be.</p>
+<hr>
+<div class="sec-head"><h2>One thing worth saying plainly</h2></div>
+<p>Several things on this site are done well and should not get lost in a list this long:</p>
+<ul class="prose"><li>The <strong>15 non-blog pages have genuinely good, unique, well-sized titles and meta descriptions</strong> &mdash; someone did careful work there.</li><li><strong>Canonicals are correct on all 49 pages</strong> and point at the right host.</li><li><strong>Blog posts have real <code>&lt;time datetime&gt;</code> values and visible authors</strong> &mdash; the data for BlogPosting schema already exists.</li><li><strong>The 404 returns a proper 404 status</strong>, which many Framer sites get wrong.</li><li><strong>Phone numbers are consistently formatted</strong> in E.164 across all six.</li><li><strong><code>robots.txt</code> and <code>sitemap.xml</code> are correct</strong> and the sitemap matches the live site.</li></ul>
+<hr>
+<div class="sec-head"><h2>Method and limits</h2></div>
+<p><strong>Measured.</strong> All 49 pages fetched from <code>sitemap.xml</code> and parsed: 5,373 anchors, 2,668 <code>&lt;img&gt;</code> elements, 4,064 headings, all meta tags, all visible text. The executable&#x27;s size and headers came from a live request. FAQ answer lengths were measured as the text between each question and the next in the DOM.</p>
+<p><strong>Judgement calls.</strong> Which CTA-label variants are design versus drift &mdash; I have called the ALL-CAPS footer treatment deliberate and the eight distinct label strings drift, but that is a brand decision. The suggested address and copyright formats follow US convention. Whether the 80% testimonial is real is a question only you can answer.</p>
+<p><strong>Not checked.</strong> Rendered colour contrast, keyboard tab order and focus indicators, actual screen-reader output, and the demo-form submission path all need a real browser and are worth a manual pass. Content injected by JavaScript after load is invisible to a static fetch, which already caught me out once this project &mdash; <code>unicornStudio</code> does not appear in the served HTML at all. Copy was reviewed for consistency, mechanics and specific error patterns rather than line-edited for style; a human editorial pass would still find more.</p>
+<p><strong>Corrected during this audit.</strong> Two things I nearly reported and verified were wrong: a stray <code>&#x27;)&quot;&gt;</code> fragment that turned out to be inside an SVG data-URI in a style attribute, not visible text; and &quot;Publishing Date&quot;, which I first read as an unbound CMS placeholder but is a visible field label with a real date rendered beneath it.</p>
+<div class="foot"><span>SMRT Systems &middot; full site audit</span><span>2026-08-13</span></div>
+</div></main>
