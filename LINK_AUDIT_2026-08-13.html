@@ -1,0 +1,686 @@
+<title>Every Bad Link On The Site</title>
+<style>
+/* ---------- tokens: light is the complete set ---------- */
+:root{
+  --paper:#F6F7F5;
+  --panel:#FFFFFF;
+  --sunk:#F1F3EF;
+  --ink:#151D1B;
+  --slate:#55635F;
+  --mute:#737D77;
+  --rule:#E1E5E1;
+  --rule-soft:#EDEFEC;
+  --pine:#0A6B45;
+  --clay:#C96528;
+  --pine-bg:#EAF2ED;
+  --clay-bg:#FBF0E8;
+  --wine:#8F1D3A;
+  --wine-bg:#FAEEF1;
+  --bronze:#7A5B14;
+  --bronze-bg:#F8F3E6;
+  --shadow:0 1px 2px rgba(21,29,27,.05);
+
+  --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Mono","Menlo","Consolas","Liberation Mono",monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --wrap:1000px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101413;
+    --panel:#171E1B;
+    --sunk:#1B2320;
+    --ink:#E8EDEA;
+    --slate:#A3AFAA;
+    --mute:#7B867F;
+    --rule:#27302C;
+    --rule-soft:#1E2622;
+    --pine:#28A08C;
+    --clay:#D26E3C;
+    --pine-bg:#16302A;
+    --clay-bg:#2E2019;
+    --wine:#E8738D;
+    --wine-bg:#2F1A20;
+    --bronze:#CBA24E;
+    --bronze-bg:#2A2317;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101413;
+  --panel:#171E1B;
+  --sunk:#1B2320;
+  --ink:#E8EDEA;
+  --slate:#A3AFAA;
+  --mute:#7B867F;
+  --rule:#27302C;
+  --rule-soft:#1E2622;
+  --pine:#28A08C;
+  --clay:#D26E3C;
+  --pine-bg:#16302A;
+  --clay-bg:#2E2019;
+  --wine:#E8738D;
+  --wine-bg:#2F1A20;
+  --bronze:#CBA24E;
+  --bronze-bg:#2A2317;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+:where(a){color:var(--pine)}
+:where(a:hover){text-decoration-thickness:2px}
+:where(a,button):focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+code{
+  font-family:var(--mono);font-size:.84em;
+  background:var(--sunk);border:1px solid var(--rule-soft);
+  padding:.1em .34em;border-radius:3px;word-break:break-word;
+}
+h1,h2,h3,.lbl,.num,.chip,th{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- urgent callout ---------- */
+.now-box{
+  border:1px solid var(--wine);border-left:3px solid var(--wine);
+  background:var(--wine-bg);border-radius:5px;padding:24px 28px 26px;margin-top:34px;
+}
+.now-box .lbl{display:block;color:var(--wine);margin-bottom:11px}
+.now-box h2{
+  font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.022em;
+  margin:0 0 12px;text-transform:none;
+}
+.now-box p{margin:0 0 14px;max-width:64ch}
+.now-box ol{margin:0;padding-left:22px;max-width:64ch}
+.now-box li{margin-bottom:8px}
+.now-box li:last-child{margin-bottom:0}
+.now-box .after{margin-top:15px;font-size:15px;color:var(--slate);margin-bottom:0}
+
+/* ---------- shell ---------- */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
+.lbl{
+  font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--mute);font-weight:500;
+}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule);background:var(--panel)}
+.mast .wrap{padding-top:46px;padding-bottom:0}
+.mast-grid{display:flex;flex-direction:column;gap:16px}
+h1{
+  font-size:clamp(29px,4.6vw,46px);font-weight:600;
+  letter-spacing:-.035em;line-height:1.06;margin:0;max-width:19ch;
+  text-wrap:balance;
+}
+.dek{
+  font-size:19px;line-height:1.5;color:var(--slate);
+  margin:0;max-width:60ch;
+}
+.dek b{color:var(--ink);font-weight:600}
+.meta{
+  display:flex;flex-wrap:wrap;gap:6px 22px;
+  font-family:var(--mono);font-size:11.5px;color:var(--mute);
+  padding:20px 0 0;margin-top:8px;border-top:1px solid var(--rule-soft);
+}
+.meta span b{color:var(--slate);font-weight:500}
+
+/* ---------- headline stats ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  gap:0;margin-top:30px;border-top:1px solid var(--rule);
+}
+.stat{padding:17px 22px 20px;border-right:1px solid var(--rule-soft)}
+.stat:last-child{border-right:0}
+.stat-v{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:27px;font-weight:600;letter-spacing:-.035em;line-height:1;
+  display:block;margin-bottom:7px;
+}
+.stat-v.bad{color:var(--wine)}
+.stat-k{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.stat-n{display:block;font-size:13.5px;color:var(--slate);line-height:1.4;margin-top:6px}
+
+/* ---------- sections ---------- */
+main .wrap{padding-bottom:88px}
+section{padding-top:56px}
+.sec-head{
+  display:flex;align-items:baseline;gap:14px;
+  padding-bottom:10px;margin-bottom:8px;border-bottom:2px solid var(--ink);
+}
+.sec-head h2{font-size:15px;font-weight:600;letter-spacing:.04em;margin:0;text-transform:uppercase}
+.sec-head .lbl{margin-left:auto}
+.prose{max-width:68ch}
+.prose p{margin:18px 0}
+.prose > p:first-child{margin-top:22px}
+.prose ul,.prose ol{margin:18px 0;padding-left:22px}
+.prose li{margin-bottom:9px}
+.prose li:last-child{margin-bottom:0}
+.prose h3{
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  margin:32px 0 0;color:var(--ink);
+}
+
+/* ---------- figure scaffolding ---------- */
+figure{margin:30px 0;padding:0}
+figcaption{
+  font-family:var(--mono);font-size:11.5px;line-height:1.5;
+  color:var(--mute);margin-top:14px;max-width:74ch;
+}
+.fig-t{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;
+  letter-spacing:.02em;color:var(--ink);margin:0 0 3px;
+}
+.fig-s{font-family:var(--mono);font-size:11px;color:var(--mute);margin:0 0 18px}
+
+/* ---------- stacked split bar ---------- */
+.split{display:flex;gap:2px;height:46px;margin-bottom:12px}
+.split-seg{
+  border-radius:3px;display:flex;align-items:center;padding:0 13px;
+  font-family:var(--mono);font-size:12px;font-weight:600;color:#FFF;
+  min-width:0;overflow:hidden;white-space:nowrap;
+}
+:root[data-theme="dark"] .split-seg{color:#0E1211}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .split-seg{color:#0E1211}}
+.split-a{background:var(--pine);flex:30.41}
+.split-b{background:var(--clay);flex:9.15}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11.5px;color:var(--slate)}
+.legend span{display:flex;align-items:center;gap:7px}
+.swatch{width:10px;height:10px;border-radius:2px;flex:0 0 auto}
+.sw-a{background:var(--pine)} .sw-b{background:var(--clay)}
+
+/* ---------- bar rows ---------- */
+.bars{display:flex;flex-direction:column;gap:2px}
+.bar-row{
+  display:grid;grid-template-columns:132px 1fr 84px;
+  align-items:center;gap:14px;
+}
+.bar-row .bk{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.bar-track{height:19px;display:flex;align-items:center}
+.bar-fill{height:19px;border-radius:0 3px 3px 0;background:var(--pine);min-width:2px}
+.bar-fill.alt{background:var(--clay)}
+.bar-fill.dim{background:var(--rule)}
+.bar-row .bv{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:11.5px;color:var(--ink);font-weight:600;
+}
+.bar-row.quiet .bv{color:var(--slate);font-weight:400}
+
+/* ---------- waterfall timeline ---------- */
+.wf-scroll{overflow-x:auto}
+.wf{min-width:600px}
+.wf-axis{
+  display:grid;grid-template-columns:repeat(13,1fr);
+  border-bottom:1px solid var(--rule);margin-bottom:9px;
+}
+.wf-axis span{
+  font-family:var(--mono);font-size:10px;color:var(--mute);
+  padding-bottom:5px;border-left:1px solid var(--rule-soft);padding-left:4px;
+}
+.wf-row{
+  position:relative;height:26px;display:flex;align-items:center;
+  border-bottom:1px solid var(--rule-soft);
+}
+.wf-row:last-child{border-bottom:0}
+.wf-mark{
+  position:absolute;top:6px;height:14px;border-radius:2px;
+  background:var(--clay);min-width:4px;
+}
+.wf-mark.site{background:var(--pine)}
+.wf-mark.crit{background:var(--wine)}
+.wf-lab{
+  position:absolute;top:4px;font-family:var(--mono);font-size:10.5px;
+  line-height:18px;color:var(--ink);white-space:nowrap;
+  padding-left:7px;pointer-events:none;
+}
+.wf-lab.flip{padding-left:0;padding-right:7px;transform:translateX(-100%)}
+.wf-lab i{color:var(--mute);font-style:normal}
+
+/* ---------- findings ---------- */
+.find{
+  background:var(--panel);border:1px solid var(--rule);
+  border-radius:5px;box-shadow:var(--shadow);
+  padding:26px 30px 28px;margin-top:22px;
+}
+.find-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:13px}
+.find-n{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;color:var(--mute);
+}
+.chip{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:3px 8px;border-radius:3px;white-space:nowrap;
+}
+.chip-p0{color:var(--wine);background:var(--wine-bg)}
+.chip-p1{color:var(--bronze);background:var(--bronze-bg)}
+.chip-p2{color:var(--pine);background:var(--pine-bg)}
+.chip-area{color:var(--slate);background:var(--sunk);font-weight:500}
+.find-h{
+  font-size:21px;font-weight:600;letter-spacing:-.022em;line-height:1.25;
+  margin:0 0 4px;max-width:40ch;text-wrap:balance;font-family:var(--serif);
+}
+.find .prose{max-width:66ch}
+.find .prose > p:first-of-type{margin-top:14px}
+.claim{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--wine);
+  margin:0 0 4px;letter-spacing:.01em;
+}
+
+/* ---------- code / evidence ---------- */
+.ev{
+  background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:14px 16px;margin:22px 0;overflow-x:auto;
+}
+.ev pre{
+  margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;
+  white-space:pre;color:var(--ink);
+}
+.ev .lbl{display:block;margin-bottom:9px}
+.ev em{color:var(--wine);font-style:normal;font-weight:600}
+
+/* ---------- tables ---------- */
+.tbl-scroll{overflow-x:auto;margin:24px 0}
+table{
+  border-collapse:collapse;width:100%;
+  font-family:var(--mono);font-size:12px;min-width:400px;
+}
+th{
+  text-align:left;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--mute);font-weight:500;padding:0 14px 9px 0;
+  border-bottom:1px solid var(--rule);
+}
+td{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--slate)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink)}
+.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+tfoot td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink);font-weight:600;padding-top:10px}
+
+/* ---------- fix list ---------- */
+.fix{border-top:1px solid var(--rule-soft);margin-top:24px;padding-top:18px}
+.fix .lbl{display:block;margin-bottom:12px}
+.fix ol{margin:0;padding-left:20px;max-width:66ch}
+.fix li{margin-bottom:10px}
+.fix li:last-child{margin-bottom:0}
+
+/* ---------- ordered fix plan ---------- */
+.plan{list-style:none;margin:24px 0 0;padding:0;counter-reset:step}
+.plan li{
+  counter-increment:step;position:relative;
+  padding:15px 0 15px 46px;border-bottom:1px solid var(--rule-soft);
+  max-width:72ch;
+}
+.plan li:last-child{border-bottom:0}
+.plan li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;left:0;top:17px;
+  font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--mute);
+}
+.plan .now::before{color:var(--wine)}
+
+/* ---------- confidence split ---------- */
+.conf{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin-top:24px}
+.conf div{background:var(--panel);padding:20px 22px}
+.conf h3{margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.conf .ok{color:var(--pine)}
+.conf .maybe{color:var(--bronze)}
+.conf .no{color:var(--mute)}
+.conf p{margin:0;font-size:15px;line-height:1.55;color:var(--slate)}
+
+.foot{
+  border-top:1px solid var(--rule);margin-top:60px;padding:22px 0 0;
+  font-family:var(--mono);font-size:11px;color:var(--mute);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+}
+
+@media (max-width:700px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .find{padding:22px 20px 24px}
+  .bar-row{grid-template-columns:104px 1fr 72px;gap:10px}
+  .stat{border-right:0;border-bottom:1px solid var(--rule-soft)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+/* ---------- correction block ---------- */
+.corr{border:1px solid var(--rule);border-left:3px solid var(--bronze);background:var(--panel);
+  border-radius:5px;padding:24px 28px 26px;margin-top:22px;box-shadow:var(--shadow)}
+.corr .lbl{display:block;color:var(--bronze);margin-bottom:11px}
+.corr h3{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;text-transform:none;max-width:46ch}
+.corr p{margin:0 0 13px;max-width:70ch}
+.corr p:last-child{margin-bottom:0}
+.corr .was{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.01em}
+/* ---------- score comparison ---------- */
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin:26px 0 0}
+.sc{background:var(--panel);padding:16px 18px 18px}
+.sc-k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);margin-bottom:11px}
+.sc-pair{display:flex;gap:16px;align-items:flex-end}
+.sc-one{display:flex;flex-direction:column;gap:3px}
+.sc-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.sc-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--mute)}
+.sc-d .sc-v{color:var(--pine)} .sc-m .sc-v{color:var(--clay)}
+.sc-bad .sc-v{color:var(--wine)}
+/* ---------- grouped bars ---------- */
+.gb{display:flex;flex-direction:column;gap:9px}
+.gb-row{display:grid;grid-template-columns:112px 1fr;align-items:center;gap:14px}
+.gb-k{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.gb-pair{display:flex;flex-direction:column;gap:2px}
+.gb-bar{display:flex;align-items:center;gap:8px}
+.gb-fill{height:13px;border-radius:0 2px 2px 0;min-width:2px}
+.gb-d{background:var(--pine)} .gb-m{background:var(--clay)}
+.gb-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--slate)}
+/* ---------- verdict chips in tables ---------- */
+.vg{color:var(--pine);font-weight:600} .vb{color:var(--wine);font-weight:600} .vw{color:var(--bronze);font-weight:600}
+.mono-list{font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--slate);margin:0;max-width:none}
+
+/* ---------- severity accents ---------- */
+.sec-head.sec--p0{border-bottom-color:var(--wine)}
+.sec-head.sec--p0 h2{color:var(--wine)}
+.sec-head.sec--p1{border-bottom-color:var(--bronze)}
+.sec-head.sec--p1 h2{color:var(--bronze)}
+.find.find--p0{border-left:3px solid var(--wine)}
+.find.find--p1{border-left:3px solid var(--bronze)}
+</style>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-grid">
+      <p class="lbl">Sitewide link audit &middot; smrtsystems.com &middot; all 49 pages</p>
+      <h1>Every Bad Link On The Site</h1>
+      <p class="dek">You found one. There are <b>33 Framer affiliate links across 6 pages</b>, plus <b>19 links to the old site that 404</b>, a malformed footer link on every page, and a CTA that goes nowhere.</p>
+      <div class="meta">
+        <span><b>Crawled</b> 49 pages, all of sitemap.xml</span>
+        <span><b>Anchors parsed</b> 5,373</span>
+        <span><b>Unique destinations</b> 91, each status-checked following redirects</span>
+        <span><b>Date</b> 2026-08-13</span>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="stat-v bad num">33</span><span class="stat-k">Framer links</span><span class="stat-n">On 6 pages, all demo CTAs</span></div>
+      <div class="stat"><span class="stat-v bad num">19</span><span class="stat-k">Old-site 404s</span><span class="stat-n">10 unique dead URLs</span></div>
+      <div class="stat"><span class="stat-v num">49</span><span class="stat-k">Malformed href</span><span class="stat-n">Footer, every page</span></div>
+      <div class="stat"><span class="stat-v num">149</span><span class="stat-k">No href at all</span><span class="stat-n">147 nav triggers + 2 dead CTAs</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+  <section id="method">
+    <div class="sec-head"><h2>What I checked</h2><span class="lbl">Coverage</span></div>
+    <div class="prose">
+      <p>All 49 pages in <code>sitemap.xml</code>, downloaded and parsed &mdash; 5,373 anchors, 91 unique destinations. Every destination was status-checked <b>following redirects to the final response</b>, which matters: the old-site links return <code>308</code> on the first hop and look healthy until you follow them to the <code>404</code>.</p>
+      <p>Relative hrefs were resolved against the page they appear on, not the site root. Framer uses <code>./</code> and <code>../</code> prefixes heavily, and the same href means different things on <code>/</code> and on <code>/tech/reporting</code>. Resolved that way, <b>all internal navigation and every fragment target checks out</b> &mdash; the problems below are content links, not the nav.</p>
+    </div>
+  </section>
+
+  <section id="framer">
+    <div class="sec-head sec--p0"><h2>1. Framer template affiliate links</h2><span class="lbl">33 instances &middot; 6 pages</span></div>
+
+    <div class="find find--p0">
+      <div class="find-top">
+        <span class="find-n">P0-1</span>
+        <span class="chip chip-p0">P0</span>
+        <span class="chip chip-area">Conversion</span>
+        <span class="chip chip-area">Confirmed live</span>
+      </div>
+      <h3 class="find-h">Demo CTAs on six pages send visitors to a Framer login screen</h3>
+      <div class="prose">
+        <p class="claim">Every instance is the same URL: <code>https://framer.link/P8mvaz1</code></p>
+        <p>Traced to its destination:</p>
+      </div>
+      <div class="ev">
+        <span class="lbl">Following the redirect chain</span>
+<pre>https://framer.link/P8mvaz1
+  -&gt; 302  https://framer.com/projects/new?duplicate=nMvDvF73IWn5Y1ISZg8W&amp;<em>via=p8mvaz1</em>
+  -&gt; 200  https://framer.com/login/?...&amp;redirect=...duplicate...&amp;via=p8mvaz1</pre>
+      </div>
+      <div class="prose">
+        <p>It is a <b>&ldquo;duplicate this template&rdquo; link carrying a referral parameter</b> &mdash; leftover wiring from the template the site was built on. A visitor who clicks any of these lands on a Framer sign-up page. Every one of them is a demo or sales CTA, which makes this the most expensive link problem on the site.</p>
+        <p>The homepage, <code>/book-a-demo</code>, <code>/contact-us</code> and the other four <code>/tech/*</code> pages are clean &mdash; they correctly point at <code>/book-a-demo</code>. These six pages were missed.</p>
+      </div>
+
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Page</th><th>Button text</th><th class="n">Instances</th></tr></thead>
+          <tbody>
+<tr><td>/blogs</td><td>Schedule a Demo</td><td class="n">4</td></tr>
+<tr><td></td><td>See Marketing Tools</td><td class="n">1</td></tr>
+<tr><td>/special-services</td><td>Let&#x27;s Build Your Solution</td><td class="n">2</td></tr>
+<tr><td></td><td>Schedule a Demo</td><td class="n">2</td></tr>
+<tr><td>/tech/marketing</td><td>Talk to Sales</td><td class="n">4</td></tr>
+<tr><td></td><td>Schedule a Demo</td><td class="n">2</td></tr>
+<tr><td>/tech/metalprogetti</td><td>Schedule a Demo</td><td class="n">4</td></tr>
+<tr><td></td><td>See How It Works</td><td class="n">2</td></tr>
+<tr><td>/tech/reporting</td><td>Schedule a Demo</td><td class="n">4</td></tr>
+<tr><td></td><td>See Reporting Features</td><td class="n">2</td></tr>
+<tr><td>/testimonials</td><td>Book a Demo</td><td class="n">2</td></tr>
+<tr><td></td><td>Schedule a Demo</td><td class="n">2</td></tr>
+<tr><td></td><td>Talk to Sales</td><td class="n">2</td></tr>          </tbody>
+          <tfoot><tr><td>6 pages</td><td>&mdash;</td><td class="n">33</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="prose">
+        <p>Instance counts run about 2&times; the number of buttons you will actually edit, because the desktop and mobile breakpoint variants each carry their own copy. Expect roughly <b>17 distinct buttons</b> in the Framer editor.</p>
+      </div>
+      <div class="fix">
+        <span class="lbl">Fix</span>
+        <ol>
+          <li>Repoint all 33 to <code>/book-a-demo</code>.</li>
+          <li>Then search the whole project for <code>framer.link</code>, <code>duplicate=</code> and <code>via=</code>. Template leftovers travel in groups, and these six pages prove it.</li>
+          <li>Check the mobile variant of each button separately &mdash; that is how the count doubled.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="old">
+    <div class="sec-head sec--p0"><h2>2. Links to the old site that now 404</h2><span class="lbl">19 instances &middot; 10 URLs</span></div>
+
+    <div class="find find--p0">
+      <div class="find-top">
+        <span class="find-n">P0-2</span>
+        <span class="chip chip-p0">P0</span>
+        <span class="chip chip-area">Broken</span>
+        <span class="chip chip-area">Confirmed live</span>
+      </div>
+      <h3 class="find-h">The blog index links its own featured cards to the previous site&rsquo;s URLs</h3>
+      <div class="prose">
+        <p class="claim">Each returns 308 to the apex domain, then a hard 404. They look fine to any checker that does not follow redirects.</p>
+      </div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Dead URL (on www.smrtsystems.com)</th><th class="n">Count</th><th>Page</th></tr></thead>
+          <tbody>
+<tr><td><code>/business-administration/get-to-know-the-new-smrt-customer-portal/</code></td><td class="n">1</td><td>/blogs</td></tr>
+<tr><td><code>/business-administration/keep-your-dry-cleaning-business-busy-and-thriving-during-summer-updated-2025/</code></td><td class="n">2</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/ai-for-marketing/</code></td><td class="n">1</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/boost-your-business-reputation/</code></td><td class="n">1</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/decoding-local-seo-putting-your-business-on-the-map-in-2024/</code></td><td class="n">1</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/grow-your-dry-cleaning-business-9-proven-text-email-marketing-tactics/</code></td><td class="n">3</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/seo-in-2025-a-dry-cleaners-cheat-sheet-to-mastering-googles-algorithm/</code></td><td class="n">1</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/sms-vs-email-marketing-dry-cleaners/</code></td><td class="n">4</td><td>/blogs</td></tr>
+<tr><td><code>/marketing/transform-your-bottom-line-4-smrt-tactics-for-revenue-growth/</code></td><td class="n">1</td><td>/blogs</td></tr>
+<tr><td><code>/sales-demo/</code></td><td class="n">4</td><td>/blogs/does-sms-marketing-beat-email-marketing-for-dry-cleaning-</td></tr>          </tbody>
+          <tfoot><tr><td>10 unique URLs</td><td class="n">19</td><td>3 pages</td></tr></tfoot>
+        </table>
+      </div>
+      <div class="prose">
+        <p><b>Where they are.</b> Fifteen of the nineteen sit on <code>/blogs</code> as a contiguous block of <b>image-only anchors with no link text</b> &mdash; the featured-card artwork at the top of the blog index. The card <i>titles</i> immediately after them link correctly to <code>./blogs/{slug}</code>. So each featured card has a working title and a dead picture, which is why this survived a visual check.</p>
+        <p>The other four are real text buttons on two blog posts:</p>
+        <ul>
+          <li><code>/blogs/does-sms-marketing-beat-email-marketing-for-dry-cleaning-customer-engagement</code> &mdash; button <b>&ldquo;Book a SMRT demo&rdquo;</b> &rarr; <code>/sales-demo/</code> (404)</li>
+          <li><code>/blogs/grow-your-dry-cleaning-business-9-proven-text-email-marketing-tactics</code> &mdash; button <b>&ldquo;Book a SMRT Marketing demo&rdquo;</b> &rarr; <code>/sales-demo/</code> (404)</li>
+        </ul>
+        <p>Those two are demo CTAs pointing at a dead page, so treat them with the same urgency as the Framer links above.</p>
+      </div>
+      <div class="fix">
+        <span class="lbl">Fix</span>
+        <ol>
+          <li>In the Framer CMS blog collection, find the field driving the featured-card image link and repoint each to its <code>/blogs/{slug}</code> equivalent. The slugs mostly match already &mdash; <code>boost-your-business-reputation</code>, <code>decoding-local-seo-…</code>, <code>get-to-know-the-new-smrt-customer-portal</code> all exist on the new site.</li>
+          <li>Two have no direct equivalent and need a decision: <code>/marketing/ai-for-marketing/</code> (closest is <code>/blogs/ai-tools-for-marketing-a-starter-guide</code>) and <code>/marketing/transform-your-bottom-line-4-smrt-tactics-for-revenue-growth/</code> (closest is <code>/blogs/transform-your-bottom-line-with-smrt-4-tactics-for-revenue-growth</code> &mdash; note the different slug).</li>
+          <li>Change both <code>/sales-demo/</code> buttons to <code>/book-a-demo</code>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="corr">
+      <span class="lbl">Bonus &mdash; this answers last week&rsquo;s open question</span>
+      <h3>These ten URLs reveal the old site&rsquo;s structure</h3>
+      <p>When I audited indexing I could not determine the previous URL taxonomy, because <code>web.archive.org</code> is unreachable from here. I guessed <code>/blog/{slug}</code>. <b>That guess was wrong</b>, and these hardcoded links are the real evidence:</p>
+      <p class="was">/marketing/{slug}/ &nbsp;&middot;&nbsp; /business-administration/{slug}/ &nbsp;&middot;&nbsp; /sales-demo/</p>
+      <p>The old site organised posts by <b>topic category</b>, not under <code>/blog/</code>. So the redirect map you need is <code>/marketing/*</code> and <code>/business-administration/*</code> &rarr; <code>/blogs/*</code>, plus <code>/sales-demo/</code> &rarr; <code>/book-a-demo</code>. Still confirm the full inventory in Search Console &mdash; there are almost certainly more categories than these two &mdash; but the pattern is now known rather than assumed.</p>
+    </div>
+  </section>
+  <section id="other">
+    <div class="sec-head sec--p1"><h2>3. The rest</h2><span class="lbl">4 findings</span></div>
+
+    <div class="find find--p1">
+      <div class="find-top">
+        <span class="find-n">P1-1</span>
+        <span class="chip chip-p1">P1</span>
+        <span class="chip chip-area">Dead CTA</span>
+      </div>
+      <h3 class="find-h">A button with text and no <code>href</code> at all</h3>
+      <div class="ev">
+        <span class="lbl">/blogs/decoding-local-seo-putting-your-business-on-the-map-in-2024</span>
+<pre>button text : <em>"Explore SMRT Marketing"</em>
+href        : <em>absent entirely</em>
+instances   : 2 (desktop + mobile variant)</pre>
+      </div>
+      <div class="prose">
+        <p>An <code>&lt;a&gt;</code> with no <code>href</code> is inert: it does nothing on click, it is not keyboard-focusable, and a screen reader does not announce it as a link. This is a live CTA on a blog post that silently goes nowhere.</p>
+      </div>
+      <div class="fix"><span class="lbl">Fix</span><p>Point it at <code>/tech/marketing</code>, which is presumably what it was meant to open.</p></div>
+    </div>
+
+    <div class="find find--p1">
+      <div class="find-top">
+        <span class="find-n">P2-1</span>
+        <span class="chip chip-p2">P2</span>
+        <span class="chip chip-area">Malformed URL</span>
+        <span class="chip chip-area">All 49 pages</span>
+      </div>
+      <h3 class="find-h">The footer&rsquo;s Couture link has two literal spaces in its fragment</h3>
+      <div class="ev">
+        <span class="lbl">Footer, Solutions column, on every page</span>
+<pre>link text : "&mdash; Couture Dry Cleaning"
+href      : ./special-services<em>#Couture Dry Cleaning</em>     (6 pages)
+            ../special-services<em>#Couture Dry Cleaning</em>    (43 pages)
+
+siblings  : #hotels  #uniforms  #restoration     <- correctly formed</pre>
+      </div>
+      <div class="prose">
+        <p>The target <code>id="Couture Dry Cleaning"</code> does <b>exist</b> on <code>/special-services</code>, spaces and all, so most browsers will scroll to it and the link appears to work. But the URL is invalid as written: spaces must be percent-encoded. It breaks in link crawlers, email clients, analytics reports and anything that normalises URLs &mdash; <code>curl</code> cannot even issue the request. The three sibling links use clean lowercase fragments, so this one is simply inconsistent.</p>
+      </div>
+      <div class="fix"><span class="lbl">Fix</span><p>Rename the section id on <code>/special-services</code> to <code>couture</code> and update the href to <code>#couture</code>. One id change, one link change, fixed on all 49 pages at once since it is a shared footer.</p></div>
+    </div>
+
+    <div class="find find--p1">
+      <div class="find-top">
+        <span class="find-n">P2-2</span>
+        <span class="chip chip-p2">P2</span>
+        <span class="chip chip-area">Semantics</span>
+        <span class="chip chip-area">All 49 pages</span>
+      </div>
+      <h3 class="find-h">147 navigation dropdown triggers are <code>&lt;a&gt;</code> elements with no <code>href</code></h3>
+      <div class="prose">
+        <p><b>Products</b>, <b>Solutions</b> and <b>Resources</b> in the main nav are anchors with no <code>href</code> &mdash; three per page across all 49 pages. They work with a mouse because JavaScript handles the click, but an <code>&lt;a&gt;</code> without <code>href</code> is not in the tab order and is not announced as an interactive control.</p>
+        <p>This is the same concern the pre-launch audit raised about the dropdowns, now confirmed in the markup on every page.</p>
+      </div>
+      <div class="fix"><span class="lbl">Fix</span><p>These are menu triggers, not links &mdash; they should be <code>&lt;button&gt;</code> elements with <code>aria-expanded</code>. In Framer that usually means using the built-in menu component rather than a custom text layer with a click handler.</p></div>
+    </div>
+
+    <div class="find find--p1">
+      <div class="find-top">
+        <span class="find-n">P2-3</span>
+        <span class="chip chip-p2">P2</span>
+        <span class="chip chip-area">Stale externals</span>
+      </div>
+      <h3 class="find-h">Three external links have been renamed at the destination</h3>
+      <div class="prose">
+        <p>All three still resolve via a 301, so nothing is visibly broken &mdash; but the link text and the destination have drifted apart, and one is a citation whose year no longer matches.</p>
+      </div>
+      <div class="tbl-scroll">
+        <table>
+          <thead><tr><th>Current link</th><th>Now redirects to</th><th>On page</th></tr></thead>
+          <tbody>
+            <tr><td><code>growth-onomics.com/email-marketing-benchmarks-<b>2025</b>-open-rates-ctrs</code></td><td><code>&hellip;benchmarks-<b>2026</b>-open-rates-ctrs/</code></td><td>/blogs/does-sms-marketing-beat-email&hellip;</td></tr>
+            <tr><td><code>support&hellip;/9011377-setting-up-a-subscription-plan</code></td><td><code>&hellip;/9011377-how-to-setup-a-subscription</code></td><td>/tech/payments</td></tr>
+            <tr><td><code>support&hellip;/9011486-autopay</code></td><td><code>&hellip;/9011486-how-autopay-works</code></td><td>/tech/payments</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="fix"><span class="lbl">Fix</span><p>Update all three to their current URLs. For the benchmarks citation, also check whether the surrounding copy quotes 2025 figures that the 2026 page has since revised.</p></div>
+    </div>
+  </section>
+
+  <section id="clean">
+    <div class="sec-head"><h2>What is not broken</h2><span class="lbl">Checked and clear</span></div>
+    <div class="prose">
+      <p>Worth stating explicitly, so nobody re-investigates these.</p>
+      <ul>
+        <li><b>All internal navigation resolves correctly.</b> Framer&rsquo;s <code>./</code> and <code>../</code> hrefs look alarming &mdash; <code>./point-of-sale</code> on a <code>/tech/*</code> page, <code>./tech/point-of-sale</code> on a root page &mdash; but resolved against their own page, all 75 on-site destinations return 200.</li>
+        <li><b>Every fragment target exists.</b> All ten anchors (<code>#pos-features</code>, <code>#route-features</code>, <code>#payment-features</code>, <code>#assembly-features</code>, <code>#vision</code>, <code>#hotels</code>, <code>#uniforms</code>, <code>#restoration</code>, <code>#special-services</code>, and yes <code>#Couture Dry Cleaning</code>) resolve to real ids.</li>
+        <li><b>All 49 sitemap URLs return 200.</b></li>
+        <li><b>No <code>http://</code> links.</b> Everything external is HTTPS.</li>
+        <li><b>No empty <code>href=""</code>, no <code>href="#"</code>, no <code>javascript:void(0)</code>.</b></li>
+        <li><b>All 8 <code>tel:</code> and <code>mailto:</code> links are well-formed</b> &mdash; six phone numbers in E.164, plus <code>support@</code> and <code>marketing@</code>.</li>
+      </ul>
+      <h3>Three that look broken in my crawl but are not</h3>
+      <p>My requests were rate-limited or bot-blocked by these hosts, which is normal behaviour and not evidence of a bad link. <b>I am not claiming these are broken</b> &mdash; they need a check from a real browser:</p>
+      <ul>
+        <li><code>instagram.com/smrtsystems/</code> &mdash; returned 429, then a login redirect</li>
+        <li><code>youtu.be/sKMifdZBOCs</code> &mdash; hit a Google &ldquo;sorry&rdquo; interstitial; the sibling video link resolved fine</li>
+        <li><code>facebook.com/smrtsystems</code> &mdash; 302 to a login page, which Facebook does for unauthenticated crawlers</li>
+      </ul>
+      <p>The <code>support.smrtsystems.com</code> help-centre links were also unreachable from this environment by egress policy, apart from the two 301s noted above which I could observe. Spot-check the support links from a browser.</p>
+    </div>
+  </section>
+
+  <section id="order">
+    <div class="sec-head"><h2>Fix order</h2><span class="lbl">By cost of leaving it</span></div>
+    <ol class="plan">
+      <li class="now"><b>Repoint the 33 <code>framer.link/P8mvaz1</code> buttons to <code>/book-a-demo</code>.</b> Six pages, ~17 distinct buttons. These are demo CTAs sending prospects to a Framer sign-up page.</li>
+      <li class="now"><b>Fix the two &ldquo;Book a SMRT demo&rdquo; buttons</b> pointing at <code>/sales-demo/</code> (404). Also demo CTAs, also dead.</li>
+      <li class="now"><b>Repoint the 15 featured-card image links on <code>/blogs</code></b> from old-site URLs to their <code>/blogs/{slug}</code> equivalents.</li>
+      <li><b>Give &ldquo;Explore SMRT Marketing&rdquo; an <code>href</code></b> &mdash; probably <code>/tech/marketing</code>.</li>
+      <li><b>Rename the Couture section id to <code>couture</code></b> and fix the footer href. Clears 49 malformed URLs in one change.</li>
+      <li><b>Update the three renamed external links.</b></li>
+      <li><b>Convert the three nav dropdown triggers to <code>&lt;button&gt;</code></b> with <code>aria-expanded</code>.</li>
+      <li><b>Search the project for <code>framer.link</code>, <code>duplicate=</code>, <code>via=</code> and <code>www.smrtsystems.com</code></b> as a final sweep. The last of those is the one to keep an eye on &mdash; any absolute link to your own old domain is a 404 waiting to be found.</li>
+    </ol>
+  </section>
+
+  <section id="notes">
+    <div class="sec-head"><h2>Method and limits</h2><span class="lbl">Confidence</span></div>
+    <div class="conf">
+      <div>
+        <h3 class="ok">Measured</h3>
+        <p>49 pages fetched from <code>sitemap.xml</code>; 5,373 anchors parsed with their link text, <code>aria-label</code>, and nearest preceding heading; 91 unique destinations resolved per-page and status-checked with redirects followed to the final response. Fragment targets verified against the actual <code>id</code> attributes on each target page.</p>
+      </div>
+      <div>
+        <h3 class="maybe">Judgement calls</h3>
+        <p>The suggested replacement for each dead blog URL is my slug match, not a confirmed editorial mapping &mdash; two have no exact equivalent and need a human decision. That the featured-card links come from a CMS field is inferred from their position and their lack of link text. &ldquo;Explore SMRT Marketing&rdquo; pointing at <code>/tech/marketing</code> is a guess from the button text.</p>
+      </div>
+      <div>
+        <h3 class="no">Not covered</h3>
+        <p>Only pages in <code>sitemap.xml</code>. If unlisted pages exist they were not crawled &mdash; though the internal link graph turned up no on-site destinations outside the 49, so the sitemap looks complete. Links injected by JavaScript after load are invisible to a static fetch; given <code>unicornStudio</code> proved capable of hiding from the served HTML, a browser-based pass would be a reasonable double-check. Social and help-centre links could not be verified from this environment.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>SMRT Systems &middot; sitewide link audit &middot; 49 pages, 5,373 anchors</span>
+    <span>2026-08-13</span>
+  </div>
+
+</div>
+</main>
