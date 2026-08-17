@@ -79,6 +79,38 @@ all-in price still undercuts nothing structurally.
    CleanCloud and reduced churn — that upside needs to be worth ≥$15K/mo
    at $10/station, or you price at $13–15/station and it's free.
 
+## Follow-up: required price points
+
+Scope note: Social, Sites/Websites, Ads, Screens, and Chatbot stay à la carte and
+are already excluded from the $69.1K baseline (bundles were decomposed to their
+Campaigns/Reviews share), so they don't move in either calculation.
+
+**A. Break-even per-station price, charging only the current 99 marketing customers**
+(replace their flat subscriptions with per-station pricing, keep revenue flat at ≈$69.1K/mo):
+
+| Station count assumption | Required price |
+|---|---|
+| 724 (−15%) | $95.43 / station / mo |
+| **852 (best estimate)** | **$81.09 / station / mo** |
+| 980 (+15%) | $70.50 / station / mo |
+
+**≈ $81 per station** — i.e., today's flat pricing already averages out to ~$81/station
+across the marketing base.
+
+**B. Per-station price across ALL stations to grow in-app marketing revenue +20%**
+(target = $69.1K × 1.2 ≈ **$82,900/mo**, marketing bundled into every station):
+
+| Active stations assumption | Required price |
+|---|---|
+| 4,310 (20% station churn) | $19.24 / station / mo |
+| **5,390 (best estimate: 2,535 stores × 2.13 st/store)** | **$15.38 / station / mo** |
+
+**≈ $15.50 per station** (call it **$16**, which yields ≈ $86.2K/mo, +25%) turns the
+$70/station contract into ≈ $85–86/station all-in with Campaigns + Broadcasts +
+Reviews included, while Social/Sites/Ads remain add-on subscriptions on top.
+
+---
+
 *Caveats: 296 of 852 marketing-client stations are estimates (client-level list
 flagged in `data/scenario_detail.csv`); active-station total inferred from 2,535
 stores × 2.13 stations/store; Social, Ads, Websites, Screens, Chatbot revenue
