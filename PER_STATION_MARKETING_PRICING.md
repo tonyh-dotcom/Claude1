@@ -111,6 +111,71 @@ Reviews included, while Social/Sites/Ads remain add-on subscriptions on top.
 
 ---
 
+## Recommended methodology: tiered all-in station price, grandfather the 99
+
+**Goals:** marketing wrapped in for everyone · one-line billing · affordable for
+small shops · scale benefits for big customers · steadily rising revenue ·
+marketing team redeployed to external marketing + paid success sessions.
+
+### Why $70 all-in (marketing free) can't hit the revenue goal
+
+Folding Campaigns/Broadcasts/Reviews into the existing $70 with no adder gives up
+the entire **$69.1K/mo ($829K/yr)** marketing software line. Paid success sessions
+at $100/hr cannot fill that hole: two people fully half-billable is ~160 hrs/mo =
+$16K; even a theoretical 320 hrs/mo = $32K. Net **−$37K to −$61K/mo** — you'd need
+~987 net-new stations (+18% installed-base growth) at $70 just to get back to even.
+Services revenue is linear in hours; software revenue isn't. Don't trade the second
+for the first.
+
+### The model
+
+1. **One SKU: the station, all-in, volume-tiered.** Campaigns + Broadcasts +
+   Reviews + Notifications included in every station. Suggested card:
+   stations 1–10 **$85**, 11–25 **$80**, 26+ **$75** per station/mo.
+   Small shops: a 2-station cleaner pays $170 all-in — vs $70×2 + $599 Campaigns
+   (impossible) today; marketing stops being priced out of the small end.
+   Big customers: the tier discount is the "more benefits at scale," replacing
+   today's ad-hoc 5–20% negotiated discounts with a published curve.
+   Social, Sites, Ads, Screens, Chatbot stay à la carte on top. SMS segments stay
+   usage-billed passthrough.
+2. **Existing non-marketing customers: migrate $70 → $80 all-in at renewal.**
+   A $10 increase delivered with $199–$599/mo of formerly-paid product included —
+   the increase comes with a gift, not a takeaway. 4,538 stations × $10 =
+   **+$45.4K/mo (+$545K/yr)**; at $85 flat it's +$68K/mo.
+3. **Grandfather the 99 current marketing customers.** They pay ≈$81/station
+   effective today ($70 base + subscriptions). Moving them to $80–85 all-in hands
+   back ~$60K/mo. Leave them on legacy pricing; offer the new tiers only at renewal
+   or churn-risk moments, account by account. This single rule protects the
+   **$69.1K/mo** baseline.
+4. **New customers sign at the new card from day one** (~160 customers/yr ×
+   ~5 stations ≈ 800 stations/yr → **+$12K/mo run-rate by end of year 1** vs $70).
+5. **Self-serve enablement replaces high-touch onboarding.** Marketing knowledge
+   base + guides owned by support; in-app templates and default automations; DIY
+   included in the station price. Tony + Jason move to external/brand marketing and
+   **paid success sessions at $100/hr**, plus productized packages (campaign setup
+   $499, quarterly marketing review $299) — realistically **+$8–16K/mo**, positioned
+   as margin and stickiness, not as the revenue engine.
+6. **Measure the flywheel:** marketing attach today is ~10% of customers; bundled,
+   it's 100%. Track usage-per-customer, churn on bundled vs legacy cohorts, and
+   session bookings. The strategic bet (CleanCloud parity, lower churn, easier
+   sales) now costs nothing because the bundle is priced above break-even
+   ($13/station) instead of below it ($10).
+
+### Net effect vs today
+
+| Lever | Monthly |
+|---|---|
+| Existing base $70→$80 all-in (4,538 st) | **+$45.4K** |
+| New customers at $85 card (yr-1 exit rate) | +$12K |
+| Grandfathered marketing accounts | $0 (protects $69.1K) |
+| Paid success sessions + packages | +$8–16K |
+| **Total vs today** | **≈ +$53K to +$96K/mo (+12% to +22%)** |
+
+Compared with **−$53K to −$61K/mo** under free-inclusion at $70. Same customer story
+("marketing is now included in your station price"), opposite revenue outcome.
+
+---
+
 *Caveats: 296 of 852 marketing-client stations are estimates (client-level list
 flagged in `data/scenario_detail.csv`); active-station total inferred from 2,535
 stores × 2.13 stations/store; Social, Ads, Websites, Screens, Chatbot revenue
