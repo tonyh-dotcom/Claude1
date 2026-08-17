@@ -1,0 +1,927 @@
+<title>Developer Handoff</title>
+<style>
+/* ---------- tokens: light is the complete set ---------- */
+:root{
+  --paper:#F6F7F5;
+  --panel:#FFFFFF;
+  --sunk:#F1F3EF;
+  --ink:#151D1B;
+  --slate:#55635F;
+  --mute:#737D77;
+  --rule:#E1E5E1;
+  --rule-soft:#EDEFEC;
+  --pine:#0A6B45;
+  --clay:#C96528;
+  --pine-bg:#EAF2ED;
+  --clay-bg:#FBF0E8;
+  --wine:#8F1D3A;
+  --wine-bg:#FAEEF1;
+  --bronze:#7A5B14;
+  --bronze-bg:#F8F3E6;
+  --shadow:0 1px 2px rgba(21,29,27,.05);
+
+  --mono:ui-monospace,"SF Mono","SFMono-Regular","Cascadia Mono","Menlo","Consolas","Liberation Mono",monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --wrap:1000px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101413;
+    --panel:#171E1B;
+    --sunk:#1B2320;
+    --ink:#E8EDEA;
+    --slate:#A3AFAA;
+    --mute:#7B867F;
+    --rule:#27302C;
+    --rule-soft:#1E2622;
+    --pine:#28A08C;
+    --clay:#D26E3C;
+    --pine-bg:#16302A;
+    --clay-bg:#2E2019;
+    --wine:#E8738D;
+    --wine-bg:#2F1A20;
+    --bronze:#CBA24E;
+    --bronze-bg:#2A2317;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101413;
+  --panel:#171E1B;
+  --sunk:#1B2320;
+  --ink:#E8EDEA;
+  --slate:#A3AFAA;
+  --mute:#7B867F;
+  --rule:#27302C;
+  --rule-soft:#1E2622;
+  --pine:#28A08C;
+  --clay:#D26E3C;
+  --pine-bg:#16302A;
+  --clay-bg:#2E2019;
+  --wine:#E8738D;
+  --wine-bg:#2F1A20;
+  --bronze:#CBA24E;
+  --bronze-bg:#2A2317;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+:where(a){color:var(--pine)}
+:where(a:hover){text-decoration-thickness:2px}
+:where(a,button):focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+code{
+  font-family:var(--mono);font-size:.84em;
+  background:var(--sunk);border:1px solid var(--rule-soft);
+  padding:.1em .34em;border-radius:3px;word-break:break-word;
+}
+h1,h2,h3,.lbl,.num,.chip,th{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- urgent callout ---------- */
+.now-box{
+  border:1px solid var(--wine);border-left:3px solid var(--wine);
+  background:var(--wine-bg);border-radius:5px;padding:24px 28px 26px;margin-top:34px;
+}
+.now-box .lbl{display:block;color:var(--wine);margin-bottom:11px}
+.now-box h2{
+  font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.022em;
+  margin:0 0 12px;text-transform:none;
+}
+.now-box p{margin:0 0 14px;max-width:64ch}
+.now-box ol{margin:0;padding-left:22px;max-width:64ch}
+.now-box li{margin-bottom:8px}
+.now-box li:last-child{margin-bottom:0}
+.now-box .after{margin-top:15px;font-size:15px;color:var(--slate);margin-bottom:0}
+
+/* ---------- shell ---------- */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px}
+.lbl{
+  font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--mute);font-weight:500;
+}
+
+/* ---------- masthead ---------- */
+.mast{border-bottom:1px solid var(--rule);background:var(--panel)}
+.mast .wrap{padding-top:46px;padding-bottom:0}
+.mast-grid{display:flex;flex-direction:column;gap:16px}
+h1{
+  font-size:clamp(29px,4.6vw,46px);font-weight:600;
+  letter-spacing:-.035em;line-height:1.06;margin:0;max-width:19ch;
+  text-wrap:balance;
+}
+.dek{
+  font-size:19px;line-height:1.5;color:var(--slate);
+  margin:0;max-width:60ch;
+}
+.dek b{color:var(--ink);font-weight:600}
+.meta{
+  display:flex;flex-wrap:wrap;gap:6px 22px;
+  font-family:var(--mono);font-size:11.5px;color:var(--mute);
+  padding:20px 0 0;margin-top:8px;border-top:1px solid var(--rule-soft);
+}
+.meta span b{color:var(--slate);font-weight:500}
+
+/* ---------- headline stats ---------- */
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  gap:0;margin-top:30px;border-top:1px solid var(--rule);
+}
+.stat{padding:17px 22px 20px;border-right:1px solid var(--rule-soft)}
+.stat:last-child{border-right:0}
+.stat-v{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:27px;font-weight:600;letter-spacing:-.035em;line-height:1;
+  display:block;margin-bottom:7px;
+}
+.stat-v.bad{color:var(--wine)}
+.stat-k{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute)}
+.stat-n{display:block;font-size:13.5px;color:var(--slate);line-height:1.4;margin-top:6px}
+
+/* ---------- sections ---------- */
+main .wrap{padding-bottom:88px}
+section{padding-top:56px}
+.sec-head{
+  display:flex;align-items:baseline;gap:14px;
+  padding-bottom:10px;margin-bottom:8px;border-bottom:2px solid var(--ink);
+}
+.sec-head h2{font-size:15px;font-weight:600;letter-spacing:.04em;margin:0;text-transform:uppercase}
+.sec-head .lbl{margin-left:auto}
+.prose{max-width:68ch}
+.prose p{margin:18px 0}
+.prose > p:first-child{margin-top:22px}
+.prose ul,.prose ol{margin:18px 0;padding-left:22px}
+.prose li{margin-bottom:9px}
+.prose li:last-child{margin-bottom:0}
+.prose h3{
+  font-size:14px;font-weight:600;letter-spacing:.02em;
+  margin:32px 0 0;color:var(--ink);
+}
+
+/* ---------- figure scaffolding ---------- */
+figure{margin:30px 0;padding:0}
+figcaption{
+  font-family:var(--mono);font-size:11.5px;line-height:1.5;
+  color:var(--mute);margin-top:14px;max-width:74ch;
+}
+.fig-t{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;
+  letter-spacing:.02em;color:var(--ink);margin:0 0 3px;
+}
+.fig-s{font-family:var(--mono);font-size:11px;color:var(--mute);margin:0 0 18px}
+
+/* ---------- stacked split bar ---------- */
+.split{display:flex;gap:2px;height:46px;margin-bottom:12px}
+.split-seg{
+  border-radius:3px;display:flex;align-items:center;padding:0 13px;
+  font-family:var(--mono);font-size:12px;font-weight:600;color:#FFF;
+  min-width:0;overflow:hidden;white-space:nowrap;
+}
+:root[data-theme="dark"] .split-seg{color:#0E1211}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .split-seg{color:#0E1211}}
+.split-a{background:var(--pine);flex:30.41}
+.split-b{background:var(--clay);flex:9.15}
+.legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11.5px;color:var(--slate)}
+.legend span{display:flex;align-items:center;gap:7px}
+.swatch{width:10px;height:10px;border-radius:2px;flex:0 0 auto}
+.sw-a{background:var(--pine)} .sw-b{background:var(--clay)}
+
+/* ---------- bar rows ---------- */
+.bars{display:flex;flex-direction:column;gap:2px}
+.bar-row{
+  display:grid;grid-template-columns:132px 1fr 84px;
+  align-items:center;gap:14px;
+}
+.bar-row .bk{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.bar-track{height:19px;display:flex;align-items:center}
+.bar-fill{height:19px;border-radius:0 3px 3px 0;background:var(--pine);min-width:2px}
+.bar-fill.alt{background:var(--clay)}
+.bar-fill.dim{background:var(--rule)}
+.bar-row .bv{
+  font-family:var(--mono);font-variant-numeric:tabular-nums;
+  font-size:11.5px;color:var(--ink);font-weight:600;
+}
+.bar-row.quiet .bv{color:var(--slate);font-weight:400}
+
+/* ---------- waterfall timeline ---------- */
+.wf-scroll{overflow-x:auto}
+.wf{min-width:600px}
+.wf-axis{
+  display:grid;grid-template-columns:repeat(13,1fr);
+  border-bottom:1px solid var(--rule);margin-bottom:9px;
+}
+.wf-axis span{
+  font-family:var(--mono);font-size:10px;color:var(--mute);
+  padding-bottom:5px;border-left:1px solid var(--rule-soft);padding-left:4px;
+}
+.wf-row{
+  position:relative;height:26px;display:flex;align-items:center;
+  border-bottom:1px solid var(--rule-soft);
+}
+.wf-row:last-child{border-bottom:0}
+.wf-mark{
+  position:absolute;top:6px;height:14px;border-radius:2px;
+  background:var(--clay);min-width:4px;
+}
+.wf-mark.site{background:var(--pine)}
+.wf-mark.crit{background:var(--wine)}
+.wf-lab{
+  position:absolute;top:4px;font-family:var(--mono);font-size:10.5px;
+  line-height:18px;color:var(--ink);white-space:nowrap;
+  padding-left:7px;pointer-events:none;
+}
+.wf-lab.flip{padding-left:0;padding-right:7px;transform:translateX(-100%)}
+.wf-lab i{color:var(--mute);font-style:normal}
+
+/* ---------- findings ---------- */
+.find{
+  background:var(--panel);border:1px solid var(--rule);
+  border-radius:5px;box-shadow:var(--shadow);
+  padding:26px 30px 28px;margin-top:22px;
+}
+.find-top{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:13px}
+.find-n{
+  font-family:var(--mono);font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;color:var(--mute);
+}
+.chip{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+  padding:3px 8px;border-radius:3px;white-space:nowrap;
+}
+.chip-p0{color:var(--wine);background:var(--wine-bg)}
+.chip-p1{color:var(--bronze);background:var(--bronze-bg)}
+.chip-p2{color:var(--pine);background:var(--pine-bg)}
+.chip-area{color:var(--slate);background:var(--sunk);font-weight:500}
+.find-h{
+  font-size:21px;font-weight:600;letter-spacing:-.022em;line-height:1.25;
+  margin:0 0 4px;max-width:40ch;text-wrap:balance;font-family:var(--serif);
+}
+.find .prose{max-width:66ch}
+.find .prose > p:first-of-type{margin-top:14px}
+.claim{
+  font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--wine);
+  margin:0 0 4px;letter-spacing:.01em;
+}
+
+/* ---------- code / evidence ---------- */
+.ev{
+  background:var(--sunk);border:1px solid var(--rule-soft);border-radius:4px;
+  padding:14px 16px;margin:22px 0;overflow-x:auto;
+}
+.ev pre{
+  margin:0;font-family:var(--mono);font-size:11.5px;line-height:1.75;
+  white-space:pre;color:var(--ink);
+}
+.ev .lbl{display:block;margin-bottom:9px}
+.ev em{color:var(--wine);font-style:normal;font-weight:600}
+
+/* ---------- tables ---------- */
+.tbl-scroll{overflow-x:auto;margin:24px 0}
+table{
+  border-collapse:collapse;width:100%;
+  font-family:var(--mono);font-size:12px;min-width:400px;
+}
+th{
+  text-align:left;font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--mute);font-weight:500;padding:0 14px 9px 0;
+  border-bottom:1px solid var(--rule);
+}
+td{padding:9px 14px 9px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;color:var(--slate)}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink)}
+.n{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+tfoot td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink);font-weight:600;padding-top:10px}
+
+/* ---------- fix list ---------- */
+.fix{border-top:1px solid var(--rule-soft);margin-top:24px;padding-top:18px}
+.fix .lbl{display:block;margin-bottom:12px}
+.fix ol{margin:0;padding-left:20px;max-width:66ch}
+.fix li{margin-bottom:10px}
+.fix li:last-child{margin-bottom:0}
+
+/* ---------- ordered fix plan ---------- */
+.plan{list-style:none;margin:24px 0 0;padding:0;counter-reset:step}
+.plan li{
+  counter-increment:step;position:relative;
+  padding:15px 0 15px 46px;border-bottom:1px solid var(--rule-soft);
+  max-width:72ch;
+}
+.plan li:last-child{border-bottom:0}
+.plan li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;left:0;top:17px;
+  font-family:var(--mono);font-size:11.5px;font-weight:600;color:var(--mute);
+}
+.plan .now::before{color:var(--wine)}
+
+/* ---------- confidence split ---------- */
+.conf{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin-top:24px}
+.conf div{background:var(--panel);padding:20px 22px}
+.conf h3{margin:0 0 10px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.conf .ok{color:var(--pine)}
+.conf .maybe{color:var(--bronze)}
+.conf .no{color:var(--mute)}
+.conf p{margin:0;font-size:15px;line-height:1.55;color:var(--slate)}
+
+.foot{
+  border-top:1px solid var(--rule);margin-top:60px;padding:22px 0 0;
+  font-family:var(--mono);font-size:11px;color:var(--mute);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+}
+
+@media (max-width:700px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .find{padding:22px 20px 24px}
+  .bar-row{grid-template-columns:104px 1fr 72px;gap:10px}
+  .stat{border-right:0;border-bottom:1px solid var(--rule-soft)}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+/* ---------- correction block ---------- */
+.corr{border:1px solid var(--rule);border-left:3px solid var(--bronze);background:var(--panel);
+  border-radius:5px;padding:24px 28px 26px;margin-top:22px;box-shadow:var(--shadow)}
+.corr .lbl{display:block;color:var(--bronze);margin-bottom:11px}
+.corr h3{font-family:var(--serif);font-size:19px;font-weight:600;letter-spacing:-.02em;margin:0 0 10px;text-transform:none;max-width:46ch}
+.corr p{margin:0 0 13px;max-width:70ch}
+.corr p:last-child{margin-bottom:0}
+.corr .was{font-family:var(--mono);font-size:11.5px;color:var(--mute);letter-spacing:.01em}
+/* ---------- score comparison ---------- */
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--rule);
+  border:1px solid var(--rule);border-radius:5px;overflow:hidden;margin:26px 0 0}
+.sc{background:var(--panel);padding:16px 18px 18px}
+.sc-k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--mute);margin-bottom:11px}
+.sc-pair{display:flex;gap:16px;align-items:flex-end}
+.sc-one{display:flex;flex-direction:column;gap:3px}
+.sc-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:26px;font-weight:600;letter-spacing:-.04em;line-height:1}
+.sc-l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--mute)}
+.sc-d .sc-v{color:var(--pine)} .sc-m .sc-v{color:var(--clay)}
+.sc-bad .sc-v{color:var(--wine)}
+/* ---------- grouped bars ---------- */
+.gb{display:flex;flex-direction:column;gap:9px}
+.gb-row{display:grid;grid-template-columns:112px 1fr;align-items:center;gap:14px}
+.gb-k{font-family:var(--mono);font-size:11.5px;color:var(--slate);text-align:right}
+.gb-pair{display:flex;flex-direction:column;gap:2px}
+.gb-bar{display:flex;align-items:center;gap:8px}
+.gb-fill{height:13px;border-radius:0 2px 2px 0;min-width:2px}
+.gb-d{background:var(--pine)} .gb-m{background:var(--clay)}
+.gb-v{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10.5px;color:var(--slate)}
+/* ---------- verdict chips in tables ---------- */
+.vg{color:var(--pine);font-weight:600} .vb{color:var(--wine);font-weight:600} .vw{color:var(--bronze);font-weight:600}
+.mono-list{font-family:var(--mono);font-size:11.5px;line-height:1.9;color:var(--slate);margin:0;max-width:none}
+
+.sec-head h2{text-transform:none;font-size:17px;letter-spacing:-.005em}
+.sec-head.sec--p0{border-bottom-color:var(--wine)}
+.sec-head.sec--p0 h2{color:var(--wine)}
+.sec-head.sec--p1{border-bottom-color:var(--bronze)}
+.sec-head.sec--p1 h2{color:var(--bronze)}
+h3.pg{font-family:var(--serif);font-size:20px;font-weight:600;letter-spacing:-.018em;
+  margin:38px 0 6px;color:var(--ink);max-width:52ch;text-wrap:balance}
+.callout{border-left:3px solid var(--pine);background:var(--pine-bg);padding:15px 18px;
+  border-radius:0 4px 4px 0;margin:20px 0;font-size:16px;line-height:1.6;color:var(--ink);
+  max-width:70ch;font-style:italic}
+main .wrap > p{max-width:74ch;margin:16px 0}
+main .wrap > ul.prose{max-width:74ch;margin:16px 0;padding-left:22px}
+main .wrap > ul.prose li{margin-bottom:9px}
+hr{border:0;border-top:1px solid var(--rule);margin:50px 0 0}
+table{font-size:12px}
+
+.ev.code{max-height:none}
+.ev.code pre{white-space:pre;font-size:11px;line-height:1.6}
+h3.pg{font-size:18px;margin:34px 0 6px}
+</style>
+<header class="mast"><div class="wrap"><div class="mast-grid">
+<p class="lbl">Full site audit &middot; smrtsystems.com</p>
+<h1>Developer Handoff</h1>
+<p class="dek">Re-scan status, a numbered fix procedure for every open item, copy-paste schema markup for global service coverage, and keyword-aligned metadata &mdash; ready before ads launch.</p>
+<div class="meta">
+  <span><b>Scanned</b> 2026-08-13</span>
+  <span><b>Coverage</b> all 49 pages</span>
+  <span><b>Parsed</b> 5,373 links &middot; 2,668 images &middot; 4,064 headings</span>
+  <span><b>Excludes</b> link breakage and RAM/GPU, documented separately</span>
+</div></div></div></header>
+<main><div class="wrap">
+<p>Four parts:</p>
+<ol class="plan"><li><strong>Re-scan status</strong> &mdash; what is fixed, what is still open, what is new</li><li><strong>Step-by-step fixes</strong> &mdash; one numbered procedure per item</li><li><strong>Schema markup</strong> &mdash; sitewide plus page-by-page, copy-paste ready</li><li><strong>Meta titles and descriptions</strong> &mdash; keyword-aligned rewrites</li></ol>
+<hr>
+<p>The sitemap is now <strong>48 URLs</strong> (was 49). <code>/shop</code> and <code>/releasenotes</code> were added; <code>/blogs/decoding-local-seo…</code> and <code>/blogs/beat-the-summer-slump</code> were removed.</p>
+<div class="sec-head"><h2>Fixed since the audit</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>#</th><th>Item</th><th>Now</th></tr></thead><tbody><tr><td>14</td><td>Brand written &quot;SMrt&quot;</td><td><strong>Gone</strong> &mdash; 0 occurrences</td></tr><tr><td>&mdash;</td><td>framer.link on 5 of 6 pages</td><td><strong>Gone</strong> from <code>/testimonials</code>, <code>/tech/marketing</code>, <code>/tech/metalprogetti</code>, <code>/tech/reporting</code>, <code>/special-services</code></td></tr><tr><td>&mdash;</td><td><code>/sales-demo/</code> demo buttons</td><td><strong>Gone</strong></td></tr><tr><td>&mdash;</td><td>&quot;Explore SMRT Marketing&quot; dead CTA</td><td><strong>Gone</strong></td></tr><tr><td>&mdash;</td><td>Two renamed support-article links, growth-onomics citation</td><td><strong>Gone</strong></td></tr><tr><td>&mdash;</td><td>Breakpoint duplication</td><td>Anchors 5,373 &rarr; 1,216; images 2,668 &rarr; 286; <code>&lt;h5&gt;</code> 778 &rarr; 316</td></tr><tr><td>&mdash;</td><td>Google Ads tag (<code>AW-</code>)</td><td>No longer firing on any page</td></tr></tbody></table></div>
+<p>That is real progress &mdash; the duplication consolidation in particular fixes several problems at once.</p>
+<div class="sec-head"><h2>Still open</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>#</th><th>Item</th><th>Current state</th></tr></thead><tbody><tr><td>1</td><td><strong>No privacy policy, terms, or cookie notice</strong></td><td>0 of 48 pages. No CMP. See note below.</td></tr><tr><td>2</td><td><strong>TEAMVIEWER 270 MB <code>.exe</code></strong></td><td>Still on 17 pages, 33 refs</td></tr><tr><td>3</td><td>80% growth testimonial</td><td>Still on homepage</td></tr><tr><td>4</td><td>&quot;10,397,124 Satisfied Customers&quot;</td><td>Still on homepage</td></tr><tr><td>5</td><td><strong>Duplicate title + description</strong></td><td><strong>33 pages</strong> share `Dry Cleaning POS &amp; Business Software \</td><td>SMRT<code> &mdash; now includes </code>/shop<code> and </code>/releasenotes`</td></tr><tr><td>6</td><td>Homepage FAQ answers</td><td>6 questions present; answers still need checking after edits</td></tr><tr><td>7</td><td><strong>Zero structured data</strong></td><td>0 of 48 pages</td></tr><tr><td>8</td><td><strong>No <code>og:image</code> / <code>twitter:image</code> / <code>og:site_name</code></strong></td><td>0 of 48, while <code>summary_large_image</code> is declared on all 48</td></tr><tr><td>9</td><td>Images missing <code>alt</code></td><td>273 of 286 (95%)</td></tr><tr><td>10</td><td>No <code>lang</code> attribute</td><td>0 of 48</td></tr><tr><td>11</td><td><code>&lt;h5&gt;</code> used for buttons/nav</td><td>316 elements</td></tr><tr><td>12</td><td>Not exactly one <code>&lt;h1&gt;</code></td><td>48 of 48 pages; homepage still has 6</td></tr><tr><td>13</td><td>Split-text space loss</td><td><code>DryCleaning</code>, <code>Ecosystem.Built</code> still on homepage</td></tr><tr><td>15</td><td>Headline casing variants</td><td>3 variants of &quot;Your customers deserve the best&quot;</td></tr><tr><td>17</td><td>Blog slug typo</td><td><code>/blogs/improve-how-your-treat-your-customers</code></td></tr><tr><td>19</td><td>Address / copyright format</td><td><code>Suite 1600 Raleigh, NC - 27606</code>, <code>© SMRT Systems, Inc. - 2026</code></td></tr><tr><td>20</td><td>Viewport</td><td>47 pages <code>width=device-width</code> (no <code>initial-scale</code>), <strong>1 page <code>width=1200</code></strong></td></tr><tr><td>21</td><td>404 page</td><td>Still &quot;Page Not Found \</td><td>Framer&quot;</td></tr></tbody></table></div>
+<p><strong>On the cookie banner:</strong> the homepage now contains Framer&#x27;s <code>__framer-cookie-component</code> CSS, but <strong>only in a <code>&lt;style&gt;</code> block</strong> &mdash; there is no banner element, no Accept/Decline control and no consent text anywhere. The component has been styled but never enabled.</p>
+<p><strong>Tracking has changed, and not in a helpful direction for compliance.</strong> Google Ads is gone, but <strong>Microsoft Clarity is now on all 48 pages</strong> (project <code>y07u5nx3wk</code>). Clarity does session recording and heatmaps, which is materially higher-risk processing under GDPR than plain analytics. It strengthens the case for consent, it does not weaken it.</p>
+<div class="tbl-scroll"><table><thead><tr><th>Tracker</th><th>Pages</th></tr></thead><tbody><tr><td>Google Tag / GTM</td><td>48/48</td></tr><tr><td>gtag.js</td><td>48/48</td></tr><tr><td><strong>Microsoft Clarity (session recording)</strong></td><td><strong>48/48</strong></td></tr><tr><td>LinkedIn</td><td>17/48</td></tr></tbody></table></div>
+<div class="sec-head"><h2>New findings</h2></div>
+<h3 class="pg">N1 &mdash; <code>/shop</code> is a live store built on the contact-page template (P0)</h3>
+<p><code>https://smrtsystems.com/shop</code> returns 200, is in the sitemap, and is indexable. It is a Shopify-backed store selling four hardware items:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Product</th><th>Price</th></tr></thead><tbody><tr><td>SMRT Credit Card Terminal</td><td>$300.00</td></tr><tr><td>Heat Seal Machine</td><td>$1,050.00</td></tr><tr><td>CAS PD-2Z60 Dual Range POS Scale</td><td>$600.00</td></tr><tr><td>Epson TM-T20IV</td><td>$230.00</td></tr></tbody></table></div>
+<p>Five defects on one page:</p>
+<ol class="plan"><li><strong><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=1200&quot;&gt;</code></strong> &mdash; a hardcoded desktop viewport. This page will render zoomed-out and unusable on every phone. It is the only page on the site like this.</li><li><strong>The H1s are the contact page&#x27;s</strong> &mdash; &quot;Let&#x27;s Start a Conversation.&quot; / &quot;See Where It Takes You.&quot; The page was duplicated from <code>/contact-us</code> and the hero was never rewritten.</li><li><strong>The literal word &quot;None&quot; renders four times</strong>, once before each product name &mdash; an unset CMS/product field.</li><li><strong>Title and description are the homepage&#x27;s</strong>, so a store page is titled &quot;Dry Cleaning POS &amp; Business Software | SMRT&quot;.</li><li><strong>You are now selling goods with no Terms of Sale, no Refund/Return policy, no Shipping policy and no privacy policy.</strong> For a marketing site the missing policies were a GDPR problem. For a store taking card payments they are also a consumer-protection and card- scheme problem.</li></ol>
+<h3 class="pg">N2 &mdash; <code>/releasenotes</code> has the homepage&#x27;s title and description</h3>
+<p>New page, returns 200, in the sitemap, and inherits the duplicate metadata.</p>
+<h3 class="pg">N3 &mdash; Sitemap still has no <code>&lt;lastmod&gt;</code></h3>
+<p>0 of 48 entries. Google gets no recrawl signal, which matters more now that you have submitted to Search Console and are about to spend on ads.</p>
+<h3 class="pg">N4 &mdash; Deleted posts now 404 with no redirect</h3>
+<p><code>/blogs/beat-the-summer-slump</code> and <code>/blogs/decoding-local-seo-putting-your-business-on-the-map-in-2024</code> were removed and both return 404. They are correctly out of the sitemap, but any inbound links or existing rankings are now dead ends.</p>
+<h3 class="pg">N5 &mdash; Blog rendering under burst crawling (monitor, do not panic)</h3>
+<p>Worth knowing before Googlebot ramps up. When I requested 30 distinct blog URLs in sequence, <strong>all 30 returned HTTP 200 with a 54,412-byte shell</strong> &mdash; <code>&lt;div id=&quot;main&quot;&gt;&lt;/div&gt;</code> and no content. Requested individually, the same URLs return 561–588 KB with a real <code>&lt;h1&gt;</code>, 22 <code>&lt;h2&gt;</code>s and a <code>&lt;time datetime&gt;</code>. Five rapid requests to a <em>single</em> URL all returned full content, so it is tied to distinct cache-cold paths, not to request rate as such.</p>
+<p><strong>This is almost certainly my crawler tripping Framer&#x27;s edge cache, not a site defect</strong> &mdash; and for real visitors the pages are fine. But a 200 with no content is worse than an error, because it looks valid, and Googlebot crawls exactly this pattern: many distinct URLs in sequence. It is a plausible cause of &quot;Crawled – currently not indexed&quot;.</p>
+<p><strong>Verify, do not assume:</strong> in Search Console, run <strong>URL Inspection &rarr; Test live URL &rarr; View crawled page</strong> on five or six blog posts and confirm Google receives the full HTML. Only Google&#x27;s tooling can answer what Googlebot actually got. If you see shells, it is a Framer hosting issue to escalate to them, not something to fix in the project.</p>
+<p><em>Correction to my earlier audit:</em> I previously reported blog posts as having no <code>&lt;h1&gt;</code> and no <code>&lt;time&gt;</code>. That reading came from these shell responses. Blog posts <strong>do</strong> have one <code>&lt;h1&gt;</code> and a real <code>&lt;time datetime&gt;</code> &mdash; which matters, because the BlogPosting schema below depends on it.</p>
+<hr>
+<div class="sec-head"><h2>Fix 1 &mdash; Publish policies and enable consent <em>(P0, legal)</em></h2></div>
+<ol class="plan"><li>Draft and publish three pages: <strong>Privacy Policy</strong>, <strong>Terms of Service</strong>, and &mdash; because <code>/shop</code> sells physical goods &mdash; <strong>Refund &amp; Shipping Policy</strong>. Use counsel or a reputable generator, and make sure the privacy policy names Google Analytics/GTM, Google Ads and <strong>Microsoft Clarity session recording</strong> specifically.</li><li>In Framer, add all three to the <strong>footer on every page</strong> (edit the shared footer component once).</li><li>Enable a consent banner. Framer&#x27;s built-in banner is under <strong>Site Settings &rarr; General &rarr; Cookie Banner</strong>. Its CSS is already shipping, so it only needs enabling and configuring. For EU traffic a full CMP (Cookiebot, Osano, Termly) is the safer choice because it can block scripts by category.</li><li><strong>Gate the tags behind consent.</strong> Move GTM, gtag and Clarity so they fire only after opt-in. In GTM, use a consent-initialisation trigger; do not leave Clarity firing on load &mdash; session recording before consent is the highest-risk item on the page.</li><li>On the demo form, add a <strong>consent checkbox</strong> and a link to the privacy policy at the point of collection.</li><li>Add a <strong>&quot;Do Not Sell or Share My Personal Information&quot;</strong> link for California visitors.</li></ol>
+<div class="sec-head"><h2>Fix 2 &mdash; Remove the TEAMVIEWER <code>.exe</code> link <em>(P0, trust)</em></h2></div>
+<ol class="plan"><li>Edit the shared footer and <strong>delete the <code>TEAMVIEWER</code> link</strong>. It currently points at <code>https://smrt-releases.s3.amazonaws.com/tests/SMRT-Tool-Portable-0.3.0-x64.exe</code> &mdash; 270 MB, <code>/tests/</code> path, version 0.3.0.</li><li>If customers need a remote-support tool, publish it <strong>behind the authenticated support portal</strong>, not in a public footer.</li><li>Serve it from a domain you control, <strong>code-sign the binary</strong>, label it with its real name and file size, and point at a released build rather than <code>/tests/</code>.</li><li>If the label genuinely refers to TeamViewer, link to TeamViewer&#x27;s own site instead &mdash; do not put a third-party trademark on your own executable.</li></ol>
+<div class="sec-head"><h2>Fix 3 &mdash; Substantiate or replace the 80% testimonial <em>(P0, legal)</em></h2></div>
+<ol class="plan"><li>Confirm with customer marketing that <strong>Sarah Mitchell / Park Avenue Cleaners</strong> is a real, consenting customer and that the 80% figure is documented in writing.</li><li>If real: keep it, and add a typicality qualifier &mdash; &quot;Results vary; not typical of all customers.&quot; Store the substantiation where you can produce it.</li><li>If it is template copy: replace it with one of the eight verified quotes already on the page, and match their attribution format.</li></ol>
+<div class="sec-head"><h2>Fix 4 &mdash; Relabel the customer counter <em>(P0, credibility)</em></h2></div>
+<ol class="plan"><li>Find out what 10,397,124 actually counts.</li><li>Relabel to match &mdash; &quot;Garments tracked&quot;, &quot;Orders processed&quot;, &quot;Customer notifications sent&quot;.</li><li>Add an as-of date, or make it update from live data.</li></ol>
+<div class="sec-head"><h2>Fix 5 &mdash; Unique titles and descriptions on the 33 duplicate pages <em>(P0, SEO)</em></h2></div>
+<ol class="plan"><li>In the Framer CMS <strong>blog collection</strong>, open the post template&#x27;s SEO settings.</li><li>Bind <strong>SEO Title</strong> to the post title field plus a suffix, and <strong>SEO Description</strong> to the post excerpt field. Do not leave them on site defaults. See Part 4 for the pattern.</li><li>Set unique metadata manually on <strong><code>/shop</code></strong> and <strong><code>/releasenotes</code></strong> &mdash; see Part 4.</li><li>Re-check: no two pages should share a title. Framer&#x27;s page list shows SEO fields per page.</li></ol>
+<div class="sec-head"><h2>Fix 6 &mdash; Write the missing FAQ answers <em>(P1)</em></h2></div>
+<ol class="plan"><li>Open the homepage FAQ component and check each question has body content &mdash; four of five were empty at audit time.</li><li>Write the missing answers, 40–80 words each, and keep them <strong>in the DOM collapsed by CSS</strong> rather than mounted on click, so they stay crawlable.</li><li>Then add the FAQPage schema from Part 3. Do not add it before the answers exist.</li></ol>
+<div class="sec-head"><h2>Fix 7 &mdash; Add structured data <em>(P1, SEO)</em></h2></div>
+<p>Follow Part 3. Order: sitewide Organization + WebSite first, then per-page.</p>
+<div class="sec-head"><h2>Fix 8 &mdash; Social share images <em>(P1, SEO)</em></h2></div>
+<ol class="plan"><li>Create a <strong>1200×630</strong> default share image with logo and value proposition. Export as PNG or JPG under 300 KB.</li><li>Framer: <strong>Site Settings &rarr; SEO &rarr; Social Image</strong>. This sets the site default.</li><li>Add <strong>per-page</strong> images for <code>/</code>, <code>/book-a-demo</code>, the seven <code>/tech/*</code> pages, <code>/shop</code>, <code>/testimonials</code>, <code>/blogs</code>. Page settings &rarr; SEO &rarr; Social Image.</li><li>Add <code>og:site_name</code> and <code>og:image:alt</code> via <strong>Site Settings &rarr; Custom Code &rarr; head</strong>: ``<code>html &lt;meta property=&quot;og:site_name&quot; content=&quot;SMRT Systems&quot;&gt; </code>``</li><li>Verify with Facebook Sharing Debugger and LinkedIn Post Inspector, and force a re-scrape.</li></ol>
+<div class="sec-head"><h2>Fix 9 &mdash; Alt text on images <em>(P1, accessibility)</em></h2></div>
+<ol class="plan"><li>Work page by page in the Framer layer panel; each image layer has an <strong>Alt Text</strong> field.</li><li>Describe what the image shows, in context: <em>&quot;SMRT driver app showing today&#x27;s delivery route&quot;</em>, not <em>&quot;screenshot&quot;</em>.</li><li>For purely decorative images set alt to empty explicitly so it renders <code>alt=&quot;&quot;</code>.</li><li>Priority order: homepage &rarr; <code>/tech/*</code> &rarr; <code>/shop</code> product images &rarr; blog featured images.</li><li>For CMS-driven images, bind alt to a CMS field so it populates automatically.</li></ol>
+<div class="sec-head"><h2>Fix 10 &mdash; Set the document language <em>(P1, accessibility)</em></h2></div>
+<p><strong>Site Settings &rarr; Language &rarr; English.</strong> This emits <code>&lt;html lang=&quot;en&quot;&gt;</code>. One toggle, fixes all 48 pages, clears a WCAG Level A failure.</p>
+<div class="sec-head"><h2>Fix 11 &mdash; Stop using <code>&lt;h5&gt;</code> for buttons and nav <em>(P1, semantics)</em></h2></div>
+<ol class="plan"><li>The 316 <code>&lt;h5&gt;</code> elements are all UI controls: &quot;Contact Us&quot;, &quot;Book a Demo&quot;, &quot;Products&quot;, &quot;Solutions&quot;, &quot;Resources&quot;, &quot;Home&quot;, &quot;Testimonials&quot;, &quot;Talk to Sales&quot;.</li><li>For each, select the text layer and change its tag from <strong>Heading 5 &rarr; Paragraph</strong>.</li><li>For the three dropdown triggers (Products / Solutions / Resources), use Framer&#x27;s <strong>menu component</strong> so they render as <code>&lt;button&gt;</code> with <code>aria-expanded</code> &mdash; they currently have no <code>href</code> and are not keyboard reachable.</li><li>Fix the shared header and footer once; that removes most of the 316.</li></ol>
+<div class="sec-head"><h2>Fix 12 &mdash; One <code>&lt;h1&gt;</code> per page <em>(P1, SEO)</em></h2></div>
+<ol class="plan"><li>On each page, keep exactly one H1. Where a headline runs over two lines, put the second line in a <code>&lt;span&gt;</code> <strong>inside</strong> the same H1 rather than making it a second H1.</li><li>Homepage specifically: the H1 currently reads <strong>&quot;Get&quot;</strong> because the rotating word is injected by JavaScript. Rewrite it as a complete static sentence &mdash; e.g. <em>&quot;Dry Cleaning POS and Business Management Software&quot;</em> &mdash; and apply the animation to a styled span inside it.</li><li>Demote &quot;Seeing is Believing.&quot; to H2.</li><li><code>/shop</code>: replace the contact-page H1s with store-appropriate ones &mdash; e.g. <em>&quot;SMRT Hardware &amp; Accessories&quot;</em>.</li></ol>
+<div class="sec-head"><h2>Fix 13 &mdash; Fix split-text spacing <em>(P1)</em></h2></div>
+<ol class="plan"><li>The reveal animation joins its spans without whitespace, so the markup contains <code>DryCleaning</code> and <code>Ecosystem.Built</code>.</li><li>Best fix, and it also resolves the GPU load documented separately: <strong>animate whole headings instead of per character</strong>, and turn off the blur on the appear effect.</li><li>If the per-character effect must stay, ensure the component preserves a space between segments, and wrap the output in a container carrying <code>aria-label</code> with the full string while marking the character spans <code>aria-hidden=&quot;true&quot;</code>.</li></ol>
+<div class="sec-head"><h2>Fix 14 &mdash; Headline casing <em>(P2)</em></h2></div>
+<ol class="plan"><li>Standardise to one convention. Recommended: <strong>Title Case for headings, Sentence case for body, Title Case for buttons.</strong></li><li>Fix <code>YOUR CUSTOMERS DESERVE THE BEST. so do you.</code> &mdash; currently all-caps then lowercase in one line.</li><li>Reduce the CTA label set. Use <strong>&quot;Book a Demo&quot;</strong> as primary and <strong>&quot;Talk to Sales&quot;</strong> as secondary everywhere outside blog body copy.</li></ol>
+<div class="sec-head"><h2>Fix 15 &mdash; Blog slug typo <em>(P2, SEO)</em></h2></div>
+<ol class="plan"><li>Change <code>/blogs/improve-how-your-treat-your-customers</code> to <code>/blogs/what-your-customers-want</code> (matches its actual title).</li><li>Add a <strong>301</strong> from the old slug.</li><li>Do this before the post accrues links.</li></ol>
+<div class="sec-head"><h2>Fix 16 &mdash; Footer formatting <em>(P2)</em></h2></div>
+<p>Edit the shared footer:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Current</th><th>Change to</th></tr></thead><tbody><tr><td><code>1017 Main Campus Dr, Suite 1600 Raleigh, NC - 27606</code></td><td><code>1017 Main Campus Dr, Suite 1600, Raleigh, NC 27606</code></td></tr><tr><td><code>© SMRT Systems, Inc. - 2026</code></td><td><code>© 2026 SMRT Systems, Inc.</code></td></tr><tr><td>Blog <code>Publishing Date</code> label</td><td><code>Published</code> &mdash; or remove the label</td></tr></tbody></table></div>
+<div class="sec-head"><h2>Fix 17 &mdash; Viewport <em>(P2, mobile)</em></h2></div>
+<ol class="plan"><li><strong><code>/shop</code> first &mdash; it has <code>width=1200</code>, which breaks the page on every phone.</strong> Find the page-level custom code or setting forcing this and remove it.</li><li>Sitewide, set: ``<code>html &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt; </code>``</li><li>Test <code>/shop</code> at 390 px width afterwards.</li></ol>
+<div class="sec-head"><h2>Fix 18 &mdash; Branded 404 page <em>(P2)</em></h2></div>
+<ol class="plan"><li>Create a 404 page in Framer with your header and footer, a short message, links to Products / Solutions / Blog, and a <strong>Book a Demo</strong> CTA.</li><li>This matters more than usual: deleted posts and old-site URLs are landing here.</li></ol>
+<div class="sec-head"><h2>Fix 19 &mdash; Sitemap and redirects <em>(P1, SEO)</em></h2></div>
+<ol class="plan"><li>Add <strong><code>&lt;lastmod&gt;</code></strong> to sitemap entries, populated from CMS update timestamps.</li><li>Add 301s for the two deleted posts: - <code>/blogs/beat-the-summer-slump</code> &rarr; closest current post, or <code>/blogs</code> - <code>/blogs/decoding-local-seo-putting-your-business-on-the-map-in-2024</code> &rarr; <code>/blogs</code></li><li>Build the old-site redirect map: <code>/marketing/*</code> and <code>/business-administration/*</code> &rarr; <code>/blogs/*</code>, <code>/sales-demo/</code> &rarr; <code>/book-a-demo</code>. Pull the real inventory from <strong>Search Console &rarr; Indexing &rarr; Pages</strong> and sort by impressions.</li><li>Resubmit the sitemap, then watch Coverage for 404 spikes.</li></ol>
+<div class="sec-head"><h2>Fix 20 &mdash; Remaining link issues <em>(P1)</em></h2></div>
+<ol class="plan"><li>Two <code>framer.link/P8mvaz1</code> buttons on <code>/blogs</code> (&quot;Schedule a Demo&quot;, &quot;See Marketing Tools&quot;) &rarr; point to <code>/book-a-demo</code>.</li><li>Nine dead <code>www.smrtsystems.com</code> URLs on <code>/blogs</code> featured-card image links &rarr; repoint to their <code>/blogs/{slug}</code> equivalents.</li><li><code>#Couture Dry Cleaning</code> &rarr; rename the section id to <code>couture</code>, use <code>#couture</code>.</li></ol>
+<div class="sec-head"><h2>Fix 21 &mdash; <code>/shop</code> cleanup <em>(P0, combined)</em></h2></div>
+<ol class="plan"><li>Remove the <code>width=1200</code> viewport (Fix 17).</li><li>Replace the contact-page H1s (Fix 12).</li><li>Find the field rendering <strong>&quot;None&quot;</strong> four times and either populate or hide it.</li><li>Set a unique title and description (Part 4).</li><li>Add Product schema (Part 3).</li><li>Publish Terms of Sale, Refund and Shipping policies before promoting this page.</li></ol>
+<hr>
+<div class="sec-head"><h2>How to install</h2></div>
+<ul class="prose"><li><strong>Sitewide blocks</strong> &rarr; Framer <strong>Site Settings &rarr; General &rarr; Custom Code &rarr; End of <code>&lt;head&gt;</code></strong>. They then appear on every page.</li><li><strong>Page-specific blocks</strong> &rarr; the individual page&#x27;s <strong>Settings &rarr; Custom Code &rarr; End of <code>&lt;head&gt;</code></strong>.</li><li><strong>CMS template blocks</strong> &rarr; the blog post template&#x27;s custom code, using CMS variables so each post populates itself.</li><li>Validate every block in <strong>Google Rich Results Test</strong> and <strong>Schema.org Validator</strong> before publishing. One malformed block can invalidate the rest of the page.</li></ul>
+<p><strong>On service area:</strong> you serve globally, so the schema below states the countries you actively support by name, adds the regions you cover broadly, and does <strong>not</strong> claim local-business status &mdash; which would be wrong and could hurt you. <code>Organization</code> with <code>areaServed</code> is the correct shape for a global SaaS company with one head office.</p>
+<hr>
+<div class="sec-head"><h2>3.1 Sitewide &mdash; Organization <em>(every page)</em></h2></div>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;Organization&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot;,
+  &quot;name&quot;: &quot;SMRT Systems&quot;,
+  &quot;legalName&quot;: &quot;SMRT Systems, Inc.&quot;,
+  &quot;alternateName&quot;: &quot;SMRT&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/&quot;,
+  &quot;logo&quot;: {
+    &quot;@type&quot;: &quot;ImageObject&quot;,
+    &quot;url&quot;: &quot;https://smrtsystems.com/logo-512.png&quot;,
+    &quot;width&quot;: 512,
+    &quot;height&quot;: 512
+  },
+  &quot;description&quot;: &quot;SMRT Systems builds cloud point-of-sale and business management software for dry cleaners and garment care businesses, covering order intake, production and assembly, pickup and delivery routing, payments, reporting and marketing.&quot;,
+  &quot;foundingDate&quot;: &quot;2014&quot;,
+  &quot;address&quot;: {
+    &quot;@type&quot;: &quot;PostalAddress&quot;,
+    &quot;streetAddress&quot;: &quot;1017 Main Campus Dr, Suite 1600&quot;,
+    &quot;addressLocality&quot;: &quot;Raleigh&quot;,
+    &quot;addressRegion&quot;: &quot;NC&quot;,
+    &quot;postalCode&quot;: &quot;27606&quot;,
+    &quot;addressCountry&quot;: &quot;US&quot;
+  },
+  &quot;contactPoint&quot;: [
+    {
+      &quot;@type&quot;: &quot;ContactPoint&quot;,
+      &quot;contactType&quot;: &quot;sales&quot;,
+      &quot;telephone&quot;: &quot;+1-919-849-5500&quot;,
+      &quot;areaServed&quot;: [&quot;US&quot;, &quot;CA&quot;],
+      &quot;availableLanguage&quot;: [&quot;en&quot;]
+    },
+    {
+      &quot;@type&quot;: &quot;ContactPoint&quot;,
+      &quot;contactType&quot;: &quot;sales&quot;,
+      &quot;telephone&quot;: &quot;+61-1800-841-874&quot;,
+      &quot;areaServed&quot;: [&quot;AU&quot;, &quot;NZ&quot;],
+      &quot;availableLanguage&quot;: [&quot;en&quot;]
+    },
+    {
+      &quot;@type&quot;: &quot;ContactPoint&quot;,
+      &quot;contactType&quot;: &quot;sales&quot;,
+      &quot;telephone&quot;: &quot;+46-40-620-84-02&quot;,
+      &quot;areaServed&quot;: [&quot;SE&quot;, &quot;GB&quot;, &quot;IE&quot;, &quot;NO&quot;, &quot;DK&quot;, &quot;FI&quot;, &quot;NL&quot;, &quot;BE&quot;, &quot;DE&quot;, &quot;FR&quot;, &quot;ES&quot;, &quot;IT&quot;, &quot;PL&quot;, &quot;AE&quot;],
+      &quot;availableLanguage&quot;: [&quot;en&quot;, &quot;sv&quot;]
+    },
+    {
+      &quot;@type&quot;: &quot;ContactPoint&quot;,
+      &quot;contactType&quot;: &quot;customer support&quot;,
+      &quot;telephone&quot;: &quot;+1-919-804-0002&quot;,
+      &quot;areaServed&quot;: [&quot;US&quot;, &quot;CA&quot;],
+      &quot;availableLanguage&quot;: [&quot;en&quot;],
+      &quot;hoursAvailable&quot;: {
+        &quot;@type&quot;: &quot;OpeningHoursSpecification&quot;,
+        &quot;dayOfWeek&quot;: [&quot;Monday&quot;,&quot;Tuesday&quot;,&quot;Wednesday&quot;,&quot;Thursday&quot;,&quot;Friday&quot;,&quot;Saturday&quot;,&quot;Sunday&quot;],
+        &quot;opens&quot;: &quot;00:00&quot;,
+        &quot;closes&quot;: &quot;23:59&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;ContactPoint&quot;,
+      &quot;contactType&quot;: &quot;customer support&quot;,
+      &quot;telephone&quot;: &quot;+61-344-22-2144&quot;,
+      &quot;areaServed&quot;: [&quot;AU&quot;, &quot;NZ&quot;],
+      &quot;availableLanguage&quot;: [&quot;en&quot;]
+    },
+    {
+      &quot;@type&quot;: &quot;ContactPoint&quot;,
+      &quot;contactType&quot;: &quot;customer support&quot;,
+      &quot;telephone&quot;: &quot;+46-40-620-85-94&quot;,
+      &quot;areaServed&quot;: [&quot;SE&quot;, &quot;GB&quot;, &quot;IE&quot;, &quot;NO&quot;, &quot;DK&quot;, &quot;FI&quot;, &quot;NL&quot;, &quot;BE&quot;, &quot;DE&quot;, &quot;FR&quot;, &quot;ES&quot;, &quot;IT&quot;, &quot;PL&quot;, &quot;AE&quot;],
+      &quot;availableLanguage&quot;: [&quot;en&quot;, &quot;sv&quot;]
+    }
+  ],
+  &quot;areaServed&quot;: [
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;United States&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Canada&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Australia&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;New Zealand&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;United Kingdom&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Ireland&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Sweden&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Norway&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Denmark&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Finland&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Netherlands&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Belgium&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Germany&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;France&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Spain&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Italy&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Poland&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;India&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Japan&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;South Korea&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Singapore&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;United Arab Emirates&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Israel&quot; },
+    { &quot;@type&quot;: &quot;Country&quot;, &quot;name&quot;: &quot;Mexico&quot; }
+  ],
+  &quot;knowsAbout&quot;: [
+    &quot;Dry cleaning software&quot;,
+    &quot;Garment care point of sale&quot;,
+    &quot;Pickup and delivery route management&quot;,
+    &quot;Conveyor and assembly automation&quot;,
+    &quot;Metalprogetti integration&quot;,
+    &quot;Automated payments and autopay&quot;,
+    &quot;Dry cleaning marketing automation&quot;
+  ],
+  &quot;sameAs&quot;: [
+    &quot;https://www.facebook.com/smrtsystems&quot;,
+    &quot;https://www.linkedin.com/company/smrt-systems/&quot;,
+    &quot;https://www.instagram.com/smrtsystems/&quot;,
+    &quot;https://www.youtube.com/channel/UCfW87OTQMfFhI2RLb5uwJYQ&quot;
+  ]
+}
+&lt;/script&gt;</pre></div>
+<p><strong>Before publishing:</strong> replace <code>https://smrtsystems.com/logo-512.png</code> with a real, publicly reachable square logo of at least 112×112 px. Google will not use an SVG here, so export a PNG. Confirm <code>foundingDate</code> or delete the line &mdash; do not guess it.</p>
+<div class="sec-head"><h2>3.2 Sitewide &mdash; WebSite <em>(every page)</em></h2></div>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;WebSite&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/#website&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/&quot;,
+  &quot;name&quot;: &quot;SMRT Systems&quot;,
+  &quot;publisher&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; },
+  &quot;inLanguage&quot;: &quot;en-US&quot;
+}
+&lt;/script&gt;</pre></div>
+<p>No <code>SearchAction</code> &mdash; the site has no on-site search, and declaring one you do not have is a misrepresentation.</p>
+<div class="sec-head"><h2>3.3 Sitewide &mdash; SoftwareApplication <em>(every page)</em></h2></div>
+<p>This is the single most relevant type for the business and it is currently absent.</p>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;SoftwareApplication&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/#software&quot;,
+  &quot;name&quot;: &quot;SMRT&quot;,
+  &quot;applicationCategory&quot;: &quot;BusinessApplication&quot;,
+  &quot;applicationSubCategory&quot;: &quot;Point of Sale and Business Management Software&quot;,
+  &quot;operatingSystem&quot;: &quot;Web browser, iOS, Android&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/&quot;,
+  &quot;description&quot;: &quot;Cloud point-of-sale and business management software for dry cleaners: order intake, production and assembly tracking, pickup and delivery routing, automated payments, live reporting, and customer marketing in one platform.&quot;,
+  &quot;publisher&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; },
+  &quot;featureList&quot;: [
+    &quot;Point of sale for garment care&quot;,
+    &quot;Pickup and delivery route optimisation&quot;,
+    &quot;Assembly and conveyor tracking&quot;,
+    &quot;Automated payments and autopay&quot;,
+    &quot;Live reporting and analytics&quot;,
+    &quot;Email and SMS marketing&quot;,
+    &quot;Metalprogetti equipment integration&quot;,
+    &quot;Multi-location management&quot;
+  ],
+  &quot;offers&quot;: {
+    &quot;@type&quot;: &quot;Offer&quot;,
+    &quot;priceCurrency&quot;: &quot;USD&quot;,
+    &quot;price&quot;: &quot;0&quot;,
+    &quot;description&quot;: &quot;Pricing provided on request. Book a demo for a quote.&quot;,
+    &quot;url&quot;: &quot;https://smrtsystems.com/book-a-demo&quot;
+  }
+}
+&lt;/script&gt;</pre></div>
+<p><strong>Important:</strong> <code>&quot;price&quot;: &quot;0&quot;</code> with a description is a placeholder because you do not publish pricing. If Rich Results Test objects, remove the <code>offers</code> block entirely rather than inventing a price. <strong>Do not add <code>aggregateRating</code></strong> unless you have genuinely collected ratings on your own site with a visible count &mdash; fabricated ratings are a manual-action risk.</p>
+<div class="sec-head"><h2>3.4 Homepage &mdash; FAQPage <em>(only after Fix 6)</em></h2></div>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;FAQPage&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/#faq&quot;,
+  &quot;mainEntity&quot;: [
+    {
+      &quot;@type&quot;: &quot;Question&quot;,
+      &quot;name&quot;: &quot;What is SMRT dry cleaning software?&quot;,
+      &quot;acceptedAnswer&quot;: {
+        &quot;@type&quot;: &quot;Answer&quot;,
+        &quot;text&quot;: &quot;SMRT is a cloud-based POS and business management platform built specifically for dry cleaners. It connects order intake, production, assembly, payments, customer communication, reporting and marketing in one system.&quot;
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;Question&quot;,
+      &quot;name&quot;: &quot;Can SMRT manage pickup and delivery routes?&quot;,
+      &quot;acceptedAnswer&quot;: { &quot;@type&quot;: &quot;Answer&quot;, &quot;text&quot;: &quot;REPLACE WITH THE REAL ANSWER FROM THE PAGE&quot; }
+    },
+    {
+      &quot;@type&quot;: &quot;Question&quot;,
+      &quot;name&quot;: &quot;Does SMRT support automated payments and customer billing?&quot;,
+      &quot;acceptedAnswer&quot;: { &quot;@type&quot;: &quot;Answer&quot;, &quot;text&quot;: &quot;REPLACE WITH THE REAL ANSWER FROM THE PAGE&quot; }
+    },
+    {
+      &quot;@type&quot;: &quot;Question&quot;,
+      &quot;name&quot;: &quot;Can SMRT integrate with Metalprogetti equipment?&quot;,
+      &quot;acceptedAnswer&quot;: { &quot;@type&quot;: &quot;Answer&quot;, &quot;text&quot;: &quot;REPLACE WITH THE REAL ANSWER FROM THE PAGE&quot; }
+    },
+    {
+      &quot;@type&quot;: &quot;Question&quot;,
+      &quot;name&quot;: &quot;Is SMRT suitable for both single-location and multi-location dry cleaners?&quot;,
+      &quot;acceptedAnswer&quot;: { &quot;@type&quot;: &quot;Answer&quot;, &quot;text&quot;: &quot;REPLACE WITH THE REAL ANSWER FROM THE PAGE&quot; }
+    }
+  ]
+}
+&lt;/script&gt;</pre></div>
+<p>The answer text in schema <strong>must match the visible page text</strong>. Mismatched FAQ schema is a manual-action risk, so write the answers on the page first, then copy them in here.</p>
+<div class="sec-head"><h2>3.5 Product/service pages &mdash; the seven <code>/tech/*</code> pages</h2></div>
+<p>Per-page block. Example for <code>/tech/point-of-sale</code>; repeat with the values from the table below.</p>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;WebPage&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/tech/point-of-sale#webpage&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/tech/point-of-sale&quot;,
+  &quot;name&quot;: &quot;Dry Cleaning Point of Sale Software&quot;,
+  &quot;isPartOf&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#website&quot; },
+  &quot;about&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#software&quot; },
+  &quot;primaryImageOfPage&quot;: &quot;https://smrtsystems.com/og/point-of-sale.png&quot;,
+  &quot;inLanguage&quot;: &quot;en-US&quot;,
+  &quot;breadcrumb&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/tech/point-of-sale#breadcrumb&quot; },
+  &quot;mainEntity&quot;: {
+    &quot;@type&quot;: &quot;Service&quot;,
+    &quot;name&quot;: &quot;SMRT Point of Sale&quot;,
+    &quot;serviceType&quot;: &quot;Dry cleaning point of sale software&quot;,
+    &quot;provider&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; },
+    &quot;description&quot;: &quot;Customizable check-in, garment photos, bulk mark-in and multi-location point of sale built for garment care.&quot;,
+    &quot;areaServed&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; }
+  }
+}
+&lt;/script&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/tech/point-of-sale#breadcrumb&quot;,
+  &quot;itemListElement&quot;: [
+    { &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 1, &quot;name&quot;: &quot;Home&quot;, &quot;item&quot;: &quot;https://smrtsystems.com/&quot; },
+    { &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 2, &quot;name&quot;: &quot;Products&quot;, &quot;item&quot;: &quot;https://smrtsystems.com/tech/point-of-sale&quot; },
+    { &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 3, &quot;name&quot;: &quot;Point of Sale&quot; }
+  ]
+}
+&lt;/script&gt;</pre></div>
+<p>Values for the other six:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Page</th><th><code>name</code></th><th><code>serviceType</code></th></tr></thead><tbody><tr><td><code>/tech/pickup-delivery</code></td><td>Pickup &amp; Delivery Route Software</td><td>Dry cleaning delivery route management software</td></tr><tr><td><code>/tech/conveyor-assembly</code></td><td>Assembly &amp; Conveyor Software</td><td>Garment assembly and conveyor automation software</td></tr><tr><td><code>/tech/payments</code></td><td>Dry Cleaning Payments &amp; Autopay</td><td>Payment processing and autopay software</td></tr><tr><td><code>/tech/reporting</code></td><td>Live Reporting &amp; Analytics</td><td>Business reporting and analytics software</td></tr><tr><td><code>/tech/marketing</code></td><td>Digital Marketing for Dry Cleaners</td><td>Marketing automation software</td></tr><tr><td><code>/tech/metalprogetti</code></td><td>Metalprogetti + SMRT Integration</td><td>Conveyor and bagger equipment integration</td></tr></tbody></table></div>
+<p>Note <code>/tech/*</code> has no intermediate index page &mdash; <code>/tech</code> returns 404. Either create one and use it as breadcrumb position 2, or point position 2 at the homepage.</p>
+<div class="sec-head"><h2>3.6 <code>/shop</code> &mdash; Product schema</h2></div>
+<p>Add <strong>one block per product</strong>. Only publish this once the store has Terms of Sale, Refund and Shipping policies, and confirm <code>availability</code> and <code>priceValidUntil</code> are accurate.</p>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;ItemList&quot;,
+  &quot;name&quot;: &quot;SMRT Hardware &amp; Accessories&quot;,
+  &quot;itemListElement&quot;: [
+    {
+      &quot;@type&quot;: &quot;Product&quot;,
+      &quot;name&quot;: &quot;SMRT Credit Card Terminal&quot;,
+      &quot;url&quot;: &quot;https://smrtsystems.com/shop&quot;,
+      &quot;brand&quot;: { &quot;@type&quot;: &quot;Brand&quot;, &quot;name&quot;: &quot;SMRT&quot; },
+      &quot;category&quot;: &quot;Point of sale hardware&quot;,
+      &quot;offers&quot;: {
+        &quot;@type&quot;: &quot;Offer&quot;,
+        &quot;price&quot;: &quot;300.00&quot;,
+        &quot;priceCurrency&quot;: &quot;USD&quot;,
+        &quot;availability&quot;: &quot;https://schema.org/InStock&quot;,
+        &quot;seller&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; }
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;Product&quot;,
+      &quot;name&quot;: &quot;Heat Seal Machine&quot;,
+      &quot;url&quot;: &quot;https://smrtsystems.com/shop&quot;,
+      &quot;brand&quot;: { &quot;@type&quot;: &quot;Brand&quot;, &quot;name&quot;: &quot;SMRT&quot; },
+      &quot;category&quot;: &quot;Garment tagging equipment&quot;,
+      &quot;offers&quot;: {
+        &quot;@type&quot;: &quot;Offer&quot;,
+        &quot;price&quot;: &quot;1050.00&quot;,
+        &quot;priceCurrency&quot;: &quot;USD&quot;,
+        &quot;availability&quot;: &quot;https://schema.org/InStock&quot;,
+        &quot;seller&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; }
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;Product&quot;,
+      &quot;name&quot;: &quot;CAS PD-2Z60 Dual Range POS Scale&quot;,
+      &quot;url&quot;: &quot;https://smrtsystems.com/shop&quot;,
+      &quot;brand&quot;: { &quot;@type&quot;: &quot;Brand&quot;, &quot;name&quot;: &quot;CAS&quot; },
+      &quot;category&quot;: &quot;Point of sale hardware&quot;,
+      &quot;offers&quot;: {
+        &quot;@type&quot;: &quot;Offer&quot;,
+        &quot;price&quot;: &quot;600.00&quot;,
+        &quot;priceCurrency&quot;: &quot;USD&quot;,
+        &quot;availability&quot;: &quot;https://schema.org/InStock&quot;,
+        &quot;seller&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; }
+      }
+    },
+    {
+      &quot;@type&quot;: &quot;Product&quot;,
+      &quot;name&quot;: &quot;Epson TM-T20IV Receipt Printer&quot;,
+      &quot;url&quot;: &quot;https://smrtsystems.com/shop&quot;,
+      &quot;brand&quot;: { &quot;@type&quot;: &quot;Brand&quot;, &quot;name&quot;: &quot;Epson&quot; },
+      &quot;category&quot;: &quot;Receipt printers&quot;,
+      &quot;offers&quot;: {
+        &quot;@type&quot;: &quot;Offer&quot;,
+        &quot;price&quot;: &quot;230.00&quot;,
+        &quot;priceCurrency&quot;: &quot;USD&quot;,
+        &quot;availability&quot;: &quot;https://schema.org/InStock&quot;,
+        &quot;seller&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; }
+      }
+    }
+  ]
+}
+&lt;/script&gt;</pre></div>
+<p>Add an <code>image</code> to each product once the product photos have stable URLs &mdash; Google requires an image for most Product rich results.</p>
+<div class="sec-head"><h2>3.7 Blog post template &mdash; BlogPosting</h2></div>
+<p>Put this in the <strong>blog post CMS template</strong>, with CMS variables in place of the placeholders. The data already exists: each post has one <code>&lt;h1&gt;</code> and a real <code>&lt;time datetime&gt;</code>.</p>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;BlogPosting&quot;,
+  &quot;@id&quot;: &quot;{{page-url}}#post&quot;,
+  &quot;headline&quot;: &quot;{{post-title}}&quot;,
+  &quot;description&quot;: &quot;{{post-excerpt}}&quot;,
+  &quot;image&quot;: &quot;{{post-featured-image}}&quot;,
+  &quot;datePublished&quot;: &quot;{{post-date-iso}}&quot;,
+  &quot;dateModified&quot;: &quot;{{post-updated-iso}}&quot;,
+  &quot;author&quot;: {
+    &quot;@type&quot;: &quot;Person&quot;,
+    &quot;name&quot;: &quot;{{post-author}}&quot;
+  },
+  &quot;publisher&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; },
+  &quot;mainEntityOfPage&quot;: { &quot;@type&quot;: &quot;WebPage&quot;, &quot;@id&quot;: &quot;{{page-url}}&quot; },
+  &quot;inLanguage&quot;: &quot;en-US&quot;,
+  &quot;isPartOf&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#website&quot; }
+}
+&lt;/script&gt;
+&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;BreadcrumbList&quot;,
+  &quot;itemListElement&quot;: [
+    { &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 1, &quot;name&quot;: &quot;Home&quot;, &quot;item&quot;: &quot;https://smrtsystems.com/&quot; },
+    { &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 2, &quot;name&quot;: &quot;Blog&quot;, &quot;item&quot;: &quot;https://smrtsystems.com/blogs&quot; },
+    { &quot;@type&quot;: &quot;ListItem&quot;, &quot;position&quot;: 3, &quot;name&quot;: &quot;{{post-title}}&quot; }
+  ]
+}
+&lt;/script&gt;</pre></div>
+<p><code>headline</code> should stay under 110 characters. If <code>dateModified</code> is not tracked, use the same value as <code>datePublished</code> rather than omitting it.</p>
+<div class="sec-head"><h2>3.8 <code>/blogs</code> &mdash; Blog index</h2></div>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;Blog&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/blogs#blog&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/blogs&quot;,
+  &quot;name&quot;: &quot;SMRT Blog&quot;,
+  &quot;description&quot;: &quot;Operations, routes, marketing and growth guidance for dry cleaners, from the team behind SMRT Systems.&quot;,
+  &quot;publisher&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; },
+  &quot;inLanguage&quot;: &quot;en-US&quot;
+}
+&lt;/script&gt;</pre></div>
+<div class="sec-head"><h2>3.9 <code>/contact-us</code> and <code>/book-a-demo</code></h2></div>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;ContactPage&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/contact-us#webpage&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/contact-us&quot;,
+  &quot;name&quot;: &quot;Contact SMRT Systems&quot;,
+  &quot;isPartOf&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#website&quot; },
+  &quot;about&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#organization&quot; },
+  &quot;inLanguage&quot;: &quot;en-US&quot;
+}
+&lt;/script&gt;</pre></div>
+<p>For <code>/book-a-demo</code>, use <code>WebPage</code> with a <code>potentialAction</code>:</p>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;WebPage&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/book-a-demo#webpage&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/book-a-demo&quot;,
+  &quot;name&quot;: &quot;Book a SMRT Demo&quot;,
+  &quot;isPartOf&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#website&quot; },
+  &quot;about&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#software&quot; },
+  &quot;inLanguage&quot;: &quot;en-US&quot;,
+  &quot;potentialAction&quot;: {
+    &quot;@type&quot;: &quot;ReserveAction&quot;,
+    &quot;name&quot;: &quot;Book a demo&quot;,
+    &quot;target&quot;: {
+      &quot;@type&quot;: &quot;EntryPoint&quot;,
+      &quot;urlTemplate&quot;: &quot;https://smrtsystems.com/book-a-demo&quot;,
+      &quot;actionPlatform&quot;: [
+        &quot;http://schema.org/DesktopWebPlatform&quot;,
+        &quot;http://schema.org/MobileWebPlatform&quot;
+      ]
+    }
+  }
+}
+&lt;/script&gt;</pre></div>
+<div class="sec-head"><h2>3.10 <code>/testimonials</code></h2></div>
+<p><strong>Do not</strong> mark testimonials up as <code>Review</code> or <code>AggregateRating</code> attached to your own <code>SoftwareApplication</code> &mdash; Google does not allow self-serving review snippets for your own product, and it risks a manual action. Use a plain <code>WebPage</code> instead:</p>
+<div class="ev code"><pre>&lt;script type=&quot;application/ld+json&quot;&gt;
+{
+  &quot;@context&quot;: &quot;https://schema.org&quot;,
+  &quot;@type&quot;: &quot;WebPage&quot;,
+  &quot;@id&quot;: &quot;https://smrtsystems.com/testimonials#webpage&quot;,
+  &quot;url&quot;: &quot;https://smrtsystems.com/testimonials&quot;,
+  &quot;name&quot;: &quot;Dry Cleaner Reviews &amp; Results&quot;,
+  &quot;isPartOf&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#website&quot; },
+  &quot;about&quot;: { &quot;@id&quot;: &quot;https://smrtsystems.com/#software&quot; },
+  &quot;inLanguage&quot;: &quot;en-US&quot;
+}
+&lt;/script&gt;</pre></div>
+<div class="sec-head"><h2>3.11 <code>/special-services</code> and <code>/smrt-marketing/*</code></h2></div>
+<p>Use the <code>WebPage</code> + <code>Service</code> pattern from 3.5, with:</p>
+<div class="tbl-scroll"><table><thead><tr><th>Page</th><th>Service name</th><th>serviceType</th></tr></thead><tbody><tr><td><code>/special-services</code></td><td>Specialty Garment Care Services</td><td>Couture, hotel, uniform and restoration garment processing</td></tr><tr><td><code>/smrt-marketing/campaigns</code></td><td>SMRT Campaigns</td><td>Email and SMS marketing automation for dry cleaners</td></tr><tr><td><code>/smrt-marketing/reviews</code></td><td>SMRT Reviews</td><td>Online review generation and management</td></tr><tr><td><code>/smrt-marketing/socials</code></td><td>SMRT Socials</td><td>Managed social media content for dry cleaners</td></tr></tbody></table></div>
+<div class="sec-head"><h2>Validation checklist</h2></div>
+<ol class="plan"><li>Rich Results Test on <code>/</code>, one <code>/tech/*</code>, one blog post, <code>/shop</code>.</li><li>Schema.org Validator for strict syntax.</li><li>Search Console &rarr; <strong>Enhancements</strong> after a week &mdash; watch for FAQ, Breadcrumb, Product reports.</li><li>Confirm exactly <strong>one</strong> <code>Organization</code> and one <code>WebSite</code> per page. Duplicate <code>@id</code> values across blocks will cause conflicts.</li></ol>
+<hr>
+<p>Your existing 15 non-blog pages are genuinely well written &mdash; good length, unique, keyword-led. The work needed is: fix the 33 duplicates, shorten one, and align a few phrasings to search demand.</p>
+<p><strong>Conventions:</strong> title ≤ 60 characters, description 140–158, primary keyword in the first 60 characters of the title, one clear differentiator plus an implicit or explicit action in the description.</p>
+<div class="sec-head"><h2>Fix these first &mdash; the duplicates and outliers</h2></div>
+<div class="tbl-scroll"><table><thead><tr><th>Page</th><th>Issue</th><th>Recommended title</th><th>Recommended description</th></tr></thead><tbody><tr><td><code>/shop</code></td><td>Duplicate homepage metadata</td><td>`Dry Cleaning POS Hardware &amp; Accessories \</td><td>SMRT` (46)</td><td><code>Card terminals, heat seal machines, POS scales and receipt printers for dry cleaners. SMRT-compatible hardware, shipped and supported.</code> (137)</td></tr><tr><td><code>/releasenotes</code></td><td>Duplicate homepage metadata</td><td><code>SMRT Product Updates &amp; Release Notes</code> (36)</td><td><code>What&#x27;s new in SMRT: POS, routing, payments, assembly and customer portal improvements, released continuously and documented here.</code> (130)</td></tr><tr><td><code>/special-services</code></td><td>77 chars, &quot;Restoration Job&quot; reads wrong</td><td>`Couture, Hotel, Uniform &amp; Restoration Cleaning \</td><td>SMRT` (52)</td><td><code>Run couture, hotel, uniform and restoration work in one system&mdash;garment-level billing, RFID tracking, inventory and production without switching tools.</code> (150)</td></tr><tr><td><code>/tech/metalprogetti</code></td><td>Only page missing the brand suffix</td><td>`Metalprogetti Integration for Dry Cleaners \</td><td>SMRT` (49)</td><td><code>Connect Metalprogetti conveyors, baggers and kiosks to SMRT POS. Rail moves, bagging and dispatch driven from one order record.</code> (127)</td></tr><tr><td>30 blog posts</td><td>All share homepage metadata</td><td>Bind in template: `{{post-title}} \</td><td>SMRT Blog` &mdash; truncate post title to 45 chars</td><td>Bind to <code>{{post-excerpt}}</code>; if empty, fall back to the first 155 characters of body copy</td></tr></tbody></table></div>
+<div class="sec-head"><h2>Keyword alignment on the pages that are already good</h2></div>
+<p>These are working. The changes below are small and aimed at matching how buyers actually search &mdash; &quot;software&quot; and &quot;system&quot; carry commercial intent; feature words alone often do not.</p>
+<div class="tbl-scroll"><table><thead><tr><th>Page</th><th>Current title</th><th>Suggested title</th><th>Why</th></tr></thead><tbody><tr><td><code>/</code></td><td>`Dry Cleaning POS &amp; Business Software \</td><td>SMRT`</td><td>`Dry Cleaning POS &amp; Management Software \</td><td>SMRT` (46)</td><td>&quot;Management software&quot; has meaningfully more volume than &quot;business software&quot; in this category, and matches the product</td></tr><tr><td><code>/tech/reporting</code></td><td>`Live Reporting &amp; Analytics \</td><td>SMRT`</td><td>`Dry Cleaning Reporting &amp; Analytics Software \</td><td>SMRT` (50)</td><td>Current title has no category term at all &mdash; it could be any industry. Add &quot;Dry Cleaning&quot; and &quot;Software&quot;</td></tr><tr><td><code>/tech/conveyor-assembly</code></td><td>`Assembly &amp; Conveyor Software \</td><td>SMRT`</td><td>`Garment Assembly &amp; Conveyor Software \</td><td>SMRT` (43)</td><td>&quot;Garment&quot; qualifies an otherwise generic phrase</td></tr><tr><td><code>/tech/payments</code></td><td>`Dry Cleaning Payments &amp; Autopay \</td><td>SMRT`</td><td>Keep</td><td>Already strong</td></tr><tr><td><code>/tech/pickup-delivery</code></td><td>`Pickup &amp; Delivery Route Software \</td><td>SMRT`</td><td>`Dry Cleaning Pickup &amp; Delivery Software \</td><td>SMRT` (46)</td><td>Adds the category qualifier; &quot;route&quot; is retained in the description</td></tr><tr><td><code>/tech/point-of-sale</code></td><td>`Dry Cleaning Point of Sale Software \</td><td>SMRT`</td><td>Keep</td><td>This is the best title on the site</td></tr><tr><td><code>/tech/marketing</code></td><td>`Digital Marketing for Dry Cleaners \</td><td>SMRT`</td><td>Keep</td><td>Already strong</td></tr><tr><td><code>/book-a-demo</code></td><td>`Book a SMRT Demo \</td><td>Dry Cleaning Software`</td><td>Keep</td><td>Brand-first is correct for a conversion page</td></tr><tr><td><code>/contact-us</code></td><td>`Contact SMRT Systems \</td><td>Sales &amp; Support`</td><td>Keep</td><td>Correct</td></tr><tr><td><code>/testimonials</code></td><td>`Dry Cleaner Reviews &amp; Results \</td><td>SMRT`</td><td>Keep</td><td>Correct</td></tr><tr><td><code>/blogs</code></td><td>`Dry Cleaning Insights &amp; Guides \</td><td>SMRT Blog`</td><td>Keep</td><td>Correct</td></tr><tr><td><code>/smrt-marketing/*</code></td><td>All three</td><td>Keep</td><td>All three are well targeted</td></tr></tbody></table></div>
+<div class="sec-head"><h2>Keyword coverage gaps</h2></div>
+<p>Comparing your metadata against the phrases this market searches, three commercially valuable terms appear nowhere in any title or description:</p>
+<ol class="plan"><li><strong>&quot;dry cleaning software&quot;</strong> &mdash; unqualified, this is the head term for the category. It appears in body copy but not in any title. Consider working it into the homepage description.</li><li><strong>&quot;garment care&quot;</strong> &mdash; the industry&#x27;s own term, and it broadens you beyond &quot;dry cleaning&quot; into laundry and wash-and-fold. Worth a page or at least description coverage.</li><li><strong>&quot;dry cleaning POS system&quot;</strong> &mdash; &quot;system&quot; and &quot;software&quot; are searched differently. Your <code>/tech/point-of-sale</code> description could carry &quot;system&quot; alongside &quot;software&quot;.</li></ol>
+<p>Also worth noting: <code>/tech/reporting</code>, <code>/tech/conveyor-assembly</code> and <code>/tech/pickup-delivery</code> titles currently omit the industry entirely, which makes them compete in far broader, more expensive search spaces than they need to.</p>
+<div class="sec-head"><h2>Before ads launch</h2></div>
+<ol class="plan"><li>Fix the 33 duplicate titles and descriptions. <strong>Do this before spending</strong> &mdash; paid landing pages with duplicate metadata hurt Quality Score and organic simultaneously.</li><li>Install the sitewide schema, then per-page.</li><li>Add <code>og:image</code> &mdash; this affects paid social creative previews as well as organic shares.</li><li>Fix <code>/shop</code>&#x27;s viewport before driving any traffic to it. It is currently unusable on mobile, and mobile will be most of your paid traffic.</li><li>Verify blog rendering in Search Console URL Inspection (finding N5).</li><li>Re-run Rich Results Test and re-submit the sitemap with <code>&lt;lastmod&gt;</code>.</li></ol>
+<hr>
+<div class="sec-head"><h2>What I could not verify</h2></div>
+<ul class="prose"><li><strong>What Googlebot actually receives</strong> for blog posts &mdash; only Search Console URL Inspection can answer that. See N5.</li><li><strong>Search volume figures</strong> &mdash; I have no keyword-tool access from this environment. The keyword recommendations above are based on category conventions and commercial-intent patterns, not measured volume. Validate in Keyword Planner before committing, especially the homepage title change.</li><li><strong>Whether the 80% testimonial is genuine</strong> &mdash; a question for customer marketing.</li><li><strong>Rendered colour contrast, keyboard order and screen-reader output</strong> &mdash; these still need a manual browser pass.</li><li><strong><code>foundingDate</code></strong> in the Organization schema is a placeholder. Confirm or remove it.</li></ul>
+<div class="foot"><span>SMRT Systems &middot; full site audit</span><span>2026-08-13</span></div>
+</div></main>
