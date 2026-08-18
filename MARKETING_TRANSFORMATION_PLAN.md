@@ -1,168 +1,165 @@
 # Marketing Department Transformation Plan
 
-Three tiers: **Pricing** ($70/station all-in, in-app marketing included) ·
-**Team** (one owner per external service + self-service enablement) ·
-**Software** (analytics integrations, referral, journey builder, review expansion).
+**The pricing model (Tier 1):** POS stays **$70/station/month** (3-year contract).
+In-app marketing — SMRT Broadcasts, SMRT Campaigns, SMRT Reviews — becomes a single
+add-on at **+$70/station/month** (marketing-enabled station = $140 all-in).
+All flat marketing SKUs and bundles retire. Social, Websites, Ads, Screens, Chatbot
+stay à la carte. SMS segments stay usage-billed passthrough.
 
-Positioning: the bundle attacks **CleanCloud** (POS + marketing in one price) on
-one flank and **Cleaner Marketing / BC360** (agency services) on the other —
-software included, experts optional.
-
----
-
-## The numbers this plan has to respect
-
-| Fact | Value |
-|---|---|
-| In-app marketing revenue today (Campaigns/Broadcasts/Reviews) | **$69.1K/mo** from 99 customers |
-| À la carte revenue that stays paid (Social $5.4K · Websites $2.8K · Ads $1.1K · Screens $0.3K) | **$9.5K/mo** |
-| Customers gaining marketing access at $70 all-in | ~900 (attach goes ~10% → 100%) |
-| Effective rate the 99 pay today | ≈ $81/station |
-| Max realistic paid-sessions revenue (2 people × $100/hr) | $8–16K/mo |
-
-**The core issue to manage:** $70 all-in eventually gives up the $69.1K/mo line,
-and the three retained services earn only $9.5K/mo today — they'd need ~8×
-growth to replace it. The plan closes this gap three ways: (1) grandfather the
-99 and **convert them to "Managed Marketing" retainers** — what they're really
-paying for is expertise and execution, which doesn't become free; (2) grow the
-three owned services with dedicated owners; (3) paid success sessions and
-productized packages. Target: exit year 1 with ≥ 60% of the $69.1K retained as
-services/managed revenue.
+Positioning: one simple per-station price attacks **CleanCloud** (POS+marketing
+bundling) while the expanded access + self-service + expert sessions attack
+**Cleaner Marketing / BC360** on services. ROI math becomes trivial for the
+customer: "marketing costs me $70 × stations; the dashboard shows what it returned."
 
 ---
 
-## Phase 0 — Foundations (Weeks 1–4)
+## Tier 1 — Pricing: what the data says
 
-1. **Finish the dashboard truth layer.** Mass rollout multiplies every metrics
-   bug by 10×. The parity work is nearly done — close out SMRT-10476 (report
-   parity), and confirm SMRT-10474 (promo click attribution), SMRT-10400 (CTR
-   definition), SMRT-10389/10388 (review + insights reconciliation) hold in prod.
-2. **Migration policy decision (the big one).** For each of the 99: default =
-   grandfather (no change) with a renewal-window offer to convert the software
-   subscription into a **Managed Marketing plan** (e.g., Starter $299/mo:
-   monthly campaign calendar + quarterly review; Growth $599/mo: everything
-   managed). The pitch to them: "the software is now included in your stations;
-   your fee now buys our team running it for you."
-3. **10DLC / Twilio audit.** ~900 new senders need numbers, A2P campaign
-   registration, and deliverability setup. Price the COGS (number + campaign
-   fees ≈ $5–15/customer/mo at Twilio list), decide pass-through vs absorb,
-   and design a cohort-based provisioning pipeline — this is the physical rate
-   limiter on rollout speed.
-4. **Baseline KPIs:** support tickets/week tagged marketing, campaigns sent per
-   active customer, segment volume, reviews captured, session pipeline.
+### Revenue on the current 99 in-app customers (852 stations, 556 documented / 296 est.)
 
-## Phase 1 — Self-service before free (Weeks 4–12)
+| | Today | At $70/station | Delta |
+|---|---|---|---|
+| In-app marketing revenue | $69,092/mo | **$59,640/mo** | **−$9,452/mo (−13.7%)** |
+| If stations are really 980 (+15%) | $69,092 | $68,600 | ≈ break-even |
+| If stations are really 724 (−15%) | $69,092 | $50,680 | −$18,412 |
 
-The order matters: **enablement ships before pricing flips**, or support drowns.
+Confirmed: **$70/station is at/near break-even for the current base** (break-even
+price $70.50–$95, central $81). The central estimate is a **modest −$9.5K/mo
+(−14%) haircut**, not the −$60K of the $10 scenario — and it's recoverable
+(below).
 
-1. **Marketing Knowledge Base + guides** (owned by support, written by the
-   marketing team): setup wizards, campaign playbooks per use-case (winback,
-   birthday, first-visit, referral), deliverability/compliance guide.
-2. **In-app template seeding:** default trigger campaigns + broadcast templates
-   installed on every instance so "free" comes pre-loaded, not blank.
-3. **Safeguards ship here** (they're launch gates, not roadmap items):
-   frequency caps / quiet hours / staggered sends so 900 novice senders can't
-   bombard customers; the live SMS segment counter (SMRT-10131) so cost
-   surprises don't become support tickets.
-4. **Support transfer:** tier-1 marketing questions to main SMRT support with
-   an escalation path; marketing team trains support, then stops taking dailies.
-5. **Pilot cohort:** flip ~50 customers to bundled-free marketing. Measure
-   support load, activation %, segment costs. Fix, then scale.
+### Who goes up, who goes down (detail: `data/marketing_customer_deltas_70.csv`)
 
-## Phase 2 — Pricing + team GA (Weeks 8–20, overlapping)
+- **72 customers pay LESS** (−$23.2K/mo total). Biggest winners are
+  multi-location, few-station Reviews customers (Dry Clean NYC −$834, TSC
+  −$738, Carr's −$650) and every small shop on $599 Campaigns. **The
+  "affordable for small customers" goal is fully met** — a 2-station shop gets
+  the whole suite for $140/mo vs $599+ today.
+- **27 customers pay MORE** (+$13.7K/mo total) — and these are the **big-station
+  operators**: D.O. Summers +$1,690 (40 st), Master's Mark +$1,571 (31 st),
+  Burke +$1,501 (30 st), Steamer +$941 (22 st), Gibson's +$621 (17 st).
+  ⚠️ Under this model **large plants do not get a cost reduction — they fund
+  the model.** Their consolation: it's still far below à la carte agency cost,
+  and reinvestment into Social/Ads/Websites is a separate pitch, not a savings
+  they'll feel. Expect negotiation from the top 10 (+$500+ each).
 
-1. **Announce $70/station all-in** — "every station now includes SMRT
-   Campaigns, Broadcasts, and Reviews." Roll out in provisioning cohorts
-   (10DLC constraint), new customers first, then existing base by segment.
-2. **Grandfathered 99:** renewal-window conversations using the per-customer
-   delta table (`data/marketing_customer_deltas.csv`) — every one of them
-   gains value; the conversion target is Managed Marketing, not cancellation.
-3. **Team structure:**
-   - **Jason → SMRT Websites** (product owner: templates, SEO baseline, the
-     tagging/analytics roadmap item is his product's differentiator)
-   - **Dayana (new hire, design-focused) → SMRT Social** (owner; design
-     capacity also serves websites, ad creative, and template library art)
-   - **Tony → SMRT Ads** (owner; productize: setup fee + monthly management
-     tiers rather than pure hourly)
-   - Each owner carries a P&L target: suggested year-1 exits — Social
-     $5.4K→$15K, Websites $2.8K→$8K, Ads $1.1K→$10K (≈ $33K/mo combined).
-4. **Paid success sessions at $100/hr (Tony + Jason)** + productized packages
-   (campaign setup $499, quarterly marketing review $299, managed plans above).
-   Booking flow inside the app ("Talk to a marketing expert").
+### Migration design (protects the downside)
 
-## Phase 3 — Software roadmap (quarterly)
+1. **New attach at $70/station from day 1** — pure upside; no existing revenue at risk.
+2. **The 72 reductions migrate immediately** — instant goodwill, simpler billing.
+3. **The 27 increases migrate at contract renewal** (the 3-year cycle is the
+   natural vehicle); until renewal they may keep legacy pricing. No station caps —
+   a cap-at-10 variant costs $26K/mo and mostly subsidizes the largest plants.
+4. **Recovery math:** the −$9.5K gap closes with **135 newly attached stations ≈
+   27 average customers ≈ 3% of the ~900 non-marketing customers**. Every 1% of
+   non-marketing stations attached = **+$3,150/mo**. At 25% attach (realistic
+   year-1 with default-on templates and onboarding push): **+$79K/mo** —
+   marketing revenue roughly **doubles** vs today.
 
-Re-sequenced slightly from the original list: cheap high-leverage items that
-support the mass rollout come first; the journey builder is the flagship.
+| Year-1 attach of the ~4,538 non-marketing stations | New marketing revenue | vs today's $69.1K |
+|---|---|---|
+| 3% (135 st) | $69.1K | break-even |
+| 10% (454 st) | $91.4K | **+$22K/mo** |
+| 25% (1,135 st) | $139K | **+$70K/mo** |
+| 50% (2,269 st) | $218K | +$149K/mo |
+
+The strategic point: at $70/station, **attach growth is real revenue** (unlike
+the $10 model where even 100% attach lost money). Marketing becomes a second
+$70 rail on the same billing infrastructure.
+
+## Tier 2 — Team: one owner per external service + self-service in-app
+
+- **Jason → SMRT Websites** ($2.8K/mo, 26 clients today). Owns templates, SEO
+  baseline, and the website tagging/analytics roadmap item.
+- **Dayana (new hire, design-focused) → SMRT Social** ($5.4K/mo, 21 clients).
+  Design capacity also feeds template library, web, and ad creative — set the
+  split explicitly (suggest 60% Social / 40% shared design).
+- **Tony → SMRT Ads** ($1.1K/mo, 3 clients — most headroom). Productize:
+  setup fee + monthly management tiers, not hourly.
+- Owned-services target: **$9.5K → $33K/mo** by month 12 (Social $15K,
+  Websites $8K, Ads $10K) — funded by the reinvestment pitch to the 72
+  customers whose in-app bill just dropped.
+- **Self-service enablement:** marketing knowledge base + guides owned by main
+  SMRT support; tier-1 marketing questions transfer to support with an
+  escalation path; in-app templates pre-seeded so $70 buys a loaded gun, not
+  an empty one.
+- **Paid success sessions $100/hr (Tony + Jason)** + productized packages
+  (campaign setup $499, quarterly review $299). Realistic +$8–16K/mo. This is
+  margin and stickiness — attach growth is the revenue engine.
+
+## Tier 3 — Software roadmap (quarterly)
 
 | Qtr | Ship | Notes |
 |---|---|---|
-| Q1 | **Google Business Profile analytics** (Performance API) | Free API, direct Reviews-module synergy, visible value for every bundled customer |
-| Q1 | **SMS segment tracker + SMS template library** | Pulled forward: cost transparency + fast time-to-value for 900 new senders; builds on SMRT-10131 |
-| Q2 | **Referral system** | Templated referral campaign (promo-link attribution from SMRT-10474 is the tracking backbone) + manual POS mode |
-| Q2 | **Facebook & Yelp review expansion** | Rating-gate flow: capture sentiment first; positive → link out, negative → mitigation inbox. Staggered/optional campaigns inside SMRT Reviews with over-messaging safeguards. ⚠️ **Yelp compliance:** Yelp prohibits soliciting reviews — Yelp must be link-in-profile/footer presence only, never "leave us a Yelp review" sends; Facebook allows requests |
-| Q3 | **Website analytics** | Own first-party tagging on SMRT Sites (page views, clicks, conversions → SMRT dashboard). Prefer own tagging over per-customer GA4 OAuth — less support surface, data stays in-app, differentiates Jason's product; offer GA export later |
-| Q4 | **Ads analytics in SMRT** (Google, Meta, LinkedIn) | Feeds Tony's Ads product: client-visible ROAS dashboard is the retention mechanism for managed-ads revenue |
-| Q4+ | **Visual journey builder** (CleanCloud / Customer.io class) | Flagship differentiator; biggest eng lift; by now attach is 100% so every improvement compounds across the whole base |
+| Q1 | **Google Business Profile analytics** (Performance API) | Free API, direct SMRT Reviews synergy; visible value for every $70 attach |
+| Q1 | **SMS segment tracker + SMS template library** | Pulled forward: cost transparency + instant time-to-value for new attachers; builds on the live segment counter (SMRT-10131) |
+| Q2 | **Referral system** | Templated referral campaign + manual POS mode; promo-link attribution (SMRT-10474) is the tracking backbone |
+| Q2 | **Facebook & Yelp review expansion** | Rating-gate: capture sentiment first; positive → link out, negative → mitigation inbox. Optional staggered campaigns inside SMRT Reviews with over-messaging safeguards. ⚠️ Yelp bans review solicitation — Yelp is presence/link only, never "review us on Yelp" sends; Facebook allows requests |
+| Q3 | **Website analytics** | First-party tagging on SMRT Sites (page views, clicks, conversions → SMRT dashboard). Prefer own tagging over per-customer GA4 OAuth: less support surface, data in-app, differentiates Jason's product; GA export later |
+| Q4 | **Ads analytics in SMRT** (Google, Meta, LinkedIn) | Client-visible ROAS dashboard is the retention engine for Tony's managed-ads revenue |
+| Q4+ | **Visual journey builder** (CleanCloud / Customer.io class) | Flagship; POS-native journey data is the moat CleanCloud can't copy when they respond on price |
 
-**Features discussed previously that were missing from your list:**
-- Live SMS segment counter in the compose UI (SMRT-10131 — companion to the tracker)
-- Marketing ROI / investment calculator with per-business price history
-  (SMRT-10004) — *needs rework under bundling: investment becomes station-price
-  share + segments instead of subscription fees*
-- Campaign Effectiveness Score (0–100 A–D grading) and per-campaign/broadcast
-  detail views (SMRT-10269) from the Campaign Analytics spec
-- Promotion revenue attribution & click-vs-auto-apply stamping (SMRT-10474,
-  SMRT-10400) — also the backbone for referral tracking
-- Review data feeding the effectiveness score (spec'd as future release)
-- Dashboard ↔ report metric parity (SMRT-10476, 10389, 10388)
-- Worth adding: **email** template library alongside SMS; A/B subject/offer
-  testing; global quiet-hours + frequency-cap policy (generalize the reviews
-  safeguard to all sends); win-back and birthday templates in the default seed
-  set.
+**Features from earlier discussions missing from the original list:**
+live SMS segment counter in compose (SMRT-10131); marketing ROI/investment
+calculator (SMRT-10004 — *simplifies massively under per-station pricing:
+investment = $70 × stations + segments, exactly the "easier ROI" you called
+out*); campaign Effectiveness Score (0–100) + per-campaign detail views
+(SMRT-10269); promo click-vs-auto-apply attribution and CTR fix (SMRT-10474,
+SMRT-10400); review data feeding the effectiveness score; dashboard↔report
+metric parity (SMRT-10476, 10389, 10388). Worth adding: email template library
+alongside SMS, A/B testing, global quiet-hours/frequency caps as a launch gate,
+win-back + birthday templates in the default seed set.
 
----
+## Phased execution
+
+- **Phase 0 (weeks 1–4):** finish dashboard metric-parity work (wrong numbers
+  ×10 customers becomes wrong numbers ×1,000); lock the migration policy
+  (reductions now / increases at renewal); 10DLC/Twilio provisioning audit and
+  COGS decision; baseline KPIs.
+- **Phase 1 (weeks 4–12):** knowledge base + guides live; templates pre-seeded;
+  frequency caps + quiet hours + segment counter shipped (launch gates);
+  support tier-1 transfer trained; pilot ~50 attachers at $70/station.
+- **Phase 2 (weeks 8–20):** pricing GA — retire flat SKUs, migrate the 72
+  reductions, renewal-schedule the 27 increases, attach campaign to the ~900;
+  hire Dayana; ownership split live; paid sessions launched with in-app booking.
+- **Phase 3 (quarterly):** roadmap above; re-scope SMRT-10004 to per-station ROI.
 
 ## KPIs
 
-| Tier | Metric | Target (12 mo) |
-|---|---|---|
-| Pricing | Customers actively sending campaigns | ≥ 50% of base (from ~10%) |
-| Pricing | Revenue retained from the 99 (managed plans + grandfathered) | ≥ 60% of $69.1K |
-| Pricing | Churn on bundled vs pre-bundle cohorts | −2pts+ |
-| Team | Owned-services MRR (Social+Web+Ads) | $9.5K → $33K/mo |
-| Team | Paid sessions + packages | $8–16K/mo run-rate |
-| Team | Marketing tickets handled by tier-1 support | ≥ 80% |
-| Software | Segment volume (usage-billed revenue) | 3–5× |
-| Software | Reviews captured/customer/mo | 2× |
+| Metric | Target (12 mo) |
+|---|---|
+| Marketing-attached stations | 852 → ≥ 2,000 (of 5,390) |
+| In-app marketing MRR | $69.1K → ≥ $139K (25% attach case) |
+| Retention of the 27 increase accounts at renewal | ≥ 80% |
+| Owned services (Social+Web+Ads) MRR | $9.5K → $33K |
+| Sessions + packages | $8–16K/mo |
+| Marketing tickets resolved by tier-1 support | ≥ 80% |
+| Customers actively sending campaigns | ≥ 50% of attached |
 
-## Issues & risks (the honest list)
+## Issues & risks
 
-1. **The revenue hole is real and front-loaded.** Free-at-$70 forfeits up to
-   $69.1K/mo; services replace it slowly and linearly. The Managed Marketing
-   conversion of the 99 is the single most important commercial motion in the
-   whole plan — resource it like a launch, not an afterthought. Without it,
-   year-1 net is deeply negative; with 60% conversion, the plan is roughly
-   revenue-neutral in year 1 and grows from there.
-2. **Sequencing risk:** pricing before enablement = support flood + SMS
-   compliance incidents. Hold the line: KB, templates, safeguards, pilot, then GA.
-3. **10DLC provisioning is the rollout bottleneck** and a per-customer COGS
-   (~$5–15/mo) the $70 price now absorbs — decide pass-through explicitly.
-4. **Owner capacity conflicts:** Tony owns Ads *and* paid sessions *and* the
-   billing sheet today; Jason owns Websites *and* subscription shutoffs. Move
-   billing operations to finance as part of Tier 2 or the "efficiency" goal fails.
-5. **One new hire carrying Social + all design** is thin; her design backlog
-   (templates, web, ad creative) will compete with Social growth targets —
-   set the split explicitly (e.g., 60% Social / 40% shared design).
-6. **Yelp solicitation ban** (above) — build the rating-gate so Yelp is
-   presence-only; violating it risks customers' Yelp standing.
-7. **CleanCloud will respond on price.** The durable moat is POS-native data
-   (order history, garment types, visit cadence) powering journeys they can't
-   replicate from a lighter POS — which argues for pulling the journey builder
-   forward if engineering capacity allows.
-8. **Watch AU/EU:** bundling changes the AUD/EUR/GBP price cards too; the AU
-   accounts are on special rates that need their own migration line.
+1. **The "big customers save money" assumption is inverted at $70/st** — the 27
+   largest-station accounts pay +$13.7K/mo more. This is the plan's main churn
+   risk and negotiation surface; renewal-timed migration + effectiveness/ROI
+   dashboards are the defense. If the top 10 all walked from marketing entirely,
+   that's −$11.6K/mo of today's revenue — worse than just keeping them legacy,
+   so *legacy-until-renewal must be a real option, not a bluff*.
+2. **Station-count uncertainty matters here:** 296 of 852 stations are estimates.
+   Before GA, pull true station counts from billing for the 99 — the difference
+   between 724 and 980 stations is the difference between −$18K and break-even.
+3. **Attach is the whole upside** — resource it like a product launch (default-on
+   templates, onboarding motion, 90-day free trial for existing customers?).
+   3% attach = break-even; everything above is growth.
+4. **10DLC provisioning bottleneck + COGS** (~$5–15/customer/mo): cohort rollout,
+   explicit pass-through decision.
+5. **Sequencing:** enablement and safeguards ship before pricing GA or support
+   drowns and novice senders spam their lists.
+6. **Capacity conflicts:** move the billing sheet to finance (Tony), and
+   subscription shutoffs out of Jason's lap, or the efficiency goal fails.
+7. **Yelp solicitation ban** — hard product rule (rating-gate, presence-only).
+8. **AU/EU price cards** need their own migration line (AUD/EUR/GBP rates exist
+   on all retiring SKUs).
 
-*Sources: billing sheet + price list (this repo's `data/`), T4PO/Close station
-analysis, SMRT Jira in-flight tickets. All monthly figures from
-`PER_STATION_MARKETING_PRICING.md`.*
+*Sources: billing sheet + price list (`data/`), T4PO/Close station analysis,
+SMRT Jira in-flight tickets. Per-customer deltas at $70/st:
+`data/marketing_customer_deltas_70.csv`.*
