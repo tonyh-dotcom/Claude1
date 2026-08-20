@@ -25,6 +25,7 @@ Master backlog and sequencing for the marketing product build-out. Companion to
 | D3 | A/B testing (subject/offer split on campaigns) | M | Self-service quality | D2 or standalone | Can ship standalone before journey builder |
 | E1 | Per-station billing mechanics (SKU retirement, proration, tier logic) | M | Tier 1 GA | pricing decision | Billing app work, not marketing module |
 | E2 | 10DLC provisioning pipeline (cohort automation) | M | Tier 1 rollout | Twilio ops | The physical rate limiter on attach |
+| F1 | **RCS Business Messaging** (rich cards, carousels, branded verified sender, read receipts, SMS fallback) | XL — long-term | Channel moat | carrier/aggregator RCS agent verification, Twilio RCS GA, internal R&D already underway | The industry is moving to RCS as the texting norm. Hurdles are real (per-carrier agent verification, iOS/Android coverage still maturing, per-message pricing TBD, template re-work) — but SMRT already has someone running RCS testing/development internally, so this is a parallel R&D track, not a quarter deliverable. Early payoff: verified branded sender improves trust/deliverability even before rich features; journey builder (D2) and template library (A4) should be designed channel-agnostic so RCS slots in as a send channel later without rebuilds |
 
 ## Quarter-by-quarter
 
@@ -34,6 +35,7 @@ Master backlog and sequencing for the marketing product build-out. Companion to
 | **Q2 — "Visible value"** | B1 GBP analytics · B2 referral system · C2 expert booking + tooltips | New attaches see fresh value fast; referrals turn the newly-attached base into a growth loop. Start Google/Meta OAuth app verification now (lead time for D1). |
 | **Q3 — "Own the data"** | B3 FB/Yelp rating-gate · B4 reviews→score · C1 site tagging/analytics | Reviews depth + Jason's site analytics differentiator. Begin D2 journey-builder design/spec with real usage data from Q1–Q2. |
 | **Q4 — "The moat"** | D1 ads analytics · D3 A/B testing · D2 journey builder (build; GA Q1 next year if needed) | Tony's ads retention dashboard + the flagship. Journey builder lands when attach is high, so it compounds across the whole base. |
+| **Ongoing — "Next channel"** | F1 RCS Business Messaging (R&D track) | Runs in parallel all year with the existing internal tester/developer: Q1–Q2 keep evaluating (Twilio RCS capability, agent verification path, cost model); Q3 decide pilot scope; pilot with 3–5 marketing customers when carrier coverage justifies it. Design A4 templates and D2 journeys channel-agnostic now so RCS plugs in as a send channel without rebuilding. |
 
 ## Sequencing logic (why this order)
 
