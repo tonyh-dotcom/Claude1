@@ -5,6 +5,13 @@ station's price. Every customer gets marketing, revenue grows, and outside
 agencies lose their opening. Matches the BubblePay / SMRT Lite motion: simple
 per-station pricing, product built in.
 
+**Financial structure — two lanes, by design:** the in-app software **merges
+into the POS** (platform revenue, billed on the station). The marketing
+department's own P&L becomes the **services lane** — Social, Websites, Ads, and
+Expertise Marketing — which stays financially separate and grows on its own
+numbers. We give the software to the platform to lock out competitors; the
+department earns its keep on services.
+
 **Why now:** SMRT runs **5,688 stations**; only **1,227 (22%) are on SMRT
 Marketing**. The other 78% run no marketing or pay outside providers (Cleaner
 Marketing and others). Bundling flips that to 100% — and takes a direct shot at
@@ -37,7 +44,7 @@ CleanCloud-class bundles.
 | Who | Focus |
 |---|---|
 | **SMRT Support + Learning Center** | Daily how-to questions move to support, backed by the guide library already underway |
-| **Tony** | Leads marketing: SMRT's external efforts (shows, booths, layouts, handouts), sales support, and SMRT Marketing as an agency; grows Ads |
+| **Tony** | Leads marketing: SMRT's external efforts (shows, booths, layouts, handouts), sales support, and the marketing **services lane** — the department's own revenue line; grows Ads |
 | **Jason** | Multi-product: marketing support lead (tier 2/3 escalation), SMRT Websites, and SMRT design work — deep design/3D expertise |
 | **Dayana** | SMRT Social + creative/design; role expands as the team grows |
 
@@ -57,6 +64,6 @@ managed plans. Managed services grow $9.5K → **$34K/mo** in 12 months.
 
 ---
 
-**12-month picture:** marketing revenue $67.5K → $80–114K/mo · managed services
-$9.5K → $34K/mo · 100% of stations marketing-enabled · Cleaner Marketing,
-Magnoli, and outside agencies pushed out.
+**12-month picture:** platform lane (in-app, on the station) $67.5K → $80–114K/mo ·
+services lane (department P&L) $9.5K → $34K/mo · 100% of stations
+marketing-enabled · Cleaner Marketing, Magnoli, and outside agencies pushed out.
