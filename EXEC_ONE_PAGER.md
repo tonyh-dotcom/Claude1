@@ -14,9 +14,9 @@ department earns its keep on services.
 
 **Why now:** SMRT runs **5,688 stations**; only **1,227 (22%) are on SMRT
 Marketing**. The other 78% run no marketing or pay outside providers (Cleaner
-Marketing and others). Bundling flips that to 100% — and takes a direct shot at
-**Magnoli**, who lists our lack of included marketing as one of their selling
-points.
+Marketing and others). Bundling flips that to 100% — a strategic move to push out
+**Magnoli** and **Cleaner Marketing**. Magnoli lists our lack of included
+marketing as one of their selling points; this takes that away.
 
 ---
 
@@ -44,7 +44,7 @@ CleanCloud-class bundles.
 | Who | Focus |
 |---|---|
 | **SMRT Support + Learning Center** | Daily how-to questions move to support, backed by the guide library already underway |
-| **Tony** | Leads marketing: SMRT's external efforts (shows, booths, layouts, handouts), sales support, and the marketing **services lane** — the department's own revenue line; grows Ads |
+| **Tony** | Maintain **SMRT Ads** and grow its customer base first; then SMRT's external efforts (shows, booths, layouts, handouts), sales support, and **Marketing for SMRT** — growing SMRT Marketing |
 | **Jason** | Multi-product: marketing support lead (tier 2/3 escalation), SMRT Websites, and SMRT design work — deep design/3D expertise |
 | **Dayana** | SMRT Social + creative/design; role expands as the team grows |
 
@@ -56,7 +56,7 @@ managed plans. Managed services grow $9.5K → **$34K/mo** in 12 months.
 
 | When | What |
 |---|---|
-| Q1 | What the price change needs on day 1: sending safeguards (quiet hours, frequency caps), SMS cost tracker, template library, pre-loaded campaigns, per-station ROI dashboard |
+| Q1 | What the price change needs on day 1: sending safeguards (quiet hours, frequency caps), SMS cost tracker, SMS template library (email library exists), pre-loaded campaigns, per-station ROI dashboard |
 | Q2 | Google Business Profile analytics · referral system |
 | Q3 | Facebook/Yelp review capture · website analytics on SMRT Sites |
 | Q4 | Google/Meta/LinkedIn ads analytics · **visual journey builder** (POS-driven — no agency or competitor can copy it) |
