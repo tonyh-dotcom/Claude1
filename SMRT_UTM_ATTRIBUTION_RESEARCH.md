@@ -222,6 +222,131 @@ allow-list, serving the same customers.
 
 ---
 
+## Review of the proposed attribution epic
+
+The architecture is good and unusually honest. The problem is the foundation.
+
+### 🔴 BLOCKER — the RESOLVED item is not resolved
+
+The epic closes with: *"Does query-string prefill work? Yes — `?referral_source=Facebook` populates
+the field. Confirmed. This is the basis of Phase 0."*
+
+That cannot be true on the customer website. Evidence:
+
+- Pulled the signup bundle from **four tenants** (helenascleaners, troycleaners, faziocleaners,
+  thedrycleaningfactory). They run **two different releases** — distinct Sentry release SHAs
+  (`d9bfc458…` vs `146702312b…`), byte-different files.
+- **Both releases have the identical ten-parameter allow-list and zero occurrences of `referral`.**
+- Traced the accessor: `useSearch` (minified `vl`) returns `Rc({...e, select: t => t.search})` — the
+  route match's **validated** search object, which `validateSearch` rebuilds from the allow-list. So
+  the `...rest` spread that would carry an unknown param into `customFields` is always empty.
+
+**Stories 1, 2 and 7 are all of Phase 0, and all three depend on prefill.** Story 7 is explicitly
+pulled into Phase 0 *because* prefill works. If it doesn't, Phase 0 ships nothing — and it ships
+*looking* like it worked, because a link with an ignored parameter still loads a working signup page.
+
+**Three ways the confirmation could still be right** (I only examined the customer-website app):
+
+1. **It was tested on POS sign-up** — a separate application I have not examined. Story 1 itself asks
+   whether prefill works on "POS sign-up and the customer website sign-up, or only the latter," so
+   the uncertainty is already acknowledged. This is the most likely explanation.
+2. **It was tested on staging**, on a build that already carries the fix.
+3. **The value was seen in the URL or the form, not on the saved record.** The only test that counts
+   is opening the created customer in POS and reading the field.
+
+**The five-minute test that settles it:** open
+`<tenant>.smrtapp.com/custx/login?referral_source=ZZTEST`, complete a real signup, then read that
+customer's Referral Source in POS. If it says `ZZTEST`, I'm wrong and Phase 0 stands as written.
+Do this before committing the epic, not during it.
+
+### Issues worth fixing regardless
+
+1. **🔴 The signup domain in Story 2 doesn't exist.** `signup.smrtsystems.com` does not resolve.
+   Signup today is per-tenant at `<tenant>.smrtapp.com/custx/login`. If Phase 0 assumes a new central
+   signup domain, that is a large unscoped dependency (tenant resolution, branding, routing, TLS)
+   hiding inside a "days–weeks" phase. If the URL is illustrative, rewrite it with the real
+   per-tenant host — *per-tenant* changes both Story 7's decorator target and Story 3's cookie scoping.
+
+2. **🔴 The existing hardcoded value will silently defeat Story 7.** Story 7's AC says "does not
+   overwrite a param already present on the target URL." Live client buttons already carry
+   `?referral_source=Website` — Helena's does today. Paid traffic arriving via the client site keeps
+   `Website` forever, and the snippet looks installed and working. Add an explicit story: audit and
+   strip the hardcoded default from every client site and site template before Story 7 rolls out.
+
+3. **🟡 Story 8 contradicts Story 4.** Story 4 accepts "single-touch only, no multi-visit history"
+   for v1; Story 8 requires "both first-touch and last-touch derived." With one touch per customer
+   those values are always identical. Either keep multi-visit rows (the table supports it) or defer
+   the last-touch AC — as written it cannot be satisfied.
+
+4. **🟡 The headline success metric is trivially gameable.** ">90% non-null derived attribution
+   (including `Direct` and `Client Website`)" is guaranteed by Story 5's own AC of "zero nulls in
+   derived source." Classifying everything as `Direct` scores 100%. Replace with something that can
+   fail: share of paid-campaign signups carrying a campaign value, or a ceiling on the
+   `Direct`/`Other` share of web signups.
+
+5. **🟡 Story 4's consent rationale is wrong.** "Params read from `location.search` and POSTed to our
+   endpoint; capture is server-side" is client-side collection with server-side storage — call it
+   what it is. And a first-party `anon_id` cookie needs a lawful basis under ePrivacy whether set by
+   script or `Set-Cookie`. Server-side setting buys resilience against Safari's cap on
+   script-writable storage, **not** a consent exemption. Story 11 covers the obligation; fix the
+   justification so nobody relies on it later.
+
+6. **🟡 Cookie isolation must be host-only, explicitly.** Tenants are subdomains of a shared parent.
+   A cookie scoped to `.smrtapp.com` is readable by every tenant — exactly the cross-attribution
+   Story 3's AC forbids. Only a host-only cookie on the exact tenant host isolates them. Put that in
+   the AC rather than leaving "scoped per business" to interpretation.
+
+7. **🟡 Story 5 is a weaker safety net than it reads.** `document.referrer` is much thinner than it
+   used to be: default referrer policy strips the path, Google organic often sends nothing usable,
+   and in-app browsers and link shims lose it entirely. "Known search engine → Google (untagged)"
+   will under-fire, and the residue lands in `Direct` — inflating the exact bucket the epic rightly
+   warns is misleading. State an expected hit rate so Story 5 isn't treated as guaranteed coverage.
+
+8. **🟡 Story 1 should test two field types, not one.** Custom fields carry a `fieldType`, and a
+   `select` field renders its dropdown strictly from configured `possibleValues`. The fork is sharper
+   than the story assumes: a `select` field gives clean data but may refuse an off-list prefilled
+   value, while a `text` field accepts prefill *and* the junk the story's own note worries about.
+   Test `select` and `text` separately — the answer decides whether Story 2 can have a strict
+   allowlist at all.
+
+9. **✅ Two open questions are answerable today.** "Do we have an existing account-type concept?" —
+   the customer record already carries `group`, `paymentTerm` (POS/Statement/AutoPay), `brand` and
+   `accountDiscount`; `group` and `paymentTerm` are strong candidates for Story 9's commercial split,
+   likely with no new field. And "what share of new customers are created at POS vs the website?" —
+   the `New Customer Signup` event already carries `source: POS | Website`, so the Segment stream
+   answers it now. That number decides whether this epic addresses most of the problem or a
+   minority of it.
+
+### What the epic gets right (preserve through any rewrite)
+
+- **Story 13's origin segmentation**, and holding `Direct` apart from `Not captured`. Counter-created
+  customers diluting channel math is the most common way an attribution report becomes actively
+  misleading, and this is the correct fix.
+- **Normalize at read, not on write**, with a mapping table where correcting one row retroactively
+  fixes all history.
+- **`business_id` from day one** — cheap now, painful to backfill, and what makes Story 12 free.
+- **Second-visit-within-60-days over first-order value** as the quality metric. Well judged for this
+  vertical.
+- **A versioned CDN loader** for the snippet, on the correct reasoning that client sites are the one
+  surface you can't update on your own schedule.
+- **Keeping self-reported and inferred independently reportable**, and stating the mobile→desktop gap
+  as unfixable rather than burying it.
+
+### Proposed resequencing
+
+1. **Run the five-minute test first — hours, not a day.** Story 1 is timeboxed at a day and asks six
+   questions; one of them decides whether Phase 0 exists. Answer that one first, on both the customer
+   website and POS, and record which surface was tested.
+2. **If prefill fails on the customer website, Phase 0 gains a dependency.** It becomes a small
+   signup-app change: add the params to the allow-list and write them to a dedicated field. Genuinely
+   small — the query-string-to-custom-field plumbing already exists and runs — but it is a release in
+   the signup app, not a config change, and Stories 2 and 7 cannot ship until it lands.
+3. **Ship the zero-code win in parallel.** A required `select` field with a locked value list needs no
+   prefill, no snippet, and no release. Self-reported and coarse, but real data next week and the only
+   option with no engineering dependency.
+
+---
+
 ## Rules that keep the data clean (apply to whichever path ships)
 
 1. **One owner per field.** Decide whether `Referral Source` is operator-set, customer-set, or
