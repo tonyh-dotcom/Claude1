@@ -146,6 +146,82 @@ outcome this project exists to avoid.
 
 ---
 
+## Can the Google APIs / Google tags do this instead?
+
+Partly — and the half they do is the more valuable half. But they cannot substitute for capture at
+signup, because of one hard limit: **Google never tells you who an individual customer is.** Click
+data comes back aggregated by campaign; no API returns "this person arrived from this ad."
+
+**So this is a combination, not an either/or** — three separate pipes that succeed and fail
+independently. Only pipe A is blocked by the parameter stripping.
+
+| Pipe | Direction | Answers | Blocked by the strip? |
+|---|---|---|---|
+| **A · Capture** | click → SMRT record | Which channel this specific customer came from (the cohort dimension) | ❌ **Yes** |
+| **B · Conversions out** | SMRT → Google | Which campaigns produced paying customers; feeds Smart Bidding | ✅ No |
+| **C · Reporting in** | Google → SMRT | Spend, clicks, CPA, ROAS by campaign — aggregate only | ✅ No |
+
+### Pipe B — the real unlock, and it needs no signup change (start here)
+
+**Enhanced conversions for leads (ECL)** matches conversions back to ad clicks using **hashed email
+or phone instead of a click ID**. SMRT already holds email, phone, signup time, and order revenue —
+that is the entire required payload. The app stripping `gclid` does not block this at all.
+
+Fastest route: SMRT is **already** a Segment source emitting `New Customer Signup` and order events
+carrying revenue. Segment's Google Ads Conversions destination has an Upload Click Conversion action
+that accepts email/phone when no `gclid` is present, hashes values automatically, batches (up to
+2,000 events), and authenticates by OAuth into the business's Google Ads account. Close to a
+configuration exercise on infrastructure that already exists.
+
+- **Gives you:** true ad ROI (revenue, not signups) + materially better Smart Bidding, since Google
+  learns which clicks became paying customers.
+- **Does not give you:** a source value on the SMRT customer record. It reports inside Google Ads.
+  Not a substitute for pipe A.
+- **Deadline that already passed:** since **June 15, 2026**, Google Ads API conversion uploads are
+  closed to developer tokens that weren't already using them (tokens needed traffic between
+  Dec 2025–May 2026 to be allowlisted). A new SMRT-built uploader must target the **Data Manager
+  API** (launched Dec 9, 2025). Segment's token may be grandfathered — confirm before choosing.
+- **Consent:** uploading hashed customer contact data requires accepting Google's customer-data
+  terms and appropriate disclosure. SMRT already captures marketing opt-ins at signup — gate the
+  upload on them.
+
+### Pipe C — the ads dashboard inside SMRT (a real build)
+
+The Google Ads API read path gives campaign/ad group/keyword metrics: impressions, clicks, cost,
+conversions, ROAS. The business owner OAuths once; SMRT pulls on a schedule.
+
+- **Effort:** developer token, OAuth flow, refresh-token storage, quota handling, reporting UI.
+  Per-tenant OAuth, or a manager-account link if SMRT centralises access.
+- **Hard limit:** aggregate only. `ClickView` maps a `gclid` to its campaign for 90 days (one day
+  per query) — useful only to *enrich* click IDs captured in pipe A, never to discover who clicked.
+
+### On Google tags: the app has none, and you can't add one
+
+Checked the bundle specifically. The customer app loads **no tag manager, no Google Analytics, no
+advertising pixel** — zero references to `googletagmanager`, `google-analytics`, `dataLayer`, or a
+Facebook pixel. Its only third-party hosts are Sentry, Mapbox, reCAPTCHA, and Localize.
+
+So a tenant cannot inject a Google tag into the signup flow, and GA4 cross-domain measurement from
+the marketing site into smrtapp.com is not achievable from outside. A tag on helenascleaners.com can
+measure the click through to the signup button — what the existing Sign Up Link Click conversion
+already does — and visibility ends at the hop.
+
+**Product ask worth raising alongside the allow-list fix:** if SMRT shipped a per-tenant tag
+container in the customer app, every tenant running ads would get real signup-funnel measurement and
+a genuine conversion event instead of a button-click proxy. Plausibly a larger win than the UTM
+allow-list, serving the same customers.
+
+### Sequence to argue for
+
+1. **Now, no SMRT change:** pipe B via Segment. Turns spend into measurable revenue and improves
+   bidding. Independent of everything else.
+2. **Now, configuration only:** the locked-list dropdown (Option 1 above). Coarse but honest channel
+   mix inside SMRT.
+3. **Product backlog:** the allow-list fix + a tenant tag container — together these make pipes A
+   and C properly possible for every tenant, not just this one.
+
+---
+
 ## Rules that keep the data clean (apply to whichever path ships)
 
 1. **One owner per field.** Decide whether `Referral Source` is operator-set, customer-set, or
@@ -204,3 +280,7 @@ click-through should confirm it visually before reporting upstream.
 - [UTM capture & lead-source attribution](https://www.terminusapp.com/blog/salesforce-utm-capture-lead-source-attribution/)
 - [Conditional link decoration for cross-domain tracking](https://www.optizent.com/blog/how-to-set-up-conditional-link-decoration-for-cross-domain-tracking/)
 - [UTM parameter best practices](https://web.utm.io/blog/utm-parameters-best-practices/)
+- [Google Ads API — offline conversions & ECL uploads](https://developers.google.com/google-ads/api/docs/conversions/upload-offline)
+- [Google Ads Developer Blog — June 2026 offline conversion import changes / Data Manager API](https://ads-developers.googleblog.com/2026/05/changes-to-offline-click-conversion.html)
+- [Segment → Google Ads Conversions destination](https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-google-enhanced-conversions)
+- [Google Ads API ClickView reference](https://developers.google.com/google-ads/api/reference/rpc/v22/ClickView)
