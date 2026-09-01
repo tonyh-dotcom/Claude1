@@ -1,7 +1,7 @@
 # White-Label AI Phone Service — Build vs. Buy Research (v2)
 
 **Prepared for:** SMRT Systems
-**Date:** August 31, 2026 · supersedes v1 of the same date
+**Date:** August 31, 2026 · v3 — adds §8, prebuilt launch options · supersedes v1
 **Scope correction in this revision:** the product is primarily **call monitoring, recording and AI overview with keyword/analytics data across ALL calls**, with **inbound after-hours answering** (FAQ + lead capture) as the secondary component. v1 modeled after-hours answering only. That was the wrong shape and the cost figures were correspondingly wrong.
 
 ---
@@ -189,6 +189,114 @@ The one revision: **build the monitoring product first, not the answering produc
 
 ---
 
+## 8. Prebuilt options — launching without building the backend
+
+Added after the v2 review. The question: is there something off-the-shelf that does **both** halves, white-labeled, that we can launch on now and migrate off later?
+
+**Yes. CallTrackingMetrics (CTM), Marketing Pro tier.**
+
+Because the primary product is call monitoring, the right category to shop is **white-label call tracking**, not voice-AI platforms. That's a mature market with real agency/reseller infrastructure — and one vendor in it has since added an AI voice agent, which closes the gap to our full spec.
+
+### 8.1 CTM Marketing Pro — $179/mo
+
+| | |
+|---|---|
+| Platform fee | **$179/mo total** (annual $149) — not per sub-account |
+| Sub-accounts | **Unlimited** |
+| White label | Included: custom domain, our logo throughout, white-labeled login pages, emails from our address, white-labeled help pages |
+| Billing | Custom billing — we set client prices and keep the spread |
+| API | Open API + developer resources (Marketing Pro and above; **not** on Lite) |
+| Transcription | 3,000 minutes included, then $0.02/min |
+| Tracking minutes | ~$0.05–0.08/min |
+| Tracking numbers | Small monthly fee each (~$2–3 modeled) |
+| **VoiceAI agent** | **$0.12/min, 60 min included per agent** — answers calls, books appointments, qualifies leads, FAQ, routes and transfers |
+| Call handling | IVRs, queues, geo-routing, schedule/intent/history-based flows |
+| Analytics | Speech-to-text, keyword spotting, call scoring, AskAI summaries |
+
+That is essentially the entire v2 spec, prebuilt. The white-label story is genuinely complete — custom domain, our branding end to end — and unlimited sub-accounts on a flat $179 means **no per-tenant tax**, which was the exact trap that disqualified every voice-AI platform in v1.
+
+### 8.2 CTM vs. building, at every scale
+
+Modeled at 600 monitored + 150 AI minutes per store per month. Build figures use the v2 optimized stack plus $2,000/mo hosting and on-call.
+
+| Stores | CTM/mo | $/store | Build/mo | $/store | Delta | GM @ $199 (CTM) | GM @ $199 (build) |
+|---|---|---|---|---|---|---|---|
+| 10 | $732 | $73.20 | $2,341 | $234.06 | −$1,609 | 63.2% | −17.6% |
+| 25 | $1,652 | $66.06 | $2,852 | $114.06 | −$1,200 | 66.8% | 42.7% |
+| 50 | $3,184 | $63.68 | $3,703 | $74.06 | −$519 | 68.0% | 62.8% |
+| 100 | $6,249 | $62.49 | $5,406 | $54.06 | +$843 | 68.6% | 72.8% |
+| 200 | $12,379 | $61.90 | $8,812 | $44.06 | +$3,567 | 68.9% | 77.9% |
+| 300 | $18,509 | $61.70 | $12,218 | $40.73 | +$6,291 | 69.0% | 79.5% |
+| 500 | $30,769 | $61.54 | $19,030 | $38.06 | +$11,739 | 69.1% | 80.9% |
+| 1,000 | $61,419 | $61.42 | $36,060 | $36.06 | +$25,359 | 69.1% | 81.9% |
+
+**Payback on a ~$200k build, versus staying on CTM:**
+
+| At this many stores | Monthly saving from building | Payback |
+|---|---|---|
+| 100 | $843 | 237 months — never |
+| 200 | $3,567 | 56 months |
+| 300 | $6,291 | 32 months |
+| 500 | $11,739 | **17 months** |
+| 1,000 | $25,359 | 8 months |
+
+CTM holds a flat ~69% gross margin at any scale — its cost is almost entirely variable. Building trades that for 81% but demands the capital up front. **The crossover is around 300 stores; it becomes compelling at 500.**
+
+### 8.3 The recommendation
+
+**Launch on CTM. Build when the fleet justifies it.**
+
+- A 10-store, 3-month pilot costs about **$2,200 total** with zero engineering.
+- Building to the same point is **~$200k and 4–6 months before the first call connects.**
+- 69% gross margin from day one is a real business. Waiting six months for 81% is not obviously better, and it is definitely riskier.
+
+### 8.4 Protecting the exit — the one decision that matters
+
+The whole plan depends on being able to leave. Porting numbers away from a call tracking provider takes **4–6 weeks** and LOA paperwork that losing carriers scrutinize and reject over trivial mismatches. Doing that for 500 numbers is a project measured in quarters, and it is the mechanism by which platforms keep agencies they've stopped serving well.
+
+**So never let CTM's numbers become the store's published number.**
+
+Keep the store's own existing number as the one on their door, their van and their Google listing, and **forward it into CTM**. Then:
+
+- Migrating later means **changing a forwarding rule**, not porting anything.
+- The store keeps the number they've had for twenty years, which also removes the biggest objection at the point of sale.
+- Marketing tracking numbers (per-campaign, for the Google Ads attribution play) *can* be CTM's — those are disposable by design and nobody has them memorized.
+
+Four more exit disciplines, cheap to maintain from day one:
+
+1. **Mirror all data out continuously.** Export call logs, recordings and transcripts into SMRT storage on a schedule via the open API — don't wait for a migration. Most providers delete data shortly after cancellation.
+2. **Keep the analysis layer ours where possible.** Even on CTM, run our own extraction against exported transcripts for the laundry-specific and SMRT-join fields. Then the differentiated product never lived inside CTM and never has to move.
+3. **Own the customer-facing dashboard.** Use CTM white-label at first, but plan for SMRT's own UI reading the CTM API. Customers should be looking at SMRT, not at a reskinned CTM.
+4. **Require Marketing Pro, not Lite.** Lite has no API access, which forfeits every point above.
+
+Do these four and the migration is a backend swap the customer never sees. Skip them and CTM owns the product.
+
+### 8.5 Alternatives considered
+
+| Option | Verdict |
+|---|---|
+| **CTM Marketing Pro** | ✅ **Recommended.** Only option covering both halves with real white label, unlimited sub-accounts, and an open API |
+| **Nimbata** | Strong white-label call tracking — $149/mo Agency + $55/mo white-label add-on, and a per-*answered-call* model that suits our low-volume stores. **But no AI voice agent**, so the after-hours half would need a second vendor |
+| **CallRail** | Best-known, but agency pricing scales poorly and white label is weaker. Also our closest competitor's product |
+| **WhatConverts** | $149 Agency + $50 white label. More lead tracking than call analytics; no answering |
+| **Vapi / Retell / Synthflow / Bland** | Wrong category. Built for agents, not analytics on human conversations, and all carry the per-tenant tax |
+| **GoHighLevel** | $50–97 per sub-account. Disqualified on the same grounds as v1 |
+
+**Open questions for a CTM sales call:** the real per-minute rate at our volume (published range is $0.05–0.08 — a 60% spread that swings the model), tracking number pricing at 500+ numbers, whether VoiceAI minutes carry volume discounts, whether the 3,000 included transcription minutes are per-account or per-sub-account, and data retention limits on Marketing Pro.
+
+### 8.6 Revised build plan
+
+| Phase | What | When |
+|---|---|---|
+| **0** | CTM Marketing Pro, 10 stores, forwarding into CTM from their own numbers. Prove demand and learn real call volumes. | Weeks 1–4 |
+| **1** | Sell to 100+. Build only the mirroring pipeline (API → SMRT storage) and the SMRT-side attribution join — small work, high differentiation. | Months 2–9 |
+| **2** | SMRT-native dashboard reading CTM's API. Customers now see our product, not CTM's. | Months 6–12 |
+| **3** | At ~300 stores, revisit. Swap the CTM backend for the Twilio stack in v2, keeping the same UI and the same forwarding rules. | Month 18+ |
+
+Note what this preserves: **the v2 Twilio architecture is still the destination.** CTM is the on-ramp, not a change of direction. Every number in §1–7 remains the plan for Phase 3.
+
+---
+
 ## Sources
 
 - [Twilio — Conversational AI pricing](https://www.twilio.com/en-us/products/conversational-ai/pricing)
@@ -213,3 +321,12 @@ The one revision: **build the monitoring product first, not the answering produc
 - [Twilio software pricing and plans — Vendr](https://www.vendr.com/marketplace/twilio)
 - [US voice AI regulations — founders' guide](https://softcery.com/lab/us-voice-ai-regulations-founders-guide)
 - [TCPA compliance for AI voice agents 2026](https://www.henson-legal.com/ai-voice-compliance)
+- [CTM — plans and pricing](https://www.ctm.com/plans-pricing/)
+- [CTM — VoiceAI](https://www.calltrackingmetrics.com/features/lead-management/voiceai)
+- [CTM — agency and white-label program](https://www.ctm.com/agencies-and-affiliates/white-label/)
+- [CTM support — porting numbers away](https://calltrackingmetrics.zendesk.com/hc/en-us/articles/7258332647821-Porting-Numbers-Away-from-CallTrackingMetrics)
+- [Nimbata — pricing](https://www.nimbata.com/pricing)
+- [Nimbata — best call tracking software for agencies](https://www.nimbata.com/blog/best-call-tracking-software-for-agencies)
+- [Best white-label call tracking software 2026 — AvidTrak](https://avidtrak.com/resource/best-white-label-call-tracking-software)
+- [Switching call tracking providers: a migration guide](https://www.callflux.net/blog/switching-call-tracking-providers-migration-guide)
+- [CallRail help — port a number away](https://support.callrail.com/hc/en-us/articles/5711677430669-Port-a-phone-number-away-from-CallRail)
