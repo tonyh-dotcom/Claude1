@@ -2,6 +2,7 @@
 
 **Prepared for:** SMRT Systems
 **Date:** August 31, 2026 · v3 — adds §8, prebuilt launch options · supersedes v1
+**See also:** `CTM_WHITE_LABEL_DEEP_DIVE.md` — how far CTM's white label goes, where it leaks, and what the API lets us build
 **See also:** `GTM_SALES_MOTION_NOTES.md` — pop-up campaign, trial terms and billing roadmap (awaiting contract details)
 **Scope correction in this revision:** the product is primarily **call monitoring, recording and AI overview with keyword/analytics data across ALL calls**, with **inbound after-hours answering** (FAQ + lead capture) as the secondary component. v1 modeled after-hours answering only. That was the wrong shape and the cost figures were correspondingly wrong.
 
