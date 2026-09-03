@@ -1,0 +1,155 @@
+AI PHONE SERVICE - EXECUTIVE SUMMARY
+Prepared by Tony Hadad | September 3, 2026
+
+
+THE PROPOSAL
+
+Launch a new SMRT phone product for our laundry and dry-clean customers, sold
+under our own brand. It does two things. First, it records and analyzes every
+call a store takes, and gives the owner a dashboard: missed calls, what callers
+asked about, price-shoppers who did not convert, keyword trends, staff handling
+quality. Second, it answers the phone after hours with an AI agent that handles
+common questions, quotes prices, checks order status and captures leads.
+
+We recommend building this on CallTrackingMetrics (CTM) rather than building it
+ourselves, launching with a 10-store pilot that costs roughly $2,200 total and
+requires no engineering work.
+
+
+WHY CTM
+
+CTM is a mature call tracking platform that added an AI voice agent. It covers
+both halves of our product in one system, and it is built for exactly our
+situation - a company reselling to many small customers under its own brand.
+
+The decisive factor is how it charges. CTM's Marketing Pro plan is $179 a month
+plus $65 a month for white labeling. That is $244 a month total, flat, with
+unlimited customer sub-accounts. Every competing platform we evaluated charges
+per customer instead. GoHighLevel charges $50 to $97 per sub-account, which at
+500 stores is $30,000 to $53,500 a month. Vapi and Retell have no native white
+labeling at all and require a second vendor bolted on at roughly $25 per
+customer per month. Because our customers are numerous but each uses very few
+minutes, per-customer pricing is punishing and flat pricing is not.
+
+The white labeling is real. The system runs on our domain, carries our logo,
+sends system emails from our address, and has white-labeled login and help
+pages. We set what customers pay and keep the difference.
+
+CTM also has an open API covering accounts, sub-accounts, numbers, calls,
+recordings, transcriptions, agents, reports and webhooks. That matters for two
+reasons. It means we can onboard a store without anyone ever touching CTM's
+interface, and it means we can build our own SMRT dashboard on top of their
+platform - so customers see our product, not a reskinned version of theirs.
+
+
+WHY NOT BUILD IT OURSELVES ON TWILIO
+
+To be precise about this, because the number is counterintuitive: Twilio is
+cheaper per store, not more expensive. Running the product on our own Twilio
+stack costs about $38 per store per month against CTM's $62.
+
+The problem is what it takes to get there. Building it requires roughly
+$200,000 of engineering and four to six months before the first call connects,
+plus ongoing hosting and 24/7 on-call - a phone product has phone-product uptime
+expectations, and if the after-hours agent fails at 2am the store's line is dead
+and they hear about it from a customer.
+
+At 100 stores, building saves $843 a month, which never pays back the
+investment. At 300 stores it saves $6,291 a month and pays back in 32 months.
+At 500 stores it saves $11,739 a month and pays back in 17 months.
+
+So the honest position is that building is the right long-term answer and the
+wrong first move. We should build it - just not before we have proven the market
+and know our real call volumes.
+
+The plan preserves that path deliberately. We build our own dashboard on CTM's
+API in year one, and swap CTM's backend for Twilio at around 300 stores. Because
+the customer-facing product is already ours by then, the swap is invisible to
+them.
+
+
+THE MONEY
+
+At a $199 per month price point:
+
+- Cost to serve on CTM is about $62 per store per month at mid call volume
+- Gross margin is about 69%, and it stays at 69% at any scale because CTM's
+  cost is almost entirely variable
+- At 500 stores that is roughly $99,500 a month in revenue against $31,000 in
+  platform cost
+- Building on Twilio would raise margin to about 81%, which is the reason to
+  migrate eventually
+
+The $199 price is validated by the market. CallRail, the best-known competitor
+for the monitoring half, charges $50 to $195 a month for less - they have no
+after-hours answering at all. We would sit at their top tier and offer more.
+
+This also fits our existing business. It sells to the same owner who already
+buys our marketing package, on the same invoice, with no new sales motion.
+
+
+THE STRATEGIC ANGLE
+
+We already run Google Ads for many of these clients. Putting tracking numbers on
+each campaign turns phone calls into attributed conversions, which means our
+marketing package can finally prove return on ad spend for calls, not just
+clicks. That is CallRail's entire business, and we are already sitting on both
+halves of it.
+
+More importantly, we can do something no competitor can. Because SMRT holds the
+order and route data, we can tell a store owner whether a specific caller
+actually placed an order in the following week, and whether they were a new or
+existing customer. A generic call tracking platform cannot see any of that.
+That is the part of the product that is genuinely ours, and it is what stops an
+owner from buying a $49 AI receptionist off the internet instead.
+
+
+RISKS AND OPEN ITEMS
+
+Call volumes are estimated, not measured. We could find no reliable published
+data on how many calls a dry cleaner takes. Every cost figure above rests on an
+assumption anchored to CallRail's included-minute allotments. The pilot exists
+partly to measure this, and pricing should not be locked until it does.
+
+Four commercial questions with CTM are unresolved and two of them are five-
+figure swings: their real per-minute rate at our volume (published as a range
+from $0.05 to $0.08), whether the AI agent's included minutes are 60 or 250 per
+month, whether 3,000 included transcription minutes are per account or per
+sub-account, and whether AI agents can be deployed programmatically across
+hundreds of stores or must be built one at a time by hand. That last one is the
+difference between a configuration push and a hiring plan.
+
+Text messaging carries a hidden onboarding cost. Federal rules require a
+separate carrier registration for each business, tied to that business's EIN,
+and we cannot register clients under SMRT's EIN. Five hundred stores means five
+hundred registrations. This applies equally whether we use CTM or build on
+Twilio, so it does not change the recommendation, but we suggest launching
+without SMS to keep it off the critical path.
+
+Legally, we ship inbound only. Federal rules treat AI voices on outbound calls
+as robocalls, at $500 to $1,500 per call with no cap. Inbound calls the customer
+initiates carry a fraction of that risk. We also need a recording and AI
+disclosure announcement on every call, which we will make non-configurable by
+the store owner.
+
+One vendor caution: CTM's terms of service explicitly extend to white-labeled
+versions, their mobile app is CTM-branded, and their agency subscription
+continues even after all sub-accounts are cancelled. None are dealbreakers, and
+building our own dashboard closes the branding gaps, but they should be
+understood before signing.
+
+
+RECOMMENDATION
+
+Approve a 10-store pilot on CTM. Cost is approximately $2,200 for three months
+with no engineering commitment. The pilot proves demand, measures real call
+volumes, and produces a working demo we can sell from.
+
+If it performs, we scale on CTM through year one while building the SMRT
+dashboard and data pipeline on their API. We revisit moving to our own Twilio
+backend at around 300 stores, at which point the migration is invisible to
+customers and the margin improves from 69% to 81%.
+
+The reason to start now rather than build first is straightforward: 69% gross
+margin from day one is a real business, and waiting six months and $200,000 for
+81% is neither obviously better nor less risky.
