@@ -24,11 +24,37 @@ to be updated by Tony after the CFO conversation.
      sheet step). This is the end-state that makes the pop-ups/emails convert
      without a human in the loop.
 
+## Contracting — FINAL structure (decided 2026-09-03)
+
+All contracts: **1-year term · first month free · 60-day risk-free opt-out**
+(cancel within 60 days = no penalty). After day 60: cancelling mid-term means
+**paying the full remaining contract amount on cancellation**, or cancel at
+term end. Goal: retention with a built-in trial. Fun naming scheme TBD.
+
+| Package | Services | Discount | List /mo | Contract /mo | Year-1 total (11 paid mo) | Effective yr-1 discount |
+|---|---|---|---|---|---|---|
+| **Package 1 — In-App** | Broadcasts + Campaigns + Reviews | 5% | $1,097 | $1,042.15 | $11,463.65 | **12.9%** |
+| **Package 2 — External** | Social + Ads + Website (ad spend NOT included) | 5% | $898 | $853.10 | $9,384.10 | **12.9%** |
+| **Package 3 — Everything** | All six services, internal + external | 10% | $1,995 | $1,795.50 | $19,750.50 | **17.5%** |
+
+Math notes:
+- 1 free month + d% = 1 − (11/12)(1−d): 5% → 12.9% effective yr-1; 10% → 17.5%.
+- Renewal years (no free month): effective discount = the plain 5%/10%.
+- Timing detail: month 1 is free and the opt-out runs to day 60 — the customer
+  gets the free month **plus** one paid month to decide before commitment locks.
+- Package 2 discount applies to service fees only; ad spend passes through.
+
+Flags to close with CFO/legal:
+- The "pay full remaining contract on cancel" is an acceleration clause —
+  needs legal wording review (vs the softer discount-clawback alternative).
+- Confirm free month = credit memo vs $0 invoice (rev-rec).
+- Interaction with legacy per-service discounts: package pricing replaces them,
+  no stacking.
+
 ## Open items (Tony to update)
 
-- [ ] Contracting details and final option set after CFO conversation
-      (authority levels, clawback policy, free-month rev-rec treatment,
-      prepay handling, term-end behavior).
+- [ ] Fun naming scheme for the three packages.
+- [ ] Legal wording for the acceleration clause + contract template owner.
 - [ ] Pop-up copy/design + where in-app they render.
 - [ ] 60-day email content + which system sends it.
 
