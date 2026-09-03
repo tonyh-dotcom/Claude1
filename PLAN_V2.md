@@ -45,7 +45,7 @@ convert freed time into growth.
 
 | Who | Focus |
 |---|---|
-| **Tony** | Owns the **success workflow** — day-7/21/30 trial touchpoints, usage reviews, dashboard-driven check-ins driving conversions, upsells, and contract renewals. Maintains **SMRT Ads** and grows its customers first; SMRT's external marketing (shows, booths, layouts, handouts) and sales support |
+| **Tony** | Owns the **success workflow** — a **28-day check-in at the end of the trial** driving conversion. Maintains **SMRT Ads** and grows its customers first; SMRT's external marketing (shows, booths, layouts, handouts) and sales support |
 | **Jason** | **Support** — marketing support lead, building out the guides and Learning Center; assists planning the new services (SEO/AEO, Voice/AI phone, development coordination) |
 | **Dayana** | **Creatives for Ads** + maintains **SMRT Social** |
 
@@ -71,7 +71,11 @@ can't buy what they can't see, and Cleaner Marketing's site lists everything.
 - **SEO / AEO as a sellable service** — search optimization plus answer-engine
   optimization (showing up in AI answers, not just search links), built on
   SMRT Sites + Google Business Profile data, delivered by the team
-- Google Business Profile analytics · referral system
+- **Continued dashboard improvements**, including **Google Business Profile
+  analytics inside the Marketing Dashboard** — showing the impact of reputation
+  management with SMRT Reviews (review velocity next to GBP impressions, calls,
+  and direction requests)
+- Referral system
 
 **Following quarters:**
 - Facebook/Yelp review capture (rating-gate: positive → link out, negative →
