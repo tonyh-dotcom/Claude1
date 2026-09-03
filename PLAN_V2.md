@@ -52,8 +52,8 @@ convert freed time into growth.
 ## SMRT Website Update
 
 Update smrtsystems.com so **every marketing service is listed** — Broadcasts,
-Campaigns, Reviews, Social, Ads, Websites, Screens, Web Chatbot, and the new
-services as they land (SEO/AEO, Phone). Each service gets a page with pricing
+Campaigns, Reviews, Social, Ads, Websites, and the new services as they land
+(SEO/AEO, Web Chatbot, Phone). Each service gets a page with pricing
 path, examples, and a request/demo form; the contract packages get a single
 comparison page. Today several services are invisible on the site — customers
 can't buy what they can't see, and Cleaner Marketing's site lists everything.
@@ -62,6 +62,7 @@ can't buy what they can't see, and Cleaner Marketing's site lists everything.
 
 **Now / basic improvements (in progress):**
 - **WhatsApp** messaging channel
+- **Web Chatbot** (in progress — Jason)
 - **SMS counter** (live segment counter in compose + usage/cost tracking)
 - Basic improvements: dashboard metric parity, SMS template library (email
   library exists), pre-loaded campaigns, sending safeguards (quiet hours,
