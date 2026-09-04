@@ -53,10 +53,7 @@ convert freed time into growth.
 
 Update smrtsystems.com so **every marketing service is listed** — Broadcasts,
 Campaigns, Reviews, Social, Ads, Websites, and the new services as they land
-(SEO/AEO, Web Chatbot, Phone). Each service gets a page with pricing
-path, examples, and a request/demo form; the contract packages get a single
-comparison page. Today several services are invisible on the site — customers
-can't buy what they can't see, and Cleaner Marketing's site lists everything.
+(SEO/AEO, Web Chatbot, Phone).
 
 ## Product Roadmap
 
